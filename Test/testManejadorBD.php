@@ -25,10 +25,10 @@
     $m->createUsuario($usuario);
     
     //Creamos un post de prueba
-    $post = new Post(null, 1, 1, "Ubuntu", "Dentro de poco saldrá Ubuntu 13.04", "21-03-2013", "", 0);
+    $post = new Post(null, 1, 1, "Ubuntu", "Dentro de poco saldrá Ubuntu 13.04", "2013-03-20 15:50:30", null, 0);
     $m->createPost($post);
     
     //Creamos un comentario de prueba
-    $comentario = new Comentario(null, "Si, y se denominara Raring Ringtail", "21-03-2013", 1, 1);
+    $comentario = new Comentario(null, "Si, y se denominara Raring Ringtail", "2013-03-20 15:50:30", 1, 1);
     $m->createComentario($comentario);
 ?>

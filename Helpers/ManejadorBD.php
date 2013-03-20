@@ -99,7 +99,7 @@ class ManejadorBD {
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
             $sql = "
-                INSERT INTO ob_categoria (texto, fecha, idUsuario, idPost) 
+                INSERT INTO ob_comentario (texto, fecha, idUsuario, idPost) 
                 VALUES ('".$comentario->getTexto()."','".$comentario->getFecha()."',".$comentario->getIdUsuario().",".$comentario->getIdPost().")
             ";
             $sentencia = $conn->prepare($sql);
