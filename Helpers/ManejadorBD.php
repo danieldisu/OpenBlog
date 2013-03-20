@@ -154,7 +154,23 @@ class ManejadorBD {
     
     //USUARIO
     public function createUsuario(Usuario $usuario){
-        
+        try {
+            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $sql = "
+                INSERT INTO ob_usuario (nombre, pass, mail, idRol) 
+                VALUES ('".$usuario->getNombre()."','".$usuario->getPass()."','".$usuario->getMail()."',".$usuario->getIdRol().")
+            ";
+            $sentencia = $conn->prepare($sql);
+            $sentencia->execute();
+            
+            //Cierra la conexion (no existe metodo close() en pdo)
+            $conn = null;
+         }
+         catch(PDOException $e) {
+            echo 'ERROR: '.$e->getMessage();
+         } 
     }
     public function getUsuario($id){
         
