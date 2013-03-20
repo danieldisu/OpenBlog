@@ -6,7 +6,7 @@ include "../Helpers/ManejadorConfig.php";
 $mj = new ManejadorConfig();
 
 /*
-* Ejemplo de arrayConfig 
+* Ejemplo de arrayConfig, si quisiesemos cambiar uno de las opciones solo tendriamos que cargar la config, modificar el parametro deseado y volver a guardar
 */
 $arrayConfig['host'] = "localhost";
 $arrayConfig['user'] = "root";
@@ -20,8 +20,15 @@ $mj->guardarConfig($arrayConfig);
 
 echo "La configuracion ha sido generada";
 
+// Cargamos al configuracion en la variable $config
 $config = $mj->cargarConfig();
 
+// Ejemplo de como extraer el host de la configuracion
+echo "<br> config[host] = ";
+echo $config['host'];
+
+// Aqui mostraria todas las variables que tiene el json
 echo "<pre>";
-print_r($config);
-echo "</pre>";
+   print_r($config);
+echo "</pre>
+";
