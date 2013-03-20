@@ -1,17 +1,28 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of Categoria
- *
- * @author alumno
- */
 class Categoria {
-    //put your code here
+    
+    private $id;
+    private $nombre;
+    private $descripcion;
+    
+    public function __construct($id, $nombre, $descripcion) {
+        $this->id = $id;
+        $this->nombre = $nombre;
+        $this->descripcion = $descripcion;
+    }
+    
+    public function getId(){
+        return $this->id;
+    }
+    
+    public function getNombre(){
+        return $this->nombre;
+    }
+    
+    public function getDescripcion(){
+        return $this->descripcion;
+    }
 }
 
 ?>
