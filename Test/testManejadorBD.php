@@ -32,22 +32,61 @@
     $comentario = new Comentario(null, "Si, y se denominara Raring Ringtail", "2013-03-20 15:50:30", 1, 1);
     $m->createComentario($comentario);
     
+    //+++++++++++++
+    //++++POST+++++
+    //+++++++++++++
+
     //Conseguimos los datos del post con id = 1 y mostramos su titulo y su texto
     $p = $m->getPost(1);
-    echo $p->getTitulo();
-    echo $p->getTexto();
+    echo $p->getTitulo()." ";
+    echo $p->getTexto()."<br />";
     
     //Actualizamos el post con id = 1 con otro titulo y texto distinto y lo mostramos
-    $post = new Post(null, 1, 1, "Windows", "La version de windows es la 8", "2013-03-20 15:50:30", null, 0);
-    $m->updatePost(1, $post);
-    $l = $m->getPost(1);
-    echo $l->getTitulo();
-    echo $l->getTexto();
+    $postPrueba = new Post(null, 1, 1, "Windows", "La version de windows es la 8", "2013-03-20 15:50:30", null, 0);
+    $m->updatePost(1, $postPrueba);
+    $p2 = $m->getPost(1);
+    echo $p2->getTitulo()." ";
+    echo $p2->getTexto()."<br />";
     
     //Borramos el titulo con id = 1
     //$m->deletePost(1);
     
     
-       
+    //+++++++++++++
+    //++CATEGORIA++
+    //+++++++++++++
     
+    //Conseguimos los datos de la categoria con id = 1 y mostramos su nombre y descripcion
+    $c = $m->getCategoria(1);
+    echo $c->getNombre()." ";
+    echo $c->getDescripcion()."<br />";
+    
+    //Actualizamos la categoria con id = 1 con otro nombre y descripcion y lo mostramos
+    $categoriaPrueba = new Categoria(null, "JSON", "se dice yeison no jotasón");
+    $m->updateCategoria(1, $categoriaPrueba);
+    $c2 = $m->getCategoria(1);
+    echo $c2->getNombre()." ";
+    echo $c2->getDescripcion()."<br />";
+       
+    //Borramos la categoria con id = 1
+    //$m->deleteCategoria(1);
+    
+    //+++++++++++++
+    //+COMENTARIO++
+    //+++++++++++++
+    
+    //Conseguimos los datos del comentario con id = 1 y mostramos su texto y fecha
+    $co = $m->getComentario(1);
+    echo $co->getTexto()." ";
+    echo $co->getFecha()."<br />";
+    
+    //Actualizamos el comentario con id = 1 con otro texto y fecha y lo mostramos
+    $comentarioPrueba = new Comentario(null, "Esto es un comentario", "2013-01-23 18:06:06", 1, 1);
+    $m->updateComentario(1, $comentarioPrueba);
+    $l = $m->getComentario(1);
+    echo $l->getTexto()." ";
+    echo $l->getFecha()."<br />";
+       
+    //Borramos la categoria con id = 1
+    //$m->deleteComentario(1);
 ?>
