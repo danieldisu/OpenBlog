@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `ob_post` (
   `titulo` varchar(100) NOT NULL,
   `texto` text NOT NULL,
   `fechaCreacion` datetime NOT NULL,
-  `fechaModificacion` datetime NOT NULL,
+  `fechaModificacion` datetime,
   `modificaciones` int(10) NOT NULL,
   PRIMARY KEY (`id`,`idUsuario`,`idCategoria`),
   KEY `idUsuario` (`idUsuario`),

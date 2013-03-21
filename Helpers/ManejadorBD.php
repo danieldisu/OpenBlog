@@ -40,15 +40,25 @@ class ManejadorBD {
             
             $sql = "
                 INSERT INTO ob_post (idUsuario, idCategoria, titulo, texto, fechaCreacion, fechaModificacion, modificaciones) 
-                VALUES (:idUsuario, :idCategoria, :titulo, :fechaCreacion, :fechaModificacion, :modificaciones)
+                VALUES (:idUsuario, :idCategoria, :titulo, :texto, :fechaCreacion, :fechaModificacion, :modificaciones)
             ";
             $sentencia = $conn->prepare($sql);
-            $sentencia->bindParam(":idUsuario", $post->getIdUsuario());
-            $sentencia->bindParam(":idCategoria", $post->getIdCategoria());
-            $sentencia->bindParam(":titulo", $post->getTitulo());
-            $sentencia->bindParam(":fechaCreacion", $post->getFechaCreacion());
-            $sentencia->bindParam(":fechaModificacion", $post->getFechaModificacion());
-            $sentencia->bindParam(":modificaciones", $post->getModificaciones());
+            
+            $idUsuario = $post->getIdUsuario();
+            $idCategoria = $post->getIdCategoria();
+            $titulo = $post->getTitulo();
+            $texto = $post->getTexto();
+            $fechaCreacion = $post->getFechaCreacion();
+            $fechaModificacion = $post->getFechaModificacion();
+            $modificaciones = $post->getModificaciones();
+            
+            $sentencia->bindParam(":idUsuario", $idUsuario);
+            $sentencia->bindParam(":idCategoria", $idCategoria);
+            $sentencia->bindParam(":titulo", $titulo);
+            $sentencia->bindParam(":texto", $texto);
+            $sentencia->bindParam(":fechaCreacion", $fechaCreacion);
+            $sentencia->bindParam(":fechaModificacion", $fechaModificacion);
+            $sentencia->bindParam(":modificaciones", $modificaciones);
             $sentencia->execute();
             
             //Cierra la conexion (no existe metodo close() en pdo)
@@ -76,9 +86,15 @@ class ManejadorBD {
             
             $sql = "
                 INSERT INTO ob_categoria (nombre, descripcion) 
-                VALUES ('".$categoria->getNombre()."','".$categoria->getDescripcion()."')
+                VALUES (:nombre, :descripcion)
             ";
             $sentencia = $conn->prepare($sql);
+            
+            $nombre = $categoria->getNombre();
+            $descripcion = $categoria->getDescripcion();
+            
+            $sentencia->bindParam(":nombre", $nombre);
+            $sentencia->bindParam(":descripcion", $descripcion);
             $sentencia->execute();
             
             //Cierra la conexion (no existe metodo close() en pdo)
@@ -106,9 +122,19 @@ class ManejadorBD {
             
             $sql = "
                 INSERT INTO ob_comentario (texto, fecha, idUsuario, idPost) 
-                VALUES ('".$comentario->getTexto()."','".$comentario->getFecha()."',".$comentario->getIdUsuario().",".$comentario->getIdPost().")
+                VALUES (:texto, :fecha, :idUsuario, :idPost)
             ";
             $sentencia = $conn->prepare($sql);
+            
+            $texto = $comentario->getTexto();
+            $fecha = $comentario->getFecha();
+            $idUsuario = $comentario->getIdUsuario();
+            $idPost = $comentario->getIdPost();
+            
+            $sentencia->bindParam(":texto", $texto);
+            $sentencia->bindParam(":fecha", $fecha);
+            $sentencia->bindParam(":idUsuario", $idUsuario);
+            $sentencia->bindParam(":idPost", $idPost);
             $sentencia->execute();
             
             //Cierra la conexion (no existe metodo close() en pdo)
@@ -136,9 +162,15 @@ class ManejadorBD {
             
             $sql = "
                 INSERT INTO ob_rol (nombre, descripcion) 
-                VALUES ('".$rol->getNombre()."','".$rol->getDescripcion()."')
+                VALUES (:nombre, :descripcion)
             ";
             $sentencia = $conn->prepare($sql);
+            
+            $nombre = $rol->getNombre();
+            $descripcion = $rol->getDescripcion();
+            
+            $sentencia->bindParam(":nombre", $nombre);
+            $sentencia->bindParam(":descripcion", $descripcion);
             $sentencia->execute();
             
             //Cierra la conexion (no existe metodo close() en pdo)
@@ -166,9 +198,19 @@ class ManejadorBD {
             
             $sql = "
                 INSERT INTO ob_usuario (nombre, pass, mail, idRol) 
-                VALUES ('".$usuario->getNombre()."','".$usuario->getPass()."','".$usuario->getMail()."',".$usuario->getIdRol().")
+                VALUES (:nombre, :pass, :mail, :idRol)
             ";
             $sentencia = $conn->prepare($sql);
+            
+            $nombre = $usuario->getNombre();
+            $pass = $usuario->getPass();
+            $mail = $usuario->getMail();
+            $idRol = $usuario->getIdRol();
+            
+            $sentencia->bindParam(":nombre", $nombre);
+            $sentencia->bindParam(":pass", $pass);
+            $sentencia->bindParam(":mail", $mail);
+            $sentencia->bindParam(":idRol", $idRol);
             $sentencia->execute();
             
             //Cierra la conexion (no existe metodo close() en pdo)
