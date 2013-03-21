@@ -167,13 +167,76 @@ class ManejadorBD {
          }               
     }
     public function getCategoria($id){
-        
+        try {
+            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $sql = "
+                SELECT * 
+                FROM ob_categoria 
+                WHERE id = ".$id
+            ;
+            $sentencia = $conn->prepare($sql);
+            $sentencia->execute();
+            $fila = $sentencia->fetch();
+            
+            $categoria = new Categoria(0, "", "");
+            
+            $categoria->setId($fila["id"]);
+            $categoria->setNombre($fila["nombre"]);
+            $categoria->setDescripcion($fila["descripcion"]);
+                    
+            $conn = null;
+            
+            return $categoria;
+        }
+        catch(PDOException $e) {
+           echo 'ERROR: '.$e->getMessage();
+        }    
     }
     public function updateCategoria($id, Categoria $categoria){
-        
+        try {
+            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $sql = "
+                UPDATE ob_categoria
+                SET nombre = :nombre, descripcion = :descripcion
+                WHERE id = ".$id
+            ;
+            $sentencia = $conn->prepare($sql);
+            
+            $nombre = $categoria->getNombre();
+            $descripcion = $categoria->getDescripcion();
+            
+            $sentencia->bindParam(":nombre", $nombre);
+            $sentencia->bindParam(":descripcion", $descripcion);
+            
+            $sentencia->execute();
+            
+            $conn = null;
+         }
+         catch(PDOException $e) {
+            echo 'ERROR: '.$e->getMessage();
+         }
     }
     public function deleteCategoria($id){
-        
+        try {
+            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $sql = "
+                DELETE FROM ob_categoria
+                WHERE id=".$id
+            ;
+            $sentencia = $conn->prepare($sql);
+            $sentencia->execute();
+            
+            $conn = null;
+         }
+         catch(PDOException $e) {
+            echo 'ERROR: '.$e->getMessage();
+         }
     }
     
     //COMENTARIO
