@@ -11,12 +11,6 @@ class ManejadorBD {
         
     }
     
-    /*
-            while($fila = $sentencia->fetch()){
-               echo "Nombre: ".$fila["nombre"];
-               echo "descripcion: ".$fila["descripcion"];
-            }*/
-    
     //POST
     public function createPost(Post $post){
         try {
@@ -270,13 +264,82 @@ class ManejadorBD {
          }
     }
     public function getComentario($id){
-        
+        try {
+            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $sql = "
+                SELECT * 
+                FROM ob_comentario 
+                WHERE id = ".$id
+            ;
+            $sentencia = $conn->prepare($sql);
+            $sentencia->execute();
+            $fila = $sentencia->fetch();
+            
+            $comentario = new Comentario(0, "", "", "", "");
+            
+            $comentario->setId($fila["id"]);
+            $comentario->setTexto($fila["texto"]);
+            $comentario->setFecha($fila["fecha"]);
+            $comentario->setIdUsuario($fila["idUsuario"]);
+            $comentario->setIdPost($fila["idPost"]);
+                    
+            $conn = null;
+            
+            return $comentario;
+        }
+        catch(PDOException $e) {
+           echo 'ERROR: '.$e->getMessage();
+        }
     }
     public function updateComentario($id, Comentario $comentario){
-        
+        try {
+            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $sql = "
+                UPDATE ob_comentario
+                SET texto = :texto, fecha = :fecha, idUsuario = :idUsuario, idPost = :idPost
+                WHERE id = ".$id
+            ;
+            $sentencia = $conn->prepare($sql);
+            
+            $texto = $comentario->getTexto();
+            $fecha = $comentario->getFecha();
+            $idUsuario = $comentario->getIdUsuario();
+            $idPost = $comentario->getIdPost();
+            
+            $sentencia->bindParam(":texto", $texto);
+            $sentencia->bindParam(":fecha", $fecha);
+            $sentencia->bindParam(":idUsuario", $idUsuario);
+            $sentencia->bindParam(":idPost", $idPost);
+            
+            $sentencia->execute();
+            
+            $conn = null;
+         }
+         catch(PDOException $e) {
+            echo 'ERROR: '.$e->getMessage();
+         }
     }
     public function deleteComentario($id){
-        
+        try {
+            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $sql = "
+                DELETE FROM ob_comentario
+                WHERE id=".$id
+            ;
+            $sentencia = $conn->prepare($sql);
+            $sentencia->execute();
+            
+            $conn = null;
+         }
+         catch(PDOException $e) {
+            echo 'ERROR: '.$e->getMessage();
+         }
     }
     
     //ROL
