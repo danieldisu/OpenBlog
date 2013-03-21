@@ -11,21 +11,6 @@ class ManejadorBD {
         
     }
     
-    //No la usamos en un principio
-    public function conectar(){
-        try {
-            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        }
-        catch(PDOException $e) {
-            echo 'ERROR: '.$e->getMessage();
-        }
-        
-    }
-    public function desconectar(){
-        
-    }
-    
     /*
             while($fila = $sentencia->fetch()){
                echo "Nombre: ".$fila["nombre"];
@@ -61,7 +46,6 @@ class ManejadorBD {
             $sentencia->bindParam(":modificaciones", $modificaciones);
             $sentencia->execute();
             
-            //Cierra la conexion (no existe metodo close() en pdo)
             $conn = null;
          }
          catch(PDOException $e) {
@@ -69,7 +53,28 @@ class ManejadorBD {
          }
     }
     public function getPost($id){
-        
+        try {
+            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $sql = "
+                SELECT * 
+                FROM ob_post 
+                WHERE id = ".$id
+            ;
+            $sentencia = $conn->prepare($sql);
+            $sentencia->execute();
+            
+            while($fila = $sentencia->fetch()){
+               echo "Nombre: ".$fila["nombre"];
+               echo "descripcion: ".$fila["descripcion"];
+            }
+            
+            $conn = null;
+         }
+         catch(PDOException $e) {
+            echo 'ERROR: '.$e->getMessage();
+         }
     }
     public function updatePost($id, Post $post){
         

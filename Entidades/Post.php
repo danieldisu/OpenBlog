@@ -53,6 +53,38 @@ class Post {
     public function getModificaciones(){
         return $this->modificaciones;
     }
+    
+    public function setId($id){
+        $this->id = $id;
+    }
+    
+    public function setIdUsuario($idUsuario){
+        $this->idUsuario = $idUsuario;
+    }
+    
+    public function setIdCategoria($idCategoria){
+        $this->idCategoria = $idCategoria;
+    }
+    
+    public function setTitulo($titulo){
+        $this->titulo = $titulo;
+    }
+    
+    public function setTexto($texto){
+        $this->texto = $texto;
+    }
+    
+    public function setFechaCreacion($fechaCreacion){
+        $this->fechaCreacion = $fechaCreacion;
+    }
+    
+    public function setFechaModificacion($fechaModificacion){
+        $this->fechaModificacion = $fechaModificacion;
+    }
+    
+    public function setModificaciones($modificaciones){
+        $this->modificaciones = $modificaciones;
+    }
 }
 
 ?>

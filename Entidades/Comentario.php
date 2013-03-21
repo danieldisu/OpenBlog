@@ -34,6 +34,26 @@ class Comentario {
     public function getIdPost(){
         return $this->idPost;
     }
+    
+    public function setId($id){
+        $this->id = $id;
+    }
+    
+    public function setTexto($texto){
+        $this->texto = $texto;
+    }
+    
+    public function setFecha($fecha){
+        $this->fecha = $fecha;
+    }
+    
+    public function setIdUsuario($idUsuario){
+        $this->idUsuario = $idUsuario;
+    }
+    
+    public function setIdPost($idPost){
+        $this->idPost = $idPost;
+    }
 }
 
 ?>

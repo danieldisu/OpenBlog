@@ -34,6 +34,26 @@ class Usuario {
     public function getIdRol(){
         return $this->idRol;
     }
+    
+    public function setId($id){
+        $this->id = $id;
+    }
+    
+    public function setNombre($nombre){
+        $this->nombre = $nombre;
+    }
+    
+    public function setPass($pass){
+        $this->pass = $pass;
+    }
+    
+    public function setMail($mail){
+        $this->mail = $mail;
+    }
+    
+    public function setIdRol($idRol){
+        $this->idRol = $idRol;
+    }
 }
 
 ?>
