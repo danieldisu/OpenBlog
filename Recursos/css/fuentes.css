@@ -1,0 +1,19 @@
+@font-face {
+   font-family: museo;
+   src: url('../fuentes/Museo500-Regular.otf');
+}
+
+@font-face {
+   font-family: proxima;
+   src: url('../fuentes/ProximaNova-Regular.otf');
+}
+
+@font-face {
+   font-family: proxima light;
+   src: url('../fuentes/ProximaNovaCond-Light.otf');
+}
+
+@font-face {
+   font-family: proxima semibold;
+   src: url('../fuentes/ProximaNova-Semibold.otf');
+}
