@@ -33,6 +33,26 @@
     $m->createComentario($comentario);
     
     //+++++++++++++
+    //+COMENTARIO++
+    //+++++++++++++
+    
+    //Conseguimos los datos del comentario con id = 1 y mostramos su texto y fecha
+    $co = $m->getComentario(1);
+    echo $co->getTexto()." ";
+    echo $co->getFecha()."<br />";
+    
+    //Actualizamos el comentario con id = 1 con otro texto y fecha y lo mostramos
+    $comentarioPrueba = new Comentario(null, "Esto es un comentario", "2013-01-23 18:06:06", 1, 1);
+    $m->updateComentario(1, $comentarioPrueba);
+    $co2 = $m->getComentario(1);
+    echo $co2->getTexto()." ";
+    echo $co2->getFecha()."<br />";
+       
+    //Borramos la categoria con id = 1
+    $m->deleteComentario(1);
+    
+    
+    //+++++++++++++
     //++++POST+++++
     //+++++++++++++
 
@@ -49,8 +69,27 @@
     echo $p2->getTexto()."<br />";
     
     //Borramos el titulo con id = 1
-    //$m->deletePost(1);
+    $m->deletePost(1);
     
+    
+    //+++++++++++++
+    //+++USUARIO+++
+    //+++++++++++++
+    
+    //Conseguimos los datos del usuario con id = 1 y mostramos su nombre y mail
+    $u = $m->getUsuario(1);
+    echo $u->getNombre()." ";
+    echo $u->getMail()."<br />";
+    
+    //Actualizamos el usuario con id = 1 con otro nombre y mail y lo mostramos
+    $usuarioPrueba = new Usuario(null, "Daniel", "daniel", "daniel@gmail.com", 1);
+    $m->updateUsuario(1, $usuarioPrueba);
+    $u2 = $m->getUsuario(1);
+    echo $u2->getNombre()." ";
+    echo $u2->getMail()."<br />";
+       
+    //Borramos el usuario con id = 1
+    $m->deleteUsuario(1);
     
     //+++++++++++++
     //++CATEGORIA++
@@ -69,24 +108,27 @@
     echo $c2->getDescripcion()."<br />";
        
     //Borramos la categoria con id = 1
-    //$m->deleteCategoria(1);
+    $m->deleteCategoria(1);
+    
+    
     
     //+++++++++++++
-    //+COMENTARIO++
+    //+++++ROL+++++
     //+++++++++++++
     
-    //Conseguimos los datos del comentario con id = 1 y mostramos su texto y fecha
-    $co = $m->getComentario(1);
-    echo $co->getTexto()." ";
-    echo $co->getFecha()."<br />";
+    //Conseguimos los datos del rol con id = 1 y mostramos su nombre y descripcion
+    $r = $m->getRol(1);
+    echo $r->getNombre()." ";
+    echo $r->getDescripcion()."<br />";
     
-    //Actualizamos el comentario con id = 1 con otro texto y fecha y lo mostramos
-    $comentarioPrueba = new Comentario(null, "Esto es un comentario", "2013-01-23 18:06:06", 1, 1);
-    $m->updateComentario(1, $comentarioPrueba);
-    $l = $m->getComentario(1);
-    echo $l->getTexto()." ";
-    echo $l->getFecha()."<br />";
+    //Actualizamos el rol con id = 1 con otro nombre y descripcion y lo mostramos
+    $rolPrueba = new Rol(null, "administrador", "funciones de administrador");
+    $m->updateRol(1, $rolPrueba);
+    $r2 = $m->getRol(1);
+    echo $r2->getNombre()." ";
+    echo $r2->getDescripcion()."<br />";
        
-    //Borramos la categoria con id = 1
-    //$m->deleteComentario(1);
+    //Borramos el rol con id = 1
+    $m->deleteRol(1);
+    
 ?>
