@@ -64,11 +64,56 @@ class ManejadorBD {
             ;
             $sentencia = $conn->prepare($sql);
             $sentencia->execute();
+            $fila = $sentencia->fetch();
             
-            while($fila = $sentencia->fetch()){
-               echo "Nombre: ".$fila["nombre"];
-               echo "descripcion: ".$fila["descripcion"];
-            }
+            $post = new Post(0,0,0,"","","","",0);
+            
+            $post->setId($fila["id"]);
+            $post->setIdUsuario($fila["idUsuario"]);
+            $post->setIdCategoria($fila["idCategoria"]);
+            $post->setTitulo($fila["titulo"]);
+            $post->setTexto($fila["texto"]);
+            $post->setFechaCreacion($fila["fechaCreacion"]);
+            $post->setFechaModificacion($fila["fechaModificacion"]);
+            $post->setModificaciones($fila["modificaciones"]);
+            
+            $conn = null;
+            
+            return $post;
+         }
+         catch(PDOException $e) {
+            echo 'ERROR: '.$e->getMessage();
+         }
+    }
+    public function updatePost($id, Post $post){
+        try {
+            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $sql = "
+                UPDATE ob_post
+                SET idUsuario = :idUsuario, idCategoria = :idCategoria, titulo = :titulo, texto = :texto, fechaCreacion = :fechaCreacion, fechaModificacion = :fechaModificacion, modificaciones = :modificaciones
+                WHERE id = ".$id
+            ;
+            $sentencia = $conn->prepare($sql);
+            
+            $idUsuario = $post->getIdUsuario();
+            $idCategoria = $post->getIdCategoria();
+            $titulo = $post->getTitulo();
+            $texto = $post->getTexto();
+            $fechaCreacion = $post->getFechaCreacion();
+            $fechaModificacion = $post->getFechaModificacion();
+            $modificaciones = $post->getModificaciones();
+            
+            $sentencia->bindParam(":idUsuario", $idUsuario);
+            $sentencia->bindParam(":idCategoria", $idCategoria);
+            $sentencia->bindParam(":titulo", $titulo);
+            $sentencia->bindParam(":texto", $texto);
+            $sentencia->bindParam(":fechaCreacion", $fechaCreacion);
+            $sentencia->bindParam(":fechaModificacion", $fechaModificacion);
+            $sentencia->bindParam(":modificaciones", $modificaciones);
+            
+            $sentencia->execute();
             
             $conn = null;
          }
@@ -76,11 +121,23 @@ class ManejadorBD {
             echo 'ERROR: '.$e->getMessage();
          }
     }
-    public function updatePost($id, Post $post){
-        
-    }
     public function deletePost($id){
-        
+        try {
+            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $sql = "
+                DELETE FROM ob_post
+                WHERE id=".$id
+            ;
+            $sentencia = $conn->prepare($sql);
+            $sentencia->execute();
+            
+            $conn = null;
+         }
+         catch(PDOException $e) {
+            echo 'ERROR: '.$e->getMessage();
+         }
     }
     
     //CATEGORIA

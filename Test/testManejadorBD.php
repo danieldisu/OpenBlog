@@ -31,4 +31,23 @@
     //Creamos un comentario de prueba
     $comentario = new Comentario(null, "Si, y se denominara Raring Ringtail", "2013-03-20 15:50:30", 1, 1);
     $m->createComentario($comentario);
+    
+    //Conseguimos los datos del post con id = 1 y mostramos su titulo y su texto
+    $p = $m->getPost(1);
+    echo $p->getTitulo();
+    echo $p->getTexto();
+    
+    //Actualizamos el post con id = 1 con otro titulo y texto distinto y lo mostramos
+    $post = new Post(null, 1, 1, "Windows", "La version de windows es la 8", "2013-03-20 15:50:30", null, 0);
+    $m->updatePost(1, $post);
+    $l = $m->getPost(1);
+    echo $l->getTitulo();
+    echo $l->getTexto();
+    
+    //Borramos el titulo con id = 1
+    //$m->deletePost(1);
+    
+    
+       
+    
 ?>
