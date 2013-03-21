@@ -369,13 +369,76 @@ class ManejadorBD {
          }
     }
     public function getRol($id){
-        
+        try {
+            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $sql = "
+                SELECT * 
+                FROM ob_rol 
+                WHERE id = ".$id
+            ;
+            $sentencia = $conn->prepare($sql);
+            $sentencia->execute();
+            $fila = $sentencia->fetch();
+            
+            $rol = new Rol(0, "", "");
+            
+            $rol->setId($fila["id"]);
+            $rol->setNombre($fila["nombre"]);
+            $rol->setDescripcion($fila["descripcion"]);
+                    
+            $conn = null;
+            
+            return $rol;
+        }
+        catch(PDOException $e) {
+           echo 'ERROR: '.$e->getMessage();
+        }
     }
     public function updateRol($id, Rol $rol){
-        
+        try {
+            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $sql = "
+                UPDATE ob_rol
+                SET texto = :texto, descripcion = :descripcion
+                WHERE id = ".$id
+            ;
+            $sentencia = $conn->prepare($sql);
+            
+            $texto = $rol->getNombre();
+            $descripcion = $rol->getDescripcion();
+            
+            $sentencia->bindParam(":texto", $texto);
+            $sentencia->bindParam(":descripcion", $descripcion);
+            
+            $sentencia->execute();
+            
+            $conn = null;
+         }
+         catch(PDOException $e) {
+            echo 'ERROR: '.$e->getMessage();
+         }
     }
     public function deleteRol($id){
-        
+        try {
+            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $sql = "
+                DELETE FROM ob_rol
+                WHERE id=".$id
+            ;
+            $sentencia = $conn->prepare($sql);
+            $sentencia->execute();
+            
+            $conn = null;
+         }
+         catch(PDOException $e) {
+            echo 'ERROR: '.$e->getMessage();
+         }
     }
     
     //USUARIO
@@ -409,13 +472,82 @@ class ManejadorBD {
          } 
     }
     public function getUsuario($id){
-        
+       try {
+            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $sql = "
+                SELECT * 
+                FROM ob_usuario 
+                WHERE id = ".$id
+            ;
+            $sentencia = $conn->prepare($sql);
+            $sentencia->execute();
+            $fila = $sentencia->fetch();
+            
+            $usuario = new Usuario(0, "", "", "", 0);
+            
+            $usuario->setId($fila["id"]);
+            $usuario->setNombre($fila["nombre"]);
+            $usuario->setPass($fila["pass"]);
+            $usuario->setMail($fila["mail"]);
+            $usuario->setIdRol($fila["idRol"]);
+                    
+            $conn = null;
+            
+            return $usuario;
+        }
+        catch(PDOException $e) {
+           echo 'ERROR: '.$e->getMessage();
+        } 
     }
     public function updateUsuario($id, Usuario $usuario){
-        
+        try {
+            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $sql = "
+                UPDATE ob_usuario
+                SET nombre = :nombre, pass = :pass, mail = :mail, idRol = :idRol
+                WHERE id = ".$id
+            ;
+            $sentencia = $conn->prepare($sql);
+            
+            $nombre = $usuario->getNombre();
+            $pass = $usuario->getPass();
+            $mail = $usuario->getMail();
+            $idRol = $usuario->getIdRol();
+            
+            $sentencia->bindParam(":nombre", $nombre);
+            $sentencia->bindParam(":pass", $pass);
+            $sentencia->bindParam(":mail", $mail);
+            $sentencia->bindParam(":idRol", $idRol);
+            
+            $sentencia->execute();
+            
+            $conn = null;
+         }
+         catch(PDOException $e) {
+            echo 'ERROR: '.$e->getMessage();
+         }
     }
     public function deleteUsuario($id){
-        
+      try {
+            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $sql = "
+                DELETE FROM ob_usuario
+                WHERE id=".$id
+            ;
+            $sentencia = $conn->prepare($sql);
+            $sentencia->execute();
+            
+            $conn = null;
+         }
+         catch(PDOException $e) {
+            echo 'ERROR: '.$e->getMessage();
+         }  
     }
 }
 ?>
