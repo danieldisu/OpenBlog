@@ -96,16 +96,15 @@ h1{
 }
 
 /* SIDEBAR */
-
-.cajaLogin{
-   box-sizing: border-box; 
-   width:100%;
-   padding:2%;
-}
-
-.cajaLogin h3{
+.sidebar h3{
    font-family: proxima light;
    color:#df4931;   
+}
+
+.sidebar div{
+   box-sizing: border-box; 
+   width:100%;
+   padding:2%;  
 }
 
 .cajaLogin input[type=text],input[type=password]{
@@ -113,7 +112,6 @@ h1{
 }
 
 .cajaLogin input[type=button]{
-   width:100%;
    margin-top: 10px;
    margin-bottom:5px;
 }
