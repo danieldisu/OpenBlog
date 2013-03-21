@@ -1,4 +1,117 @@
-/*Rafa: He cambiado el color por algo más suave.*/
+/*
+   Colores Principales:
+
+   Gris Claro:#f9f9f9;
+   Gris Menos Claro:#F0F0F0;
+   Gris Oscuro: #cccfd4;
+   Gris Bordes: #ddd;
+   Azul Claro: #3498db;
+   Naranja:#df4931;
+   Amarillo:#f9cc3b;
+   Negro Fuente: #333;
+   
+*/
 body{
-	background: #363636;
+	background:#f9f9f9;
+   color:#333;
+   font-family: proxima;
+}
+
+.container{
+   
+}
+
+h1{
+   font-family: proxima semibold;
+}
+
+/*
+   Estilos Blog
+*/
+
+.header{
+   border:1px solid #ddd;
+   background-color: #fff;
+   padding: 10px 0px 10px 0px;
+   min-height: 80px;
+}
+
+.header h1{
+   float:right;
+   margin-right: 15px;
+   font-size: 4em;
+}
+
+.header img{
+   float:right;
+   height: 60px;
+   margin-right: 25px;
+}
+
+.main{
+   margin-top: 20px;
+}
+
+.contenido{
+
+}
+
+.sidebar{
+   padding:5px;
+   box-sizing: border-box; 
+   border:1px solid #ddd;
+   background-color: #fff;
+}
+
+.post{
+   box-sizing: border-box; 
+   border:1px solid #ddd;
+   background-color: #fff;   
+   padding:25px;
+   margin-bottom: 15px;
+}
+
+.cajaTituloPost *{
+   font-family: proxima light;
+   font-size: 3em;
+   color:#df4931;
+}
+
+.cajaInfo{
+   margin-bottom: 20px;
+   margin-top: 15px;
+}
+
+.cajaInfo div{
+   border:1px solid #ddd;
+   background-color: #F0F0F0;
+   text-align: center;
+}
+
+.cajaContenidoPost{
+   text-indent:30px;
+   margin-bottom: 20px;
+   font-size: 1.2em;
+   text-align:justify;
+}
+
+/* SIDEBAR */
+.sidebar h3{
+   font-family: proxima light;
+   color:#df4931;   
+}
+
+.sidebar div{
+   box-sizing: border-box; 
+   width:100%;
+   padding:2%;  
+}
+
+.cajaLogin input[type=text],input[type=password]{
+   width:95%;
+}
+
+.cajaLogin input[type=button]{
+   margin-top: 10px;
+   margin-bottom:5px;
 }
