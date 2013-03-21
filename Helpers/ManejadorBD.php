@@ -403,15 +403,15 @@ class ManejadorBD {
             
             $sql = "
                 UPDATE ob_rol
-                SET texto = :texto, descripcion = :descripcion
+                SET nombre = :nombre, descripcion = :descripcion
                 WHERE id = ".$id
             ;
             $sentencia = $conn->prepare($sql);
             
-            $texto = $rol->getNombre();
+            $nombre = $rol->getNombre();
             $descripcion = $rol->getDescripcion();
             
-            $sentencia->bindParam(":texto", $texto);
+            $sentencia->bindParam(":nombre", $nombre);
             $sentencia->bindParam(":descripcion", $descripcion);
             
             $sentencia->execute();
