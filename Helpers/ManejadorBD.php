@@ -40,9 +40,15 @@ class ManejadorBD {
             
             $sql = "
                 INSERT INTO ob_post (idUsuario, idCategoria, titulo, texto, fechaCreacion, fechaModificacion, modificaciones) 
-                VALUES (".$post->getIdUsuario().",".$post->getIdCategoria().",'".$post->getTitulo()."','".$post->getTexto()."','".$post->getFechaCreacion()."','".$post->getFechaModificacion()."',".$post->getModificaciones().")
+                VALUES (:idUsuario, :idCategoria, :titulo, :fechaCreacion, :fechaModificacion, :modificaciones)
             ";
             $sentencia = $conn->prepare($sql);
+            $sentencia->bindParam(":idUsuario", $post->getIdUsuario());
+            $sentencia->bindParam(":idCategoria", $post->getIdCategoria());
+            $sentencia->bindParam(":titulo", $post->getTitulo());
+            $sentencia->bindParam(":fechaCreacion", $post->getFechaCreacion());
+            $sentencia->bindParam(":fechaModificacion", $post->getFechaModificacion());
+            $sentencia->bindParam(":modificaciones", $post->getModificaciones());
             $sentencia->execute();
             
             //Cierra la conexion (no existe metodo close() en pdo)
