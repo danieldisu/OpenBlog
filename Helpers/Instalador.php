@@ -76,24 +76,17 @@ class Instalador {
             //**********************************
             
             
-            $sentencia = $conn->prepare($sql);
+            $sentenciaCategoria = $conn->prepare($sqlCategoria);
+            $sentenciaRol = $conn->prepare($sqlRol);
+            $sentenciaUsuario = $conn->prepare($sqlUsuario);
+            $sentenciaPost = $conn->prepare($sqlPost);
+            $sentenciaComentario = $conn->prepare($sqlComentario);
             
-            $idUsuario = $post->getIdUsuario();
-            $idCategoria = $post->getIdCategoria();
-            $titulo = $post->getTitulo();
-            $texto = $post->getTexto();
-            $fechaCreacion = $post->getFechaCreacion();
-            $fechaModificacion = $post->getFechaModificacion();
-            $modificaciones = $post->getModificaciones();
-            
-            $sentencia->bindParam(":idUsuario", $idUsuario);
-            $sentencia->bindParam(":idCategoria", $idCategoria);
-            $sentencia->bindParam(":titulo", $titulo);
-            $sentencia->bindParam(":texto", $texto);
-            $sentencia->bindParam(":fechaCreacion", $fechaCreacion);
-            $sentencia->bindParam(":fechaModificacion", $fechaModificacion);
-            $sentencia->bindParam(":modificaciones", $modificaciones);
-            $sentencia->execute();
+            $sentenciaCategoria->execute();
+            $sentenciaRol->execute();
+            $sentenciaUsuario->execute();
+            $sentenciaPost->execute();
+            $sentenciaComentario->execute();
             
             $conn = null;
          }
