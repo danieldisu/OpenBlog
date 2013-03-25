@@ -49,7 +49,7 @@
     echo $co2->getFecha()."<br />";
        
     //Borramos la categoria con id = 1
-    $m->deleteComentario(1);
+    //$m->deleteComentario(1);
     
     
     //+++++++++++++
@@ -69,7 +69,7 @@
     echo $p2->getTexto()."<br />";
     
     //Borramos el titulo con id = 1
-    $m->deletePost(1);
+    //$m->deletePost(1);
     
     
     //+++++++++++++
@@ -89,7 +89,7 @@
     echo $u2->getMail()."<br />";
        
     //Borramos el usuario con id = 1
-    $m->deleteUsuario(1);
+    //$m->deleteUsuario(1);
     
     //+++++++++++++
     //++CATEGORIA++
@@ -108,7 +108,7 @@
     echo $c2->getDescripcion()."<br />";
        
     //Borramos la categoria con id = 1
-    $m->deleteCategoria(1);
+    //$m->deleteCategoria(1);
     
     
     
@@ -129,6 +129,6 @@
     echo $r2->getDescripcion()."<br />";
        
     //Borramos el rol con id = 1
-    $m->deleteRol(1);
+    //$m->deleteRol(1);
     
 ?>

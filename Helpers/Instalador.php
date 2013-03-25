@@ -1,6 +1,12 @@
 <?php
 
 class Instalador {
+    
+    protected $host = "localhost";
+    protected $username = "root";
+    protected $password = "";
+    protected $bd = "openblog";
+    
     public function __construct() {
         $this->borrarEstructuraTablas();
         $this->crearEstructuraTablas();
@@ -73,8 +79,6 @@ class Instalador {
                 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
             ";
             
-            //**********************************
-            
             
             $sentenciaCategoria = $conn->prepare($sqlCategoria);
             $sentenciaRol = $conn->prepare($sqlRol);
@@ -96,7 +100,44 @@ class Instalador {
     }
     
     public function borrarEstructuraTablas(){
-        
+        try {
+            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $sqlCategoria = "
+                DROP TABLE ob_categoria; 
+            ";
+            $sqlRol = "
+                DROP TABLE ob_rol;
+            ";
+            $sqlUsuario = "
+                DROP TABLE ob_usuario;
+            ";
+            $sqlPost = "
+                DROP TABLE ob_post;
+            ";
+            $sqlComentario = "
+                DROP TABLE ob_comentario;
+            ";
+            
+            
+            $sentenciaCategoria = $conn->prepare($sqlCategoria);
+            $sentenciaRol = $conn->prepare($sqlRol);
+            $sentenciaUsuario = $conn->prepare($sqlUsuario);
+            $sentenciaPost = $conn->prepare($sqlPost);
+            $sentenciaComentario = $conn->prepare($sqlComentario);
+            
+            $sentenciaComentario->execute();
+            $sentenciaPost->execute();
+            $sentenciaUsuario->execute();
+            $sentenciaRol->execute();
+            $sentenciaCategoria->execute();
+            
+            $conn = null;
+         }
+         catch(PDOException $e) {
+            echo 'ERROR: '.$e->getMessage();
+         }
     }
 }
 
