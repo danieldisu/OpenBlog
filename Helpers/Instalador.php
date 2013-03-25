@@ -8,8 +8,7 @@ class Instalador {
     protected $bd = "openblog";
     
     public function __construct() {
-        $this->borrarEstructuraTablas();
-        $this->crearEstructuraTablas();
+        
     }
     
     public function crearEstructuraTablas(){
