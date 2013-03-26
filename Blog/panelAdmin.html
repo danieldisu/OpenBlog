@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <title>OpenBlog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le styles -->
+    <link href="../recursos/css/bootstrap.css" rel="stylesheet">
+    <link href="../recursos/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="../recursos/css/fuentes.css" rel="stylesheet">
+    <link href="../recursos/css/estilos.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../recursos/ico/favicon.ico">
+  </head>
+  <body>
+        <!-- Primer ejemplo -->
+        <!-- Contenedor general -->
+        <div class="container">
+                <!-- contenedor del menu lateral -->
+                <div class="cajaMenu">
+                    <!-- logo -->
+                    <img src="../Recursos/betaLogo01.png" width="80px" height="80px" class="imgLogo"/>
+                    <br/>
+                    <!-- Botones con estilos aun por definir etc -->
+                    <!--
+                        Les asigno una clase para darle estilos más adelante,
+                        y un id para referenciarlos a la hora de clicarlos.
+                        Mirar : ../recursos/js/funciones.js
+                    -->
+                    <input class="botonMenu" id="indice" type="button" value="Indice"/>
+                    &nbsp;<br/>
+                    <input class="botonMenu" id="nEntrada" type="button" value="Nueva entrada"/>
+                    &nbsp;<br/>
+                    <input class="botonMenu" id="aEntradas" type="button" value="Administrar entradas"/>
+                    &nbsp;<br/>
+                    <input class="botonMenu" id="aUsuarios" type="button" value="Administrar usuarios"/>
+                    &nbsp;<br/>
+                    <input class="botonMenu" id="aCategorias" type="button" value="Administrar categorías"/>
+                    &nbsp;<br/>
+                    <input class="botonMenu" id="personalizar" type="button" value="Personalizar"/>
+                    &nbsp;<br/>
+                    <input class="botonMenu" id="aCuenta" type="button" value="Mi cuenta"/>
+                    &nbsp;<br/>                   
+                </div>
+                <!-- Caja lateral donde se cargarán los php -->
+                <div class="cajaLoader">
+                
+                </div> 
+        </div>
+        <script src="../Recursos/js/jquery.js"></script>
+        <script src="../Recursos/js/funciones.js"></script>
+        <script type="../Recursos/js/bootstrap.js"></script>
+  </body>
+</html>
