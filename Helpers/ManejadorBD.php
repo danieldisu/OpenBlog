@@ -4,7 +4,7 @@ class ManejadorBD {
 
     protected $host = "localhost";
     protected $username = "root";
-    protected $password = "";
+    protected $password = "SacredShadow23";
     protected $bd = "openblog";
 
     public function __construct() {
@@ -132,6 +132,48 @@ class ManejadorBD {
          catch(PDOException $e) {
             echo 'ERROR: '.$e->getMessage();
          }
+    }
+    public function obtenerUltimosPost($numPost = 5, $inicio = 0){
+        if($inicio >= 0){
+            try {
+                $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                
+                $posts = array();
+                $sql = "
+                    SELECT * 
+                    FROM ob_post 
+                    LIMIT ".$inicio.",".$numPost
+                ;
+                $sentencia = $conn->prepare($sql);
+                
+                $sentencia->execute();
+                while($fila = $sentencia->fetch()){
+                    $post = new Post(0,0,0,"","","","",0);
+
+                    $post->setId($fila["id"]);
+                    $post->setIdUsuario($fila["idUsuario"]);
+                    $post->setIdCategoria($fila["idCategoria"]);
+                    $post->setTitulo($fila["titulo"]);
+                    $post->setTexto($fila["texto"]);
+                    $post->setFechaCreacion($fila["fechaCreacion"]);
+                    $post->setFechaModificacion($fila["fechaModificacion"]);
+                    $post->setModificaciones($fila["modificaciones"]);
+                    
+                    array_push($posts, $post);
+                }
+                
+                $conn = null;
+
+                return $posts;
+             }
+             catch(PDOException $e) {
+                echo 'ERROR: '.$e->getMessage();
+             }
+        }
+        else {
+            //Mandar a la pagina de error
+        }
     }
     
     //CATEGORIA
