@@ -4,14 +4,14 @@
   </div>
   <div class="cajaInfo row">
     <div class="cajaAutorPost span2">
-      <span><?php echo $post->getIdUsuario(); ?></span>
+      <span><?php echo $post->getIdUsuario(); ?>Autor</span>
     </div>
 
     <div class="cajaFechaPost span2 ">
       <span><?php echo $post->getFechaCreacion(); ?></span>
     </div>
     <div class="cajaCategoriaPost span2 ">
-      <span><?php echo $post->getIdCategoria(); ?></span>
+      <span><?php echo $post->getIdCategoria(); ?>Categoria</span>
     </div>
     <div class="cajaNumeroComentarios span2 ">
       <span>{NUMERO COMENTARIOS}</span>
