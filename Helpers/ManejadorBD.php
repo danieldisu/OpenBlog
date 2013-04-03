@@ -4,7 +4,7 @@ class ManejadorBD {
 
     protected $host = "localhost";
     protected $username = "root";
-    protected $password = "SacredShadow23";
+    protected $password = "";
     protected $bd = "openblog";
 
     public function __construct() {
