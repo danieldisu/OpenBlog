@@ -1,7 +1,7 @@
 <?php
 
 class ManejadorConfig {
-    private $rutaConfig = "../Recursos/config.json";
+    private $rutaConfig = "Recursos/config.json";
     
     public function __construct() {
         
