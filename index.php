@@ -4,7 +4,11 @@
         <?php
             include_once "Helpers/ManejadorConfig.php";
             include_once 'Helpers/ManejadorBD.php';
+            include_once './Entidades/Categoria.php';
+            include_once './Entidades/Rol.php';
+            include_once './Entidades/Usuario.php';
             include_once './Entidades/Post.php';
+            include_once './Entidades/Comentario.php';
             
             $mj = new ManejadorConfig();
             $json = $mj->cargarConfig();
