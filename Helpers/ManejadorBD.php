@@ -133,6 +133,48 @@ class ManejadorBD {
             echo 'ERROR: '.$e->getMessage();
          }
     }
+    public function obtenerUltimosPost($numPost = 5, $inicio = 0){
+        if($inicio >= 0){
+            try {
+                $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                
+                $posts = array();
+                $sql = "
+                    SELECT * 
+                    FROM ob_post 
+                    LIMIT ".$inicio.",".$numPost
+                ;
+                $sentencia = $conn->prepare($sql);
+                
+                $sentencia->execute();
+                while($fila = $sentencia->fetch()){
+                    $post = new Post(0,0,0,"","","","",0);
+
+                    $post->setId($fila["id"]);
+                    $post->setIdUsuario($fila["idUsuario"]);
+                    $post->setIdCategoria($fila["idCategoria"]);
+                    $post->setTitulo($fila["titulo"]);
+                    $post->setTexto($fila["texto"]);
+                    $post->setFechaCreacion($fila["fechaCreacion"]);
+                    $post->setFechaModificacion($fila["fechaModificacion"]);
+                    $post->setModificaciones($fila["modificaciones"]);
+                    
+                    array_push($posts, $post);
+                }
+                
+                $conn = null;
+
+                return $posts;
+             }
+             catch(PDOException $e) {
+                echo 'ERROR: '.$e->getMessage();
+             }
+        }
+        else {
+            //Mandar a la pagina de error
+        }
+    }
     
     //CATEGORIA
     public function createCategoria(Categoria $categoria){
@@ -231,6 +273,29 @@ class ManejadorBD {
          catch(PDOException $e) {
             echo 'ERROR: '.$e->getMessage();
          }
+    }
+    public function obtenerNombreCategoria($id){
+        try {
+            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $sql = "
+                SELECT nombre 
+                FROM ob_categoria 
+                WHERE id = :id"
+            ;
+            $sentencia = $conn->prepare($sql);
+            $sentencia->bindParam(":id", $id);
+            $sentencia->execute();
+            $fila = $sentencia->fetch();
+                    
+            $conn = null;
+            
+            return $fila["nombre"];
+        }
+        catch(PDOException $e) {
+           echo 'ERROR: '.$e->getMessage();
+        }
     }
     
     //COMENTARIO
@@ -340,6 +405,29 @@ class ManejadorBD {
          catch(PDOException $e) {
             echo 'ERROR: '.$e->getMessage();
          }
+    }
+    public function obtenerNumeroComentarios($id){
+        try {
+            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $sql = "
+                SELECT count(*)
+                FROM ob_comentario
+                WHERE idPost = :id"
+            ;
+            $sentencia = $conn->prepare($sql);
+            $sentencia->bindParam(":id", $id);
+            $sentencia->execute();
+            $fila = $sentencia->fetch();
+                    
+            $conn = null;
+            
+            return $fila[0];
+        }
+        catch(PDOException $e) {
+           echo 'ERROR: '.$e->getMessage();
+        }
     }
     
     //ROL
@@ -499,7 +587,7 @@ class ManejadorBD {
         }
         catch(PDOException $e) {
            echo 'ERROR: '.$e->getMessage();
-        } 
+        }
     }
     public function updateUsuario($id, Usuario $usuario){
         try {
@@ -548,6 +636,29 @@ class ManejadorBD {
          catch(PDOException $e) {
             echo 'ERROR: '.$e->getMessage();
          }  
+    }
+    public function obtenerNombreAutor($id){
+        try {
+            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $sql = "
+                SELECT nombre 
+                FROM ob_usuario 
+                WHERE id = :id"
+            ;
+            $sentencia = $conn->prepare($sql);
+            $sentencia->bindParam(":id", $id);
+            $sentencia->execute();
+            $fila = $sentencia->fetch();
+                    
+            $conn = null;
+            
+            return $fila["nombre"];
+        }
+        catch(PDOException $e) {
+           echo 'ERROR: '.$e->getMessage();
+        }
     }
 }
 ?>

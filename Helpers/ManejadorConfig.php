@@ -1,7 +1,7 @@
 <?php
 
 class ManejadorConfig {
-    private $rutaConfig = "../Recursos/config.json";
+    private $rutaConfig = "Recursos/config.json";
     
     public function __construct() {
         
@@ -29,7 +29,7 @@ class ManejadorConfig {
         $fp = fopen($this->rutaConfig, 'w');
         
         // Convierte a notacion JSON el array que hemos pasado por parametro, el segundo parametro hace que lo que escriba sea legible, lo "embellece"
-        $json = (json_encode($arrayConfig,JSON_PRETTY_PRINT));
+        $json = (json_encode($arrayConfig));
 
         //Graba el json en el stream que hemos abierto
         fwrite($fp, $json);
