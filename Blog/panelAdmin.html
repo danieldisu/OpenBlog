@@ -21,28 +21,20 @@
                 <!-- contenedor del menu lateral -->
                 <div class="cajaMenu">
                     <!-- logo -->
-                    <img src="../Recursos/betaLogo01.png" width="80px" height="80px" class="imgLogo"/>
-                    <br/>
+                    <div class="cajaLogo"><img src="../Recursos/betaLogo01.png" class="logo"/></div>
                     <!-- Botones con estilos aun por definir etc -->
                     <!--
                         Les asigno una clase para darle estilos más adelante,
                         y un id para referenciarlos a la hora de clicarlos.
                         Mirar : ../recursos/js/funciones.js
                     -->
-                    <input class="botonMenu" id="indice" type="button" value="Indice"/>
-                    &nbsp;<br/>
-                    <input class="botonMenu" id="nEntrada" type="button" value="Nueva entrada"/>
-                    &nbsp;<br/>
-                    <input class="botonMenu" id="aEntradas" type="button" value="Administrar entradas"/>
-                    &nbsp;<br/>
-                    <input class="botonMenu" id="aUsuarios" type="button" value="Administrar usuarios"/>
-                    &nbsp;<br/>
-                    <input class="botonMenu" id="aCategorias" type="button" value="Administrar categorías"/>
-                    &nbsp;<br/>
-                    <input class="botonMenu" id="personalizar" type="button" value="Personalizar"/>
-                    &nbsp;<br/>
-                    <input class="botonMenu" id="aCuenta" type="button" value="Mi cuenta"/>
-                    &nbsp;<br/>                   
+                    <button class="btn admin" id="indice"><i class="icon-home"></i> Indice</button>
+                    <button class="btn admin" id="nEntrada"><i class="icon-edit"></i> Nuevo Post</button>
+                    <button class="btn admin" id="aEntradas"><i class="icon-list-alt"></i> Posts</button>
+                    <button class="btn admin" id="aUsuarios"><i class="icon-user"></i> Usuarios</button>
+                    <button class="btn admin" id="aCategorias"><i class="icon-tags"></i> Categorias</button>
+                    <button class="btn admin" id="personalizar"><i class="icon-eye-open"></i> Personalizacion</button>
+                    <button class="btn admin" id="aCuenta" type="button"><i class="icon-briefcase"></i> Mi Cuenta</button>               
                 </div>
                 <!-- Caja lateral donde se cargarán los php -->
                 <div class="cajaLoader">

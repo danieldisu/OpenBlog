@@ -5,5 +5,5 @@
     "nombreBd": "openblog",
     "tituloBlog": "OpenBlog",
     "descripcionBlog": "Esta es una descripcion de Prueba",
-    "rutaCss": "..\/Recursos\/css\/estilos.css"
+    "rutaCss": "Recursos\/css\/estilos.css"
 }

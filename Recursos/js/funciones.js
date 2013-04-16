@@ -1,7 +1,7 @@
 /* --- Parte menu administrador --- */
 
 $(document).ready(function(){
-	$('.botonMenu').on('click',function(e){
+	$('.btn.admin').on('click',function(e){
 		e.preventDefault();
 		var indice = $(this).attr('id');
 		/*Obtengo el id del boton, para saber cual se pulsa*/

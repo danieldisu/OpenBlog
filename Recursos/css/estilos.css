@@ -25,6 +25,17 @@ h1{
    font-family: proxima semibold;
 }
 
+h2{
+   font-family: proxima semibold;
+   color:#df4931;
+}
+
+h3{
+   font-family: proxima light;
+   color:#df4931;
+   
+}
+
 /*
    Estilos Blog
 */
@@ -95,6 +106,10 @@ h1{
    text-align:justify;
 }
 
+.btn{
+   font-family: proxima semibold;
+}
+
 /* SIDEBAR */
 .sidebar h3{
    font-family: proxima light;
@@ -119,8 +134,8 @@ h1{
 /* --- Indice y menu lateral de administrador --- */
 /** Todo esto a retocar en su momento */
 .cajaMenu{
-   width: 200px;
-   border-right: 1px solid #F0F0F0;
+   width: 170px;
+   border-right: 1px solid #ddd;
    background: white;
    position: fixed;
    top: 0;
@@ -132,16 +147,84 @@ h1{
 .cajaMenu .imgLogo{
    margin: 20px;
 }
+.cajaLogo{
+   margin:20px 0px 10px 35px;
+}
+.logo{
+   width:80px;
+   height:80px;
 
-.botonMenu{
-   padding: 10px;
+}
+
+.btn.admin{
+   font-family: proxima semibold;
+   margin-top:20px;
+   width:90%;
+   margin-left: 5%;
+   text-align: left;
+}
+.cajaAdministracion.row{
+   background:white;
+   min-width: 1280px;
+   border:1px solid #ddd;
+   padding-bottom: 30px;
+   padding-top: 15px;
+   margin-bottom: 25px;
 }
 
 .cajaLoader{
-   position: fixed;
-   top: 0;
-   left: 200px;
+   margin-left: 150px;
+   margin-top: 50px;
    width: 100%;
+   min-width: 960px;
    height: 100%;
-   padding: 100px; /*Esto seguramente se quite.*/
+}
+
+.cajaContenidoCategoria{
+
+}
+
+.cajaEditorTexto textarea{
+   min-width: 900px;
+   min-height: 350px;
+}
+
+.botonBorrarPost{
+}
+
+.acciones button{
+
+}
+
+.cajaContenidoCategoria table{
+   width:100%;
+}
+
+thead{
+   font-family: proxima light;
+}
+
+tbody{
+   font-family: proxima;
+}
+
+
+.widget{
+   box-sizing: border-box; 
+   background:white;
+   padding:10px;
+   padding-top: 0px;
+   margin-bottom: 25px;
+   border:1px solid #ddd;
+}
+
+#cajaLogoActual img{
+   width:130px;
+   margin: 0px 20px 10px 0px;
+   float:left;
+}
+
+.cajaInfoLogo{
+   margin-top: 35px;
+   float:right;
 }
