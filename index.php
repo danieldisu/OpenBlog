@@ -1,20 +1,25 @@
+<?php
+    include_once 'Helpers/Paginacion.php';
+    include_once 'Helpers/ManejadorConfig.php';
+    include_once 'Helpers/ManejadorBD.php';
+    include_once './Entidades/Categoria.php';
+    include_once './Entidades/Rol.php';
+    include_once './Entidades/Usuario.php';
+    include_once './Entidades/Post.php';
+    include_once './Entidades/Comentario.php';
+    
+    $mj = new ManejadorConfig();
+    $json = $mj->cargarConfig();
+    
+    $mbd = new ManejadorBD();
+
+    $pagina = $_GET['p'];
+    if($pagina)
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <?php
-            include_once "Helpers/ManejadorConfig.php";
-            include_once 'Helpers/ManejadorBD.php';
-            include_once './Entidades/Categoria.php';
-            include_once './Entidades/Rol.php';
-            include_once './Entidades/Usuario.php';
-            include_once './Entidades/Post.php';
-            include_once './Entidades/Comentario.php';
-            
-            $mj = new ManejadorConfig();
-            $json = $mj->cargarConfig();
-            
-            $mbd = new ManejadorBD();
-        ?>
+
         <meta charset="utf-8">
         <title>OpenBlog</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">

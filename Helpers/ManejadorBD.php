@@ -2,13 +2,17 @@
 
 class ManejadorBD {
 
-    protected $host = "localhost";
-    protected $username = "root";
-    protected $password = "";
-    protected $bd = "openblog";
+    protected $host;
+    protected $username;
+    protected $password ;
+    protected $bd;
 
     public function __construct() {
-        
+            //TO-DO Cargar el username y la contraseña del JSON
+            $this->host = "localhost";
+            $this->username = "root";
+            $this->password = "root";
+            $this->bd = "openblog";
     }
     
     //POST
