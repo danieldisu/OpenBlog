@@ -24,6 +24,10 @@
 	require_once("Helpers/ManejadorConfig.php");
 	require_once("Helpers/Validador.php");
 
-
+	/*
+		Modulos que se repiten
+	*/
+	require_once("Header.php");
+	//require_once("footer.php"); Cuando lo tengamos
 	
 ?>

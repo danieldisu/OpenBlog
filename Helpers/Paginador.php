@@ -55,10 +55,11 @@ Class Paginador{
                 }                
             }
             //Ponemos los ... para que nos dejé seleccionar a que pagina queremos ir, esto es un to-do...
-            $linkPuntos = "<a href=''> ... </a>";
+            $linkPuntos = "<li><a href=''> ... </a></li>";
             $linksGenerados = $linksGenerados . $linkPuntos;
 
-            //Generamos el enlace a la ultima pagina
+            //Generamos el enlace a la ultima pagina y penultima
+            $linksGenerados = $linksGenerados . $this->generarLink($this->paginasTotales-1);
             $linksGenerados = $linksGenerados . $this->generarLink($this->paginasTotales);
 		}else{
 			echo $this->generarLink(1);
@@ -68,7 +69,7 @@ Class Paginador{
 	}
 
 	private function generarLink($numPagina){
-		$link = '<a href="../index.php?p='.$numPagina.'">'.$numPagina.'</a>';
+		$link = '<li><a href="../index.php?p='.$numPagina.'">'.$numPagina.'</a></li>';
 		return $link;
 	}
 

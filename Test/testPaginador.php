@@ -7,7 +7,7 @@
 
 	$paginador = new Paginador();
 
-	echo "<div class='pagination'>";
+	echo "<div class='pagination pagination-centered'>";
 		echo "<ul>";
 		echo $paginador->generarLinksDePaginas();
 		echo "</ul>";

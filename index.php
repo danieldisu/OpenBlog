@@ -11,23 +11,24 @@
 	else
 		$pagina = 0;
 	
-	echo "Mostrando pagina ". $pagina;
+
 
 ?>
 <!DOCTYPE html>
 <html lang="es">
 	<head>
-
 		<meta charset="utf-8">
 		<title>OpenBlog</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<!-- Le styles -->
 		
-		<link href="Recursos/css/bootstrap-responsive.css" rel="stylesheet">
-		<link href="Recursos/css/bootstrap.css" rel="stylesheet">
-		<link href="Recursos/css/fuentes.css" rel="stylesheet">
-		<link href=<?php echo $json["rutaCss"] ?> rel="stylesheet">
+
+		<?php
+
+			Header::cargarHojasDeEstilos($json);
+
+		?>
 
 		<!-- Favicon -->
 		<link rel="shortcut icon" href="../recursos/ico/favicon.ico">
