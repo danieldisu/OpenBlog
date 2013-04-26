@@ -17,7 +17,7 @@ body{
    font-family: proxima;
 }
 .container{
-
+   
 }
 h1{
    font-family: proxima semibold;
@@ -39,6 +39,7 @@ h3{
    border-radius: 0 !important;
    background-color: #DF4931;
    border: 1px solid white;
+   color:white;
 }
 
 .btn:hover{
@@ -53,6 +54,7 @@ h3{
 */
 
 .header{
+   box-sizing: border-box !important; 
    border:1px solid #ddd;
    background-color: #fff;
    padding: 10px 0px 10px 0px;
@@ -81,14 +83,13 @@ h3{
 }
 
 .sidebar{
-   padding:5px;
-   box-sizing: border-box; 
+   padding: 0.90%; /* HACK */
    border:1px solid #ddd;
    background-color: #fff;
+   margin-left: 0.5% !important;
 }
 
 .post{
-   box-sizing: border-box;
    border:1px solid #ddd;
    background-color: #fff;   
    padding:25px;
@@ -131,7 +132,7 @@ h3{
 
 .sidebar div{
    box-sizing: border-box; 
-   width:100%;
+   width:95%;
    padding:2%;  
 }
 
@@ -241,3 +242,6 @@ tbody{
    margin-top: 35px;
    float:right;
 }
+
+/* Paginador */
+
