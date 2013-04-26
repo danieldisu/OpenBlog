@@ -1,12 +1,4 @@
 <?php
-require_once("Instalador.php");
-require_once("ManejadorBD.php");
-
-require_once("../Entidades/Rol.php");
-require_once("../Entidades/Categoria.php");
-require_once("../Entidades/Usuario.php");
-require_once("../Entidades/Post.php");
-require_once("../Entidades/Comentario.php");
 
 class DatosPrueba {
     private $instalador;

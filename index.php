@@ -1,12 +1,5 @@
 <?php
-	include_once 'Helpers/Paginador.php';
-	include_once 'Helpers/ManejadorConfig.php';
-	include_once 'Helpers/ManejadorBD.php';
-	include_once './Entidades/Categoria.php';
-	include_once './Entidades/Rol.php';
-	include_once './Entidades/Usuario.php';
-	include_once './Entidades/Post.php';
-	include_once './Entidades/Comentario.php';
+	include_once 'autoloader.php';
 	
 	$mj = new ManejadorConfig();
 	$json = $mj->cargarConfig();
