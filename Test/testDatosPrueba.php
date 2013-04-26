@@ -6,4 +6,6 @@
     $dp = new DatosPrueba();
     $dp->resetearTablas();
     $dp->datosRapidos();
+
+    echo "En teoria ya deberian estar los datos insertados";
 ?>

@@ -137,7 +137,7 @@ class ManejadorBD {
             echo 'ERROR: '.$e->getMessage();
          }
     }
-    public function obtenerUltimosPost($numPost = 5, $inicio = 0){
+    public function obtenerUltimosPost($inicio = 0, $numPost = 5){
         if($inicio >= 0){
             try {
                 $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
@@ -177,6 +177,23 @@ class ManejadorBD {
         }
         else {
             //Mandar a la pagina de error
+        }
+    }
+    public function getNumeroTotalPosts(){
+        try {
+            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = "SELECT count(*) as numTotalPosts FROM ob_post;";
+            $sentencia = $conn->prepare($sql);
+            $sentencia->execute();
+            $fila = $sentencia->fetch();
+            $conn = null;
+
+            return $fila['numTotalPosts'];
+        }
+
+        catch(PDOException $e) {
+            echo 'ERROR: '.$e->getMessage();
         }
     }
     

@@ -30,8 +30,50 @@ class DatosPrueba {
         $this->crearUsuario(1); //Rol administrador (nombre: rafa, pass: rafa)
         $this->crearUsuario(2); //Rol usuario (nombre: adonai, pass: adonai)
         $this->crearUsuario(3); //Rol usuario (nombre: daniel, pass: daniel)
+
+        // He agregado muchos post de prueba para probar la paginacion
         $this->crearPost(1); //Post (categoria: php, modificado: no)
-        $this->crearPost(4); //Post (categoria: css, modificado: si[3])
+        $this->crearPost(2); //Post (categoria: css, modificado: si[3])
+        $this->crearPost(3);
+        $this->crearPost(4);
+        $this->crearPost(3);
+        $this->crearPost(2);
+        $this->crearPost(1);
+        $this->crearPost(2);
+        $this->crearPost(3);
+        $this->crearPost(4);
+        $this->crearPost(3);
+        $this->crearPost(4);
+        $this->crearPost(3);
+        $this->crearPost(2);
+        $this->crearPost(1);
+        $this->crearPost(2);
+        $this->crearPost(3);
+        $this->crearPost(4);
+        $this->crearPost(3);
+        $this->crearPost(4);
+        $this->crearPost(3);
+        $this->crearPost(2);
+        $this->crearPost(1);
+        $this->crearPost(2);
+        $this->crearPost(3);
+        $this->crearPost(4);
+        $this->crearPost(3);
+        $this->crearPost(4);
+        $this->crearPost(3);
+        $this->crearPost(2);
+        $this->crearPost(1);
+        $this->crearPost(2);
+        $this->crearPost(3);
+        $this->crearPost(4);
+        $this->crearPost(3);
+        $this->crearPost(4);
+        $this->crearPost(3);
+        $this->crearPost(2);
+        $this->crearPost(1);
+        $this->crearPost(2);
+        $this->crearPost(3);
+        $this->crearPost(4);        
         $this->crearComentario(1); //Comentario php
         $this->crearComentario(2); //Comentario php
         $this->crearComentario(3); //Comentario CSS
