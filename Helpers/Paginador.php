@@ -13,7 +13,7 @@ Class Paginador{
 
 		$this->paginasTotales = ceil($this->postsTotales / $this->postsPorPagina);
 
-		$this->generarLinksDePaginas();
+
 	}
 
 	/*
@@ -31,17 +31,44 @@ Class Paginador{
 	public function generarLinksDePaginas(){
 		$numeroPrimeraPagina = 1;
 		$numeroUltimaPagina = $this->paginasTotales;
+        $maximoLinksGenerados = 4;
+        $linksPaginasGenerados = 1;
 
-		if($numeroUltimaPagina > 1){
-			echo $this->generarLink(0);
+        $linksGenerados = "";
+
+		if($numeroUltimaPagina > 1){ // Si hay mas de una pagina
+            //Generamos el link a la primera pagina
+			$linksGenerados = $linksGenerados . $this->generarLink($numeroPrimeraPagina);
+            $linksPaginasGenerados++;
+            //Generamos el link a las paginas que hayamos decidido en la variable $maximoLinksGenerados, hay que tener en cuenta que son 3 links al principio + 1 a la ultima pagina
+            while( $linksPaginasGenerados < $maximoLinksGenerados ){
+
+                if( $numeroPrimeraPagina + 1 < $numeroUltimaPagina ){
+
+                    $linksGenerados = $linksGenerados . $this->generarLink($linksPaginasGenerados);
+                    $linksPaginasGenerados++;
+
+                }else{
+
+                    $linksGenerados = $linksGenerados . $this->generarLink($numeroUltimaPagina);
+
+                }                
+            }
+            //Ponemos los ... para que nos dejé seleccionar a que pagina queremos ir, esto es un to-do...
+            $linkPuntos = "<a href=''> ... </a>";
+            $linksGenerados = $linksGenerados . $linkPuntos;
+
+            //Generamos el enlace a la ultima pagina
+            $linksGenerados = $linksGenerados . $this->generarLink($this->paginasTotales);
 		}else{
-			echo $this->generarLink(0);
+			echo $this->generarLink(1);
 		}
+
+        return $linksGenerados;
 	}
 
 	private function generarLink($numPagina){
-		$numPagina++;
-		//$link = "<a href='../index.php?p='".$numPagina.";
+		$link = '<a href="../index.php?p='.$numPagina.'">'.$numPagina.'</a>';
 		return $link;
 	}
 
