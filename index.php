@@ -30,8 +30,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<!-- Le styles -->
-		<link href="Recursos/css/bootstrap.css" rel="stylesheet">
+		
 		<link href="Recursos/css/bootstrap-responsive.css" rel="stylesheet">
+		<link href="Recursos/css/bootstrap.css" rel="stylesheet">
 		<link href="Recursos/css/fuentes.css" rel="stylesheet">
 		<link href=<?php echo $json["rutaCss"] ?> rel="stylesheet">
 
@@ -53,15 +54,15 @@
 			<div class="span9 contenido">
 				<?php
 
-					$posts = $mbd->obtenerUltimosPost(5, );
+					$posts = $mbd->obtenerUltimosPost(5);
 					foreach ($posts as $post){
 					 include "Blog/plantillaPost.php";
 					}
 				?>
 									
-			</div>
-		<div class="span3 sidebar">
+		</div>
 
+		<div class="span3 sidebar">
 			<div class="cajaLogin">
 			  <h3> Login </h3>
 			  <label>Usuario</label>
