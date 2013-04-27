@@ -245,3 +245,7 @@ tbody{
 
 /* Paginador */
 
+.active{
+   font-size: 1.15em;
+   color:red;
+}

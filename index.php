@@ -10,8 +10,6 @@
 		$pagina = $_GET['p'];
 	else
 		$pagina = 0;
-	
-
 
 ?>
 <!DOCTYPE html>
@@ -22,13 +20,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<!-- Le styles -->
-		
 
-		<?php
-
-			Header::cargarHojasDeEstilos($json);
-
-		?>
 
 		<!-- Favicon -->
 		<link rel="shortcut icon" href="../recursos/ico/favicon.ico">
@@ -36,13 +28,12 @@
 
 	<body>
 	  <div class="container">
-
-		<div class="row">
-			<div class="span12 header">
-				<img src="Recursos/betaLogo01.png">
-				<h1><?php echo $json["tituloBlog"] ?></h1>
-			</div>
-		</div><!-- /header -->
+			<div class="row">
+				<div class="span12 header">
+					<img src="Recursos/betaLogo01.png">
+					<h1><?php echo $json["tituloBlog"] ?></h1>
+				</div>
+			</div><!-- /header -->
 
 		<div class="row main">
 			<div class="span9 contenido">
@@ -50,12 +41,18 @@
 
 					$posts = $mbd->obtenerUltimosPost(5);
 					foreach ($posts as $post){
-					 include "Blog/plantillaPost.php";
+						include "Blog/plantillaPost.php";
 					}
 				?>
+
+			<div class="span9 contenido">
+				<?php
+					$paginador = new Paginador();
+					$paginador->mostrarLinks();
+				?>
+			</div>
 									
 		</div>
-
 		<div class="span3 sidebar">
 			<div class="cajaLogin">
 			  <h3> Login </h3>
@@ -70,11 +67,11 @@
 			<div class="cajaUltimosPost">
 			  <h3> Ultimos Post </h3>
 			  <ul>
-				<li><a href="#">Post numero 1</a></li>
-				<li><a href="#">Post numero 2</a></li>
-				<li><a href="#">Post numero 3</a></li>
-				<li><a href="#">Post numero 4</a></li>
-				<li><a href="#">Post numero 5</a></li>
+					<li><a href="#">Post numero 1</a></li>
+					<li><a href="#">Post numero 2</a></li>
+					<li><a href="#">Post numero 3</a></li>
+					<li><a href="#">Post numero 4</a></li>
+					<li><a href="#">Post numero 5</a></li>
 			  </ul>
 			</div>
 

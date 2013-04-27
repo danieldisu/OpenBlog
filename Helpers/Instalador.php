@@ -2,9 +2,9 @@
 
 class Instalador {
     
-    protected $host = "localhost";
+    protected $host = "127.0.0.1";
     protected $username = "root";
-    protected $password = "root";
+    protected $password = "";
     protected $bd = "openblog";
     
     public function __construct() {

@@ -16,13 +16,16 @@
 	/*
 		HELPERS
 	*/
+	require_once("Helpers/ManejadorConfig.php");
+	$mj = new ManejadorConfig();
+   $json = $mj->cargarConfig();
 	require_once("Helpers/ManejadorBD.php");
 	require_once("Helpers/Paginador.php");
 	require_once("Helpers/Interfaz.php");
 	require_once("Helpers/DatosPrueba.php");
-	require_once("Helpers/ManejadorBD.php");
-	require_once("Helpers/ManejadorConfig.php");
+	
 	require_once("Helpers/Validador.php");
+	require_once("Helpers/Instalador.php");
 
 	/*
 		Modulos que se repiten
@@ -30,4 +33,7 @@
 	require_once("Header.php");
 	//require_once("footer.php"); Cuando lo tengamos
 	
+	Header::cargarHojasDeEstilos($json);
+
+
 ?>
