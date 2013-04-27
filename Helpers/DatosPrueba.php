@@ -1,6 +1,6 @@
 <?php
-
 class DatosPrueba {
+
     private $instalador;
     private $manejadorBD;
     

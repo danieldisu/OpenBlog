@@ -9,9 +9,9 @@ class ManejadorBD {
 
     public function __construct() {
             //TO-DO Cargar el username y la contraseña del JSON
-            $this->host = "localhost";
+            $this->host = "127.0.0.1";
             $this->username = "root";
-            $this->password = "root";
+            $this->password = "";
             $this->bd = "openblog";
     }
     
