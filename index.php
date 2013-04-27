@@ -75,11 +75,17 @@
             <div class="cajaUltimosComentarios">
               <h3> Ultimos Comentarios </h3>
               <ul>
-                <li>Por: <a href="#">Usuario</a><br>Comentario numero 1</li>
-                <li>Por: <a href="#">Usuario</a><br>Comentario numero 2</li>
-                <li>Por: <a href="#">Usuario</a><br>Comentario numero 3</li>
-                <li>Por: <a href="#">Usuario</a><br>Comentario numero 4</li>
-                <li>Por: <a href="#">Usuario</a><br>Comentario numero 5</li>
+                <?php 
+                    $comentarios = $mbd->obtenerUltimosComentarios();
+                    
+                    foreach ($comentarios as $comentario) {
+                      echo '<li>Por: <a href="#">'.$comentario['nombre'].'</a><br/>'.$comentario['texto'].'</li>';
+                    }
+                    
+                ?>
+              
+                
+                
               </ul>            
             </div>
           </div>
