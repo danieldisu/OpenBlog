@@ -436,13 +436,26 @@ class ManejadorBD {
             $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $comentarios = array();
-            $sql = "
+            if(func_num_args() == 0){
+                $sql = "
                 SELECT u.nombre, c.texto 
                 FROM ob_comentario c, ob_usuario u 
                 WHERE c.idUsuario = u.id 
                 ORDER BY c.fecha DESC 
                 LIMIT 5;"
             ;
+            }
+            else{
+                $idPost = func_get_arg(0);
+                $sql = "
+                SELECT u.nombre, c.texto 
+                FROM ob_comentario c, ob_usuario u 
+                WHERE c.idUsuario = u.id
+                AND c.idPost = ".$idPost."
+                ORDER BY c.fecha DESC 
+                LIMIT 5;"
+            ;   
+            }
             $sentencia = $conn->prepare($sql);
             $sentencia->execute();
             while ($fila = $sentencia->fetch(PDO::FETCH_ASSOC)) {

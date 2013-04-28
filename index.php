@@ -96,6 +96,7 @@
       ================================================== -->
       <!-- Placed at the end of the document so the pages load faster -->
       <script src="Recursos/js/jquery.js"></script>
+      <script src="Recursos/js/funciones.js"></script>
       <script type="Recursos/js/bootstrap.js"></script>
     </body>
 </html>
