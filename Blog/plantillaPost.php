@@ -23,7 +23,7 @@
   </div>
   <div class="row cajaAcciones">
     <div class="cajaVerComentarios span3 offset1">
-      <button class="btnComentarios" id="<?php echo $post->getId() ?>">Ver Comentarios</button>
+      <button class="btn btnComentarios" id="<?php echo $post->getId() ?>">Ver Comentarios</button>
     </div>
     <div class="cajaEscribirComentarios span3 offset1">
       <button class="btn">Escribir Comentario</button>
