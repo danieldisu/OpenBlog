@@ -6,6 +6,7 @@ class ManejadorBD {
     protected $username;
     protected $password ;
     protected $bd;
+    protected $numPost;
 
     public function __construct() {
             //TO-DO Cargar el username y la contraseña del JSON
@@ -13,6 +14,7 @@ class ManejadorBD {
             $this->username = "root";
             $this->password = "";
             $this->bd = "openblog";
+            $this->numPost = "5";
     }
     
     //POST
@@ -137,6 +139,7 @@ class ManejadorBD {
             echo 'ERROR: '.$e->getMessage();
          }
     }
+
     public function obtenerUltimosPost($inicio = 0, $numPost = 5){
         if($inicio >= 0){
             try {
@@ -179,6 +182,73 @@ class ManejadorBD {
             //Mandar a la pagina de error
         }
     }
+
+    /*
+    *   CODIGO GENERADO PARA SACAR LOS POST DE UNA PAGINA, CODIGO SPAGUETTI WARNING
+    */
+    public function getPostPagina($pagina){
+        $total = $this->getNumeroTotalPosts();  
+
+        $postYaMostrados = $pagina * $this->numPost;    //Hayamos el numero de post que han sido mostrados
+
+        //Si el numero de post que ya han sido mostrados ( contando que mostrasemos esta página ) es mayor que el total
+        //significa que es la ultima página y vemos cuantos post quedan por mostrar
+        if($postYaMostrados > $total){      
+            $postUltimaPagina = $postYaMostrados - $total -1 ;  
+        }
+        // El primer post a mostrar de la página actual ( en realidad es el ultimo de la anterior, pero asi es como funciona el limit )
+        $primerPostPagina = $total - $postYaMostrados;
+        
+        try {
+            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $posts = array();
+
+            //si existe la variable significa que estamos en la ultima pagina y solo vamos a mostrar los post que quedan por mostrar
+            if(isset($postUltimaPagina)){
+                $sql = "
+                    SELECT * 
+                    FROM ob_post 
+                    LIMIT 0,".$postUltimaPagina
+                ;
+            }else{
+                $sql = "
+                    SELECT * 
+                    FROM ob_post 
+                    LIMIT ".$primerPostPagina.",".$this->numPost
+                ;               
+            }
+
+
+            $sentencia = $conn->prepare($sql);
+            
+            $sentencia->execute();
+            while($fila = $sentencia->fetch()){
+                $post = new Post(0,0,0,"","","","",0);
+
+                $post->setId($fila["id"]);
+                $post->setIdUsuario($fila["idUsuario"]);
+                $post->setIdCategoria($fila["idCategoria"]);
+                $post->setTitulo($fila["titulo"]);
+                $post->setTexto($fila["texto"]);
+                $post->setFechaCreacion($fila["fechaCreacion"]);
+                $post->setFechaModificacion($fila["fechaModificacion"]);
+                $post->setModificaciones($fila["modificaciones"]);
+                
+                array_push($posts, $post);
+            }
+            
+            $conn = null;
+            // Invertimos el array antes de pasarselo al template, de manera que se muestren del mas nuevo al mas antiguo, esto NO se puede hacer por ORDER BY ** CREO **
+            $posts = array_reverse($posts, true);
+            return $posts;
+         }
+         catch(PDOException $e) {
+            echo 'ERROR: '.$e->getMessage();
+         }
+    }
+
     public function getNumeroTotalPosts(){
         try {
             $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);

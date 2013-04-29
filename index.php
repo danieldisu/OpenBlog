@@ -9,7 +9,7 @@
 	if(!empty($_GET['p']))
 		$pagina = $_GET['p'];
 	else
-		$pagina = 0;
+		$pagina = 1;
 
 ?>
 <!DOCTYPE html>
@@ -39,7 +39,7 @@
 			<div class="span9 contenido">
 				<?php
 
-					$posts = $mbd->obtenerUltimosPost(5);
+					$posts = $mbd->getPostPagina($pagina);
 					foreach ($posts as $post){
 						include "Blog/plantillaPost.php";
 					}

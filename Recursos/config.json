@@ -1,7 +1,7 @@
 {
     "host": "localhost",
     "user": "root",
-    "pass": "root",
+    "pass": "",
     "nombreBd": "openblog",
     "tituloBlog": "OpenBlog",
     "descripcionBlog": "Esta es una descripcion de Prueba",

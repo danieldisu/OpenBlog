@@ -65,7 +65,7 @@ class DatosPrueba {
         $this->crearPost(1);
         $this->crearPost(2);
         $this->crearPost(3);
-        $this->crearPost(4);        
+        $this->crearPost(4);
         $this->crearComentario(1); //Comentario php
         $this->crearComentario(2); //Comentario php
         $this->crearComentario(3); //Comentario CSS
