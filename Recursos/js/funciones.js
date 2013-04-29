@@ -30,4 +30,29 @@ $(document).ready(function(){
 			$('.cajaLoader').load('panelAdmin/indexAdministrador.php');
 		}
 	});
+	/*
+		Evento click en boton de comentarios. 
+	*/
+	$('.btnComentarios').on('click', function(e){
+		e.preventDefault();
+
+		var idPost = e.srcElement.id;
+		if (window.XMLHttpRequest){
+			xhr = new XMLHttpRequest();
+		}else if (window.ActiveXObject) {
+			xhr= new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		enviarPeticionAJAX(idPost);
+	});
 });
+function enviarPeticionAJAX(idPost) {
+	var idPost = idPost;
+	xhr.onreadystatechange = function(){
+		if (xhr.readyState == 4 && xhr.status == 200) {			
+			$('#caja'+idPost).html(xhr.responseText);
+		}
+	}
+	xhr.open('POST', 'Helpers/cargadorComentarios.php', true);
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.send('idPost='+idPost);				
+}
