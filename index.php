@@ -74,55 +74,28 @@
 					<li><a href="#">Post numero 5</a></li>
 			  </ul>
 			</div>
+         <div class="cajaUltimosComentarios">
+           <h3> Ultimos Comentarios </h3>
+           <ul>
+             <?php 
+                 $comentarios = $mbd->obtenerUltimosComentarios();
+                 
+                 foreach ($comentarios as $comentario) {
+                   echo '<li>Por: <a href="#">'.$comentario['nombre'].'</a><br/>'.$comentario['texto'].'</li>';
+                 }
+                 
+             ?>    
+           </ul>            
+         </div>
+       </div>
+     </div>
+   </div> <!-- /container -->
 
-<<<<<<< HEAD
-			<div class="cajaUltimosComentarios">
-			  <h3> Ultimos Comentarios </h3>
-			  <ul>
-				<li>Por: <a href="#">Usuario</a><br>Comentario numero 1</li>
-				<li>Por: <a href="#">Usuario</a><br>Comentario numero 2</li>
-				<li>Por: <a href="#">Usuario</a><br>Comentario numero 3</li>
-				<li>Por: <a href="#">Usuario</a><br>Comentario numero 4</li>
-				<li>Por: <a href="#">Usuario</a><br>Comentario numero 5</li>
-			  </ul>            
-			</div>
-		  </div>
-		</div>
-	  </div> <!-- /container -->
-
-	  <!-- Le javascript
-	  ================================================== -->
-	  <!-- Placed at the end of the document so the pages load faster -->
-	  <script src="Recursos/js/jquery.js"></script>
-	  <script type="Recursos/js/bootstrap.js"></script>
-	</body>
-=======
-            <div class="cajaUltimosComentarios">
-              <h3> Ultimos Comentarios </h3>
-              <ul>
-                <?php 
-                    $comentarios = $mbd->obtenerUltimosComentarios();
-                    
-                    foreach ($comentarios as $comentario) {
-                      echo '<li>Por: <a href="#">'.$comentario['nombre'].'</a><br/>'.$comentario['texto'].'</li>';
-                    }
-                    
-                ?>
-              
-                
-                
-              </ul>            
-            </div>
-          </div>
-        </div>
-      </div> <!-- /container -->
-
-      <!-- Le javascript
-      ================================================== -->
-      <!-- Placed at the end of the document so the pages load faster -->
-      <script src="Recursos/js/jquery.js"></script>
-      <script src="Recursos/js/funciones.js"></script>
-      <script type="Recursos/js/bootstrap.js"></script>
-    </body>
->>>>>>> refs/remotes/origin/comentariosPorPost
+   <!-- Le javascript
+   ================================================== -->
+   <!-- Placed at the end of the document so the pages load faster -->
+   <script src="Recursos/js/jquery.js"></script>
+   <script src="Recursos/js/funciones.js"></script>
+   <script type="Recursos/js/bootstrap.js"></script>
+</body>
 </html>
