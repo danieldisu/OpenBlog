@@ -1,9 +1,19 @@
 <?php
+namespace src\helpers;
 
 class ManejadorConfig {
-    private $rutaConfig = "Recursos/config.json";
+    private $ruta = "C:/xampp/htdocs/OpenBlog";
+    private $rutaConfig;
     
     public function __construct() {
+        $rutaJson = "/config/config.json";
+
+        if(isset($this->ruta)){
+            $this->rutaConfig = $this->ruta.$rutaJson;
+        }else{
+            // IMPLEMENTAR FUNCION QUE CON __DIR__ SAQUE LA RUTA HASTA EL JSON
+            $this->rutaConfig = $rutaJson;
+        }
         
     }
     

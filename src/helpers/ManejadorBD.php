@@ -1,4 +1,12 @@
 <?php
+namespace src\helpers;
+
+use src\entidades\Categoria;
+use src\entidades\Post;
+use src\entidades\Rol;
+use src\entidades\Comentario;
+use src\entidades\Usuario;
+use PDO;
 
 class ManejadorBD {
 
@@ -12,7 +20,7 @@ class ManejadorBD {
             //TO-DO Cargar el username y la contraseña del JSON
             $this->host = "127.0.0.1";
             $this->username = "root";
-            $this->password = "";
+            $this->password = "iesrey";
             $this->bd = "openblog";
             $this->numPost = "5";
     }

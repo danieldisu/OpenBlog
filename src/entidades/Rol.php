@@ -1,6 +1,6 @@
 <?php
-
-class Categoria {
+namespace src\entidades;
+class Rol {
     
     private $id;
     private $nombre;

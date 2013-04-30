@@ -2,6 +2,12 @@
 
 Class Header{
 
+	public static function cargarJSON(){
+		$json;
+		//cargamos el json
+		return $json;
+	}
+
 	public static function cargarHojasDeEstilos($json){
 
 		$rutaCSS = $json["rutaCss"];

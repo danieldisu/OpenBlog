@@ -1,5 +1,5 @@
 <?php
-
+namespace src\helpers;
 Class Paginador{
 
 	private $paginasTotales;

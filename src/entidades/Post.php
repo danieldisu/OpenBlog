@@ -1,5 +1,5 @@
 <?php
-
+namespace src\entidades;
 class Post {
     
     private $id;

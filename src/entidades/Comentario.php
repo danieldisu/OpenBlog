@@ -1,4 +1,5 @@
 <?php
+namespace src\entidades;
 class Comentario {
     
     private $id;
