@@ -1,8 +1,8 @@
 <?php
 	include_once 'autoloader.php';
-	
-	$mj = new ManejadorConfig();
-	$json = $mj->cargarConfig();
+	use src\helpers\Header;
+	use src\helpers\ManejadorBD;
+	use src\helpers\Paginador;
 	
 	$mbd = new ManejadorBD();
 
@@ -10,7 +10,6 @@
 		$pagina = $_GET['p'];
 	else
 		$pagina = 1;
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -20,18 +19,18 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<!-- Le styles -->
-
+		<?php Header::cargarHojasDeEstilos(); ?>	
 
 		<!-- Favicon -->
-		<link rel="shortcut icon" href="../recursos/ico/favicon.ico">
+		<link rel="shortcut icon" href="../resources/ico/favicon.ico">
 	</head>
 
 	<body>
 	  <div class="container">
 			<div class="row">
 				<div class="span12 header">
-					<img src="Recursos/betaLogo01.png">
-					<h1><?php echo $json["tituloBlog"] ?></h1>
+					<img src="resources/betaLogo01.png">
+					<h1><?php echo Header::$json["tituloBlog"] ?></h1>
 				</div>
 			</div><!-- /header -->
 
@@ -41,7 +40,7 @@
 
 					$posts = $mbd->getPostPagina($pagina);
 					foreach ($posts as $post){
-						include "Blog/plantillaPost.php";
+						include "src/templates/plantillaPost.php";
 					}
 				?>
 
@@ -94,8 +93,8 @@
    <!-- Le javascript
    ================================================== -->
    <!-- Placed at the end of the document so the pages load faster -->
-   <script src="Recursos/js/jquery.js"></script>
-   <script src="Recursos/js/funciones.js"></script>
-   <script type="Recursos/js/bootstrap.js"></script>
+   <script src="resources/js/jquery.js"></script>
+   <script src="resources/js/funciones.js"></script>
+   <script type="resources/js/bootstrap.js"></script>
 </body>
 </html>

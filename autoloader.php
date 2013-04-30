@@ -8,7 +8,9 @@ use Symfony\Component\ClassLoader\UniversalClassLoader;
 
 $loader = new UniversalClassLoader();
 
+//Registramos nuestra aplicacion para el autoloader
 $loader->registerNamespace("src", __DIR__);
+
 $loader->register();
 
 ?>

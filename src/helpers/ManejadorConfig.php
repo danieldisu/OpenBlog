@@ -7,14 +7,12 @@ class ManejadorConfig {
     
     public function __construct() {
         $rutaJson = "/config/config.json";
-
         if(isset($this->ruta)){
             $this->rutaConfig = $this->ruta.$rutaJson;
         }else{
             // IMPLEMENTAR FUNCION QUE CON __DIR__ SAQUE LA RUTA HASTA EL JSON
             $this->rutaConfig = $rutaJson;
         }
-        
     }
     
     /* Carga la configuracion que se encuentra en $rutaConfig;
