@@ -1,14 +1,27 @@
 <?php
-
+namespace src\helpers;
+use PDO;
 class Instalador {
     
-    protected $host = "127.0.0.1";
-    protected $username = "root";
-    protected $password = "";
-    protected $bd = "openblog";
+    protected $host;
+    protected $username;
+    protected $password;
+    protected $bd;
     
     public function __construct() {
-        
+        // Si al instanciar el PDO le pasamos la configuracion, buscará los datos de conexion en dicha configuracion, si no cogerá la configuracion por defecto que es la siguiente: 
+        if(!isset($config)){
+            $this->host = "127.0.0.1";
+            $this->username = "root";
+            $this->password = "";
+            $this->bd = "openblog";
+        }else{
+            print_r($config);
+            $this->host = $config['host'];
+            $this->username = $config['user'];
+            $this->password = $config['pass'];
+            $this->bd = $config['nombreBd'];          
+        }        
     }
     
     public function crearEstructuraTablas(){
@@ -137,6 +150,12 @@ class Instalador {
          catch(PDOException $e) {
             echo 'ERROR: '.$e->getMessage();
          }
+    }
+
+    public function crearBD(){
+        $conn = new PDO("mysql:host=".$this->host.";", $this->username, $this->password);
+        $conn->query("CREATE DATABASE IF NOT EXISTS ".$this->bd.";");
+        $conn = null;
     }
 }
 

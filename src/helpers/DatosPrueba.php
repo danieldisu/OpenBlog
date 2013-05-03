@@ -1,4 +1,14 @@
 <?php
+namespace src\helpers;
+
+use src\helpers\Instalador;
+use src\helpers\ManejadorBD;
+use src\entidades\Categoria;
+use src\entidades\Comentario;
+use src\entidades\Post;
+use src\entidades\Rol;
+use src\entidades\Usuario;
+
 class DatosPrueba {
 
     private $instalador;

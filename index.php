@@ -3,8 +3,9 @@
 	use src\helpers\Header;
 	use src\helpers\ManejadorBD;
 	use src\helpers\Paginador;
-	
-	$mbd = new ManejadorBD();
+
+   // Iniciamos el manejador BD con las opciones del JSON
+	$mbd = new ManejadorBD(Header::cargarJSON());
 
 	if(!empty($_GET['p']))
 		$pagina = $_GET['p'];
