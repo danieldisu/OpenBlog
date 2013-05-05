@@ -29,6 +29,6 @@
       <button class="btn">Escribir Comentario</button>
     </div>
   </div>
-  <div class="cajaComentarios" id="caja<?php echo $post->getId() ?>">
+  <div class="cajaComentarios oculto" id="caja<?php echo $post->getId() ?>">
   </div>
 </div>
