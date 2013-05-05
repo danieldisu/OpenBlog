@@ -35,21 +35,31 @@ $(document).ready(function(){
 	*/
 	$('.btnComentarios').on('click', function(e){
 		e.preventDefault();
-
-		var idPost = e.srcElement.id;
+		var idPost = e.srcElement.id; //Saca el id mediante un atributo del eventObject
 		if (window.XMLHttpRequest){
 			xhr = new XMLHttpRequest();
 		}else if (window.ActiveXObject) {
 			xhr= new ActiveXObject("Microsoft.XMLHTTP");
 		}
+		//Enviamos peticion ajax
 		enviarPeticionAJAX(idPost);
 	});
 });
 function enviarPeticionAJAX(idPost) {
 	var idPost = idPost;
 	xhr.onreadystatechange = function(){
-		if (xhr.readyState == 4 && xhr.status == 200) {			
-			$('#caja'+idPost).html(xhr.responseText);
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			
+			if($('#caja'+idPost).attr("class") == "cajaComentarios oculto"){
+				$('#caja'+idPost).removeClass("oculto");
+				$('#caja'+idPost).addClass("visible");				
+				$('#caja'+idPost).html(xhr.responseText);	
+			}
+			else{
+				$('#caja'+idPost).removeClass("visible");
+				$('#caja'+idPost).addClass("oculto");				
+			}
+			
 		}
 	}
 	xhr.open('POST', 'Helpers/cargadorComentarios.php', true);

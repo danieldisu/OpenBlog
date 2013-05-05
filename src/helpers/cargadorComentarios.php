@@ -3,8 +3,17 @@
 	$idPost = $_REQUEST['idPost'];
 	$mbd = new ManejadorBD();
 	$comentarios = $mbd->obtenerUltimosComentarios($idPost);
-	foreach ($comentarios as $comentario) {
-		echo '<li>Por: <a href="#">'.$comentario['nombre'].'</a><br/>'.$comentario['texto'].'</li>';
+	if(!empty($comentarios)){
+		foreach ($comentarios as $comentario) {
+		echo '<div class="comentario"><span class="autorComentario">'.$comentario['nombre'].'</span>'.
+		'  <span class="fechaComentario">'.$comentario['fecha'].
+		'</span> <br/>'.$comentario['texto'].
+		'<br/><a href="#">Responder...</a></div>';
 	}
-		echo '<a href"#">Ver más comentarios...</a>';
+		echo '<br/><a href"#">Ver más comentarios...</a>';
+	}
+	else{
+		echo '<br/><a href"#">¡Se el primero en comentar!</a>';	
+	}
+	
 ?>

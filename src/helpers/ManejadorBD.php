@@ -537,6 +537,12 @@ class ManejadorBD {
 				}
 		}
 		
+		public function getComentariosUsuario($idUsuario){
+			$conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			// TODO
+		}
+
 		public function obtenerUltimosComentarios(){
 				//Función encargada de obtener los ultimos 5 comentarios, para mostrarlos en la página inicial
 				try{
