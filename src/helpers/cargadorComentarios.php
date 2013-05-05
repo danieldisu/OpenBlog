@@ -1,11 +1,10 @@
 <?php
-	namespace src\helpers;
+	include '../../autoloader.php';
 	
 	use src\helpers\ManejadorBD;
 	
 	$idPost = $_REQUEST['idPost']; 
-	echo 'Aqui iran los comentarios del post numero '.$idPost;
-	$m = new ManejadorBD();	
+	$m = new ManejadorBD();
 	$comentarios = $m->obtenerUltimosComentarios($idPost);
 	if(!empty($comentarios)){
 		foreach ($comentarios as $comentario) {

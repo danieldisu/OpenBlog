@@ -548,18 +548,20 @@ class ManejadorBD {
                 FROM ob_comentario c, ob_usuario u 
                 WHERE c.idUsuario = u.id 
                 ORDER BY c.fecha DESC 
-                LIMIT 5"
+                LIMIT 5;"
             ;
             }
             else{
+
                 $idPost = func_get_arg(0);
+
                 $sql = "
                 SELECT u.nombre, c.texto, c.fecha 
                 FROM ob_comentario c, ob_usuario u 
                 WHERE c.idUsuario = u.id
                 AND c.idPost = ".$idPost."
                 ORDER BY c.fecha DESC 
-                LIMIT 5"
+                LIMIT 5;"
             ;   
             }
             $sentencia = $conn->prepare($sql);
