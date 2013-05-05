@@ -193,7 +193,7 @@ class ManejadorBD {
 						 catch(PDOException $e) {
 								echo 'ERROR: '.$e->getMessage();
 						 }
-				}
+				}	
 				else {
 						//Mandar a la pagina de error
 				}
