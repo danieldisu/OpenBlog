@@ -38,19 +38,10 @@
 		<div class="row main">
 			<div class="span9 contenido">
 				<?php
-
-					$posts = $mbd->getPostPagina($pagina);
-					foreach ($posts as $post){
-						include "src/templates/plantillaPost.php";
-					}
+					$idPost = $_REQUEST['id'];
+					$post = $mbd->getPost($idPost);
+					include "src/templates/plantillaPost.php";
 				?>
-
-			<div class="span9 contenido">
-				<?php
-					$paginador = new Paginador();
-					$paginador->mostrarLinks();
-				?>
-			</div>
 									
 		</div>
 		<div class="span3 sidebar">

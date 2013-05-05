@@ -1,5 +1,4 @@
 /* --- Parte menu administrador --- */
-
 $(document).ready(function(){
 	$('.btn.admin').on('click',function(e){
 		e.preventDefault();
@@ -35,7 +34,7 @@ $(document).ready(function(){
 	*/
 	$('.btnComentarios').on('click', function(e){
 		e.preventDefault();
-		var idPost = e.srcElement.id; //Saca el id mediante un atributo del eventObject
+		var idPost = $(this).attr('id');
 		if (window.XMLHttpRequest){
 			xhr = new XMLHttpRequest();
 		}else if (window.ActiveXObject) {
@@ -49,7 +48,7 @@ function enviarPeticionAJAX(idPost) {
 	var idPost = idPost;
 	xhr.onreadystatechange = function(){
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			
+
 			if($('#caja'+idPost).attr("class") == "cajaComentarios oculto"){
 				$('#caja'+idPost).removeClass("oculto");
 				$('#caja'+idPost).addClass("visible");				
@@ -62,7 +61,7 @@ function enviarPeticionAJAX(idPost) {
 			
 		}
 	}
-	xhr.open('POST', 'Helpers/cargadorComentarios.php', true);
+	xhr.open('POST', 'src/helpers/cargadorComentarios.php', true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	xhr.send('idPost='+idPost);				
 }

@@ -193,7 +193,7 @@ class ManejadorBD {
 						 catch(PDOException $e) {
 								echo 'ERROR: '.$e->getMessage();
 						 }
-				}
+				}	
 				else {
 						//Mandar a la pagina de error
 				}
@@ -544,45 +544,47 @@ class ManejadorBD {
 		}
 
 		public function obtenerUltimosComentarios(){
-				//Función encargada de obtener los ultimos 5 comentarios, para mostrarlos en la página inicial
-				try{
-						$conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
-						$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-						$comentarios = array();
-						if(func_num_args() == 0){
-								$sql = "
-								SELECT u.nombre, c.texto 
-								FROM ob_comentario c, ob_usuario u 
-								WHERE c.idUsuario = u.id 
-								ORDER BY c.fecha DESC 
-								LIMIT 5;"
-						;
-						}
-						else{
-								$idPost = func_get_arg(0);
-								$sql = "
-								SELECT u.nombre, c.texto 
-								FROM ob_comentario c, ob_usuario u 
-								WHERE c.idUsuario = u.id
-								AND c.idPost = ".$idPost."
-								ORDER BY c.fecha DESC 
-								LIMIT 5;"
-						;   
-						}
-						$sentencia = $conn->prepare($sql);
-						$sentencia->execute();
-						while ($fila = $sentencia->fetch(PDO::FETCH_ASSOC)) {
-								array_push($comentarios, $fila);
-						}
-						
-						$conn = null;
-						
-						return $comentarios;
-				}
-				catch(PDOException $e){
-						echo 'ERROR: '.$e->getMessage();   
-				}
-		}
+        //Función encargada de obtener los ultimos 5 comentarios, para mostrarlos en la página inicial
+        try{
+            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $comentarios = array();
+            if(func_num_args() == 0){
+                $sql = "
+                SELECT u.nombre, c.texto, c.fecha 
+                FROM ob_comentario c, ob_usuario u 
+                WHERE c.idUsuario = u.id 
+                ORDER BY c.fecha DESC 
+                LIMIT 5;"
+            ;
+            }
+            else{
+
+                $idPost = func_get_arg(0);
+
+                $sql = "
+                SELECT u.nombre, c.texto, c.fecha 
+                FROM ob_comentario c, ob_usuario u 
+                WHERE c.idUsuario = u.id
+                AND c.idPost = ".$idPost."
+                ORDER BY c.fecha DESC 
+                LIMIT 5;"
+            ;   
+            }
+            $sentencia = $conn->prepare($sql);
+            $sentencia->execute();
+            while ($fila = $sentencia->fetch(PDO::FETCH_ASSOC)) {
+                array_push($comentarios, $fila);
+            }
+            
+            $conn = null;
+            
+            return $comentarios;
+        }
+        catch(PDOException $e){
+            echo 'ERROR: '.$e->getMessage();   
+        }
+    }
 		//ROL
 		public function createRol(Rol $rol){
 				try {

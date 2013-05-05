@@ -24,10 +24,11 @@ class ManejadorConfig {
         $ruta = "";
         $dir =  __DIR__;
 
-        $dirArray = explode( "/", $dir);
+        $dirArray = explode( "\\", $dir);
 
         $i = 1;
-        while($dirArray[$i] != "src" && $i < sizeof($dirArray)){
+
+        while($dirArray[$i] != 'src' && $i < sizeof($dirArray)){
             $ruta= $ruta . "/". $dirArray[$i];
             $i++;
         }                         
