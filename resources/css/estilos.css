@@ -122,11 +122,11 @@ h3{
 .cajaComentarios {
 height: 0;
 }
-.cajaComentarios.oculto{
+.oculto{
 height: 0;
 overflow: hidden;
 }
-.cajaComentarios.visible{
+.visible{
 transition: height 2s linear;
 -o-transition: height 2s linear;
 -moz-transition: height 2s linear;
@@ -134,6 +134,17 @@ transition: height 2s linear;
 -ms-transition: height 2s linear;
 height: auto;
 overflow: hidden;
+}
+.cajaNuevoComentario{
+   height: 200;
+}
+.cajaNuevoComentario textarea{
+   width:98%;
+   height:200px;
+}
+
+.cajaNuevoComentario .btn{
+   float:right;
 }
 
 .comentario{

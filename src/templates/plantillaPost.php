@@ -26,9 +26,22 @@
       <button class="btn btnComentarios" id="<?php echo $post->getId() ?>">Ver Comentarios</button>
     </div>
     <div class="cajaEscribirComentarios span3 offset1">
-      <button class="btn">Escribir Comentario</button>
+      <button class="btn botonNuevoComentario" id="<?php echo $post->getId() ?>">Escribir Comentario</button>
     </div>
   </div>
   <div class="cajaComentarios oculto" id="caja<?php echo $post->getId() ?>">
+  </div>
+  <div class="cajaNuevoComentario oculto" id="cajaNuevoComentario<?php echo $post->getId() ?>">
+    <?php # IF LOGGED IN?>
+    <form>
+      <h3>Escribe tu comentario:</h3>
+      <input type="hidden" id="idPost" value="<?php echo $post->getId() ?>">
+      <label>Autor</label><input type="text" id="autor" value="1" disabled="disabled">
+      <label>Texto</label>
+      <textarea></textarea>
+      <button class="btn botonEnviarComentario" id="botonEnviarComentario<?php echo $post->getId() ?>">Enviar!</button>
+    </form>
+    <?php # IF NOT LOGGED ?>
+    <h4>Ha de estar logeado para poder escribir nuevos comentarios</h4>
   </div>
 </div>

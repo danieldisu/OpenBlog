@@ -1,17 +1,14 @@
-<?
-	/* Pagina a la que enviará el formulario de agregar un nuevo comentario, recibirá los siguientes parametros que son necesarios para agregar un nuevo comentario en el sistema.
-	Recibe por el metodo Post:
-	- autor
-	- idPost
-	- textoComentario
-	*/
-	require_once("autoloader.php");
+<?php
+	include "autoloader.php";
+
 	use src\helpers\Validador;
 	use src\helpers\ManejadorBD;
 	use src\entidades\Comentario;
 	use src\helpers\Header;
 
 	Header::cargarJSON();
+
+	print_r($_POST);
 
 	if(isset($_POST['autor']) && isset($_POST['idPost']) && isset($_POST['textoComentario']) ){
 		$autor = $_POST['autor'];
@@ -26,7 +23,7 @@
 			$now = date("Y-m-d H:i:s");
 			$comentario = new Comentario(null, $textoComentario, $now, $autor, $idPost);
 
-			//Comprobar que no se haya insertado el comentario antes
+			//Comprobar que no se haya insertado el comentario antes NO HACE FALTA
 			insertarComentario($comentario);
 			mostrarMensajeExito();
 		}
@@ -40,34 +37,13 @@
 	function mostrarError($error){
 		echo $error;
 	}
-
-	/*
-	*	Funcion que averigua si el comentario a insertar está ya en la base de datos, de momento solo tiene en cuenta que el usuario no haya escrito un post con el mismo texto
-	*/
-	function comentarioRepetido($comentario, $comentarios){
-		$comentarioRepetido = false;
-		foreach ($comentarios as $coment) {
-			if(($coment->getIdUsuario() == $comentario->getIdUsuario()) && $coment->getTexto() == $comentario->getTexto()){
-				$comentarioRepetido = true;
-			}
-		}
-
-		return $comentarioRepetido;
-	}
-
+	
 	/*
 		Implementar la funcion que saque los ultimos comentarios de un usuario en un post para saber si está repetido el comentario
 	*/
 	function insertarComentario($comentario){
 			$bd = new ManejadorBD(Header::$json);
-
-			$comentarios = $bd->obtenerUltimosComentarios($comentario->getIdPost());
-			
-			if(!comentarioRepetido($comentario, $comentarios)){
-				$bd->createComentario($comentario);
-			}else{
-				mostrarError("Comentario duplicado");
-			}
+			$bd->createComentario($comentario);
 	}
 
 	function mostrarMensajeExito(){
