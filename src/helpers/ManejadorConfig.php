@@ -19,12 +19,12 @@ class ManejadorConfig {
 
     /*
     *   Funcion que averigua la ruta del config basada en la ruta de este archivo
+    *   BUG en el EXPLODE en WINDOWS la ruta se corta con \ y en linux con /
     */
     public function getRutaConfig(){
         $ruta = "";
         $dir =  __DIR__;
-
-        $dirArray = explode( "\\", $dir);
+        $dirArray = explode( DIRECTORY_SEPARATOR, $dir);
 
         $i = 1;
 
