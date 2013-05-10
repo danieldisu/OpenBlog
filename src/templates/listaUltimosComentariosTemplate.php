@@ -1,3 +1,10 @@
 <?php
-echo '<li>Por: <a href="#">'.$comentario['nombre'].'</a><br/>'.$comentario['texto'].'</li>';
+	
+use src\helpers\ManejadorBD;
+	
+$m = new ManejadorBD();
+
+$usuario = $m->getUsuario($comentario->getId());
+$userName = $usuario->getNombre();
+echo '<li>Por: <a href="#">'.$userName.'</a><br/>'.$comentario->getTexto().'</li>';
 ?>

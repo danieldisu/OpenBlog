@@ -536,13 +536,6 @@ class ManejadorBD {
 					 echo 'ERROR: '.$e->getMessage();
 				}
 		}
-		
-		public function getComentariosUsuario($idUsuario){
-			$conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
-			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			// TODO
-		}
-
 		public function obtenerUltimosComentarios(){
         //Función encargada de obtener los ultimos 5 comentarios, para mostrarlos en la página inicial
         try{
@@ -551,7 +544,7 @@ class ManejadorBD {
             $comentarios = array();
             if(func_num_args() == 0){
                 $sql = "
-                SELECT u.nombre, c.texto, c.fecha 
+                SELECT c.idUsuario, c.texto, c.fecha 
                 FROM ob_comentario c, ob_usuario u 
                 WHERE c.idUsuario = u.id 
                 ORDER BY c.fecha DESC 
@@ -563,7 +556,7 @@ class ManejadorBD {
                 $idPost = func_get_arg(0);
 
                 $sql = "
-                SELECT u.nombre, c.texto, c.fecha 
+                SELECT c.idUsuario, c.texto, c.fecha 
                 FROM ob_comentario c, ob_usuario u 
                 WHERE c.idUsuario = u.id
                 AND c.idPost = ".$idPost."
@@ -573,8 +566,15 @@ class ManejadorBD {
             }
             $sentencia = $conn->prepare($sql);
             $sentencia->execute();
-            while ($fila = $sentencia->fetch(PDO::FETCH_ASSOC)) {
-                array_push($comentarios, $fila);
+            while ($fila = $sentencia->fetch()) {
+                $comentario = new comentario(0,"",0,0,0);
+
+				$comentario->setId($fila["idUsuario"]);
+				$comentario->setTexto($fila["texto"]);
+				$comentario->setFecha($fila["fecha"]);
+				$comentario->setIdUsuario($fila["idUsuario"]);
+				$comentario->setIdPost($fila["idPost"]);
+				array_push($comentarios, $comentario);
             }
             
             $conn = null;
