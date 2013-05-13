@@ -11,15 +11,8 @@ class Post {
     private $fechaModificacion;
     private $modificaciones;
     
-    public function __construct($id, $idUsuario, $idCategoria, $titulo, $texto, $fechaCreacion, $fechaModificacion, $modificaciones) {
-        $this->id = $id;
-        $this->idUsuario = $idUsuario;
-        $this->idCategoria = $idCategoria;
-        $this->titulo = $titulo;
-        $this->texto = $texto;
-        $this->fechaCreacion = $fechaCreacion;
-        $this->fechaModificacion = $fechaModificacion;
-        $this->modificaciones = $modificaciones;
+    public function __construct($id = 0, $idUsuario = null, $idCategoria = 0, $titulo = null, $texto = null, $fechaCreacion = null, $fechaModificacion = null, $modificaciones = 0) {
+
     }
     
     public function getId(){
