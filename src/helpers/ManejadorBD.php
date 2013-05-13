@@ -155,6 +155,44 @@ class ManejadorBD {
 						echo 'ERROR: '.$e->getMessage();
 				 }
 		}
+		public function getPostsCategoria($idCategoria){
+			try {
+					$posts = array();
+					$conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+					$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+					
+					$sql = "
+							SELECT * 
+							FROM ob_post 
+							WHERE idCategoria = ".$idCategoria
+					;
+					$sentencia = $conn->prepare($sql);
+					
+					$sentencia->execute();
+					while($fila = $sentencia->fetch()){
+
+							$post = new Post(0,0,0,"","","","",0);
+
+							$post->setId($fila["id"]);
+							$post->setIdUsuario($fila["idUsuario"]);
+							$post->setIdCategoria($fila["idCategoria"]);
+							$post->setTitulo($fila["titulo"]);
+							$post->setTexto($fila["texto"]);
+							$post->setFechaCreacion($fila["fechaCreacion"]);
+							$post->setFechaModificacion($fila["fechaModificacion"]);
+							$post->setModificaciones($fila["modificaciones"]);
+							
+							array_push($posts, $post);
+					}
+					
+					$conn = null;
+
+					return $posts;
+			 }
+			 catch(PDOException $e) {
+					echo 'ERROR: '.$e->getMessage();
+			 }			
+		}
 
 		public function obtenerUltimosPost($inicio = 0, $numPost = 5){
 				if($inicio >= 0){
@@ -536,6 +574,7 @@ class ManejadorBD {
 					 echo 'ERROR: '.$e->getMessage();
 				}
 		}
+                 // @todo corregir errores en esta funcion
 		public function obtenerUltimosComentarios(){
         //Función encargada de obtener los ultimos 5 comentarios, para mostrarlos en la página inicial
         try{
@@ -568,7 +607,7 @@ class ManejadorBD {
             $sentencia->execute();
             while ($fila = $sentencia->fetch()) {
                 $comentario = new comentario(0,"",0,0,0);
-
+                
 				$comentario->setId($fila["idUsuario"]);
 				$comentario->setTexto($fila["texto"]);
 				$comentario->setFecha($fila["fecha"]);
