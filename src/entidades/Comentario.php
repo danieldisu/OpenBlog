@@ -8,12 +8,8 @@ class Comentario {
     private $idUsuario;
     private $idPost;
     
-    public function __construct($id, $texto, $fecha, $idUsuario, $idPost) {
-        $this->id = $id;
-        $this->texto = $texto;
-        $this->fecha = $fecha;
-        $this->idUsuario = $idUsuario;
-        $this->idPost = $idPost;
+    public function __construct() {
+
     }
     
     public function getId(){

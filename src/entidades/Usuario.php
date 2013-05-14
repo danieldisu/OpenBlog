@@ -8,12 +8,7 @@ class Usuario {
     private $mail;
     private $idRol;
     
-    public function __construct($id, $nombre, $pass, $mail, $idRol) {
-        $this->id = $id;
-        $this->nombre = $nombre;
-        $this->pass = $pass;
-        $this->mail = $mail;
-        $this->idRol = $idRol;
+    public function __construct() {
     }
     
     public function getId(){

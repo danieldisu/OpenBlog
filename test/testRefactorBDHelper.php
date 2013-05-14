@@ -10,9 +10,8 @@
 	
 	//print_r($post);
 	
-	$posts = $mbd->getAllPosts();
 	
 	echo '<pre>';
-	print_r($posts);
+	print_r($post->getId());
 	echo '</pre>';
 ?>

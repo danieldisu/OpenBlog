@@ -16,9 +16,8 @@ class ManejadorBD {
   protected $password;
   protected $bd;
   protected $numPost;
-
   private $db;
-  
+
   public function __construct($config = null) {
 	// Si al instanciar el PDO le pasamos la configuracion, buscará los datos de conexion en dicha configuracion, si no cogerá la configuracion por defecto que es la siguiente: 
 	if (!isset($config)) {
@@ -34,65 +33,42 @@ class ManejadorBD {
 	  $this->bd = $config['nombreBd'];
 	  $this->numPost = $config['numPost'];
 	}
-	
+
 	$this->db = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
 	$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   }
 
-  private function connect() {
-	$connection = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	//
-	return $connection;
-  }
-  
   //POST
   public function createPost(Post $post) {
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	  $sql = "
+	$sql = "
 								INSERT INTO ob_post (idUsuario, idCategoria, titulo, texto, fechaCreacion, fechaModificacion, modificaciones) 
 								VALUES (:idUsuario, :idCategoria, :titulo, :texto, :fechaCreacion, :fechaModificacion, :modificaciones)
 						";
-	  $sentencia = $conn->prepare($sql);
-
-	  $idUsuario = $post->getIdUsuario();
-	  $idCategoria = $post->getIdCategoria();
-	  $titulo = $post->getTitulo();
-	  $texto = $post->getTexto();
-	  $fechaCreacion = $post->getFechaCreacion();
-	  $fechaModificacion = $post->getFechaModificacion();
-	  $modificaciones = $post->getModificaciones();
-
-	  $sentencia->bindParam(":idUsuario", $idUsuario);
-	  $sentencia->bindParam(":idCategoria", $idCategoria);
-	  $sentencia->bindParam(":titulo", $titulo);
-	  $sentencia->bindParam(":texto", $texto);
-	  $sentencia->bindParam(":fechaCreacion", $fechaCreacion);
-	  $sentencia->bindParam(":fechaModificacion", $fechaModificacion);
-	  $sentencia->bindParam(":modificaciones", $modificaciones);
-	  $sentencia->execute();
-
-	  $conn = null;
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
+	$sth = $this->db->prepare($sql);
+	$sth->bindParam(":idUsuario", $post->getIdUsuario());
+	$sth->bindParam(":idCategoria", $post->getIdCategoria());
+	$sth->bindParam(":titulo", $post->getTitulo());
+	$sth->bindParam(":texto", $post->getTexto());
+	$sth->bindParam(":fechaCreacion", $post->getFechaCreacion());
+	$sth->bindParam(":fechaModificacion", $post->getFechaModificacion());
+	$sth->bindParam(":modificaciones", $post->getModificaciones());
+	return $sth->execute();
   }
-  
-  public function getPost($id){
+
+  public function getPost($id) {
 	$sql = "
 								SELECT * 
 								FROM ob_post 
-								WHERE id = " . $id
-	  ;
+								WHERE id = :id"
+	;
 	$sth = $this->db->prepare($sql);
+	$sth->bindParam(':id', $id);
 	$sth->execute();
-	$post = $sth->fetchAll(PDO::FETCH_CLASS, 'src\entidades\Post');
+	$post = $sth->fetchObject('src\entidades\Post');
 	return $post;
   }
-  
-  public function getAllPosts(){
+
+  public function getAllPosts() {
 	$sql = "
 								SELECT * 
 								FROM ob_post 
@@ -102,172 +78,77 @@ class ManejadorBD {
 	$sth->execute();
 	$posts = $sth->fetchAll(PDO::FETCH_CLASS, 'src\entidades\Post');
 	return $posts;
-  }  
-  
-  public function OLD_getPost($id) {
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	  $sql = "
-								SELECT * 
-								FROM ob_post 
-								WHERE id = " . $id
-	  ;
-	  $sentencia = $conn->prepare($sql);
-	  $sentencia->execute();
-	  $fila = $sentencia->fetch();
-
-	  $post = new Post(0, 0, 0, "", "", "", "", 0);
-
-	  $post->setId($fila["id"]);
-	  $post->setIdUsuario($fila["idUsuario"]);
-	  $post->setIdCategoria($fila["idCategoria"]);
-	  $post->setTitulo($fila["titulo"]);
-	  $post->setTexto($fila["texto"]);
-	  $post->setFechaCreacion($fila["fechaCreacion"]);
-	  $post->setFechaModificacion($fila["fechaModificacion"]);
-	  $post->setModificaciones($fila["modificaciones"]);
-
-	  $conn = null;
-
-	  return $post;
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
   }
 
   public function updatePost($id, Post $post) {
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	  $sql = "
+	$sql = "
 								UPDATE ob_post
 								SET idUsuario = :idUsuario, idCategoria = :idCategoria, titulo = :titulo, texto = :texto, fechaCreacion = :fechaCreacion, fechaModificacion = :fechaModificacion, modificaciones = :modificaciones
 								WHERE id = " . $id
-	  ;
-	  $sentencia = $conn->prepare($sql);
+	;
+	$sentencia = $this->db->prepare($sql);
 
-	  $idUsuario = $post->getIdUsuario();
-	  $idCategoria = $post->getIdCategoria();
-	  $titulo = $post->getTitulo();
-	  $texto = $post->getTexto();
-	  $fechaCreacion = $post->getFechaCreacion();
-	  $fechaModificacion = $post->getFechaModificacion();
-	  $modificaciones = $post->getModificaciones();
+	$idUsuario = $post->getIdUsuario();
+	$idCategoria = $post->getIdCategoria();
+	$titulo = $post->getTitulo();
+	$texto = $post->getTexto();
+	$fechaCreacion = $post->getFechaCreacion();
+	$fechaModificacion = $post->getFechaModificacion();
+	$modificaciones = $post->getModificaciones();
 
-	  $sentencia->bindParam(":idUsuario", $idUsuario);
-	  $sentencia->bindParam(":idCategoria", $idCategoria);
-	  $sentencia->bindParam(":titulo", $titulo);
-	  $sentencia->bindParam(":texto", $texto);
-	  $sentencia->bindParam(":fechaCreacion", $fechaCreacion);
-	  $sentencia->bindParam(":fechaModificacion", $fechaModificacion);
-	  $sentencia->bindParam(":modificaciones", $modificaciones);
+	$sentencia->bindParam(":idUsuario", $idUsuario);
+	$sentencia->bindParam(":idCategoria", $idCategoria);
+	$sentencia->bindParam(":titulo", $titulo);
+	$sentencia->bindParam(":texto", $texto);
+	$sentencia->bindParam(":fechaCreacion", $fechaCreacion);
+	$sentencia->bindParam(":fechaModificacion", $fechaModificacion);
+	$sentencia->bindParam(":modificaciones", $modificaciones);
 
-	  $sentencia->execute();
-
-	  $conn = null;
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
+	return $sentencia->execute();
   }
 
   public function deletePost($id) {
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	  $sql = "
+	$sql = "
 								DELETE FROM ob_post
-								WHERE id=" . $id
-	  ;
-	  $sentencia = $conn->prepare($sql);
-	  $sentencia->execute();
-
-	  $conn = null;
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
+								WHERE id= :id ;"
+	;
+	$sentencia = $this->db->prepare($sql);
+	$sentencia->bindValue(':id', $id);
+	return $sentencia->execute();
   }
 
   public function getPostsCategoria($idCategoria) {
-	try {
-	  $posts = array();
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-	  $sql = "
+	$sql = "
 							SELECT * 
 							FROM ob_post 
-							WHERE idCategoria = " . $idCategoria
-	  ;
-	  $sentencia = $conn->prepare($sql);
+							WHERE idCategoria = :idCategoria ;"
+	;
+	$sth = $this->db->prepare($sql);
+	$sth->bindValue(':idCategoria', $idCategoria);
 
-	  $sentencia->execute();
-	  while ($fila = $sentencia->fetch()) {
+	$sth->execute();
 
-		$post = new Post(0, 0, 0, "", "", "", "", 0);
+	$posts = $sth->fetchAll(PDO::FETCH_CLASS, 'src\entidades\Post');
 
-		$post->setId($fila["id"]);
-		$post->setIdUsuario($fila["idUsuario"]);
-		$post->setIdCategoria($fila["idCategoria"]);
-		$post->setTitulo($fila["titulo"]);
-		$post->setTexto($fila["texto"]);
-		$post->setFechaCreacion($fila["fechaCreacion"]);
-		$post->setFechaModificacion($fila["fechaModificacion"]);
-		$post->setModificaciones($fila["modificaciones"]);
-
-		array_push($posts, $post);
-	  }
-
-	  $conn = null;
-
-	  return $posts;
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
+	return $posts;
   }
 
   public function obtenerUltimosPost($inicio = 0, $numPost = 5) {
-	if ($inicio >= 0) {
-	  try {
-		$conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-		$posts = array();
-		$sql = "
+	$sql = "
 										SELECT * 
 										FROM ob_post 
-										LIMIT " . $inicio . "," . $numPost
-		;
-		$sentencia = $conn->prepare($sql);
+										LIMIT :inicio , :numPost ;"
+	;
+	$sth = $this->db->prepare($sql);
+	$sth->bindValue(':inicio', (int) $inicio, PDO::PARAM_INT);
+	$sth->bindValue(':numPost', (int) $numPost, PDO::PARAM_INT);
 
-		$sentencia->execute();
-		while ($fila = $sentencia->fetch()) {
-		  $post = new Post(0, 0, 0, "", "", "", "", 0);
+	$sth->execute();
 
-		  $post->setId($fila["id"]);
-		  $post->setIdUsuario($fila["idUsuario"]);
-		  $post->setIdCategoria($fila["idCategoria"]);
-		  $post->setTitulo($fila["titulo"]);
-		  $post->setTexto($fila["texto"]);
-		  $post->setFechaCreacion($fila["fechaCreacion"]);
-		  $post->setFechaModificacion($fila["fechaModificacion"]);
-		  $post->setModificaciones($fila["modificaciones"]);
+	$posts = $sth->fetchAll(PDO::FETCH_CLASS, 'src\entidades\Post');
 
-		  array_push($posts, $post);
-		}
-
-		$conn = null;
-
-		return $posts;
-	  } catch (PDOException $e) {
-		echo 'ERROR: ' . $e->getMessage();
-	  }
-	} else {
-	  //Mandar a la pagina de error
-	}
+	return $posts;
   }
 
   /*
@@ -277,7 +158,7 @@ class ManejadorBD {
   public function getPostPagina($pagina) {
 	$total = $this->getNumeroTotalPosts();
 
-	$postYaMostrados = $pagina * $this->numPost;	//Hayamos el numero de post que han sido mostrados
+	$postYaMostrados = $pagina * $this->numPost; //Hayamos el numero de post que han sido mostrados
 	//Si el numero de post que ya han sido mostrados ( contando que mostrasemos esta página ) es mayor que el total
 	//significa que es la ultima página y vemos cuantos post quedan por mostrar
 	if ($postYaMostrados > $total) {
@@ -286,597 +167,347 @@ class ManejadorBD {
 	// El primer post a mostrar de la página actual ( en realidad es el ultimo de la anterior, pero asi es como funciona el limit )
 	$primerPostPagina = $total - $postYaMostrados;
 
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-	  $posts = array();
-
-	  //si existe la variable significa que estamos en la ultima pagina y solo vamos a mostrar los post que quedan por mostrar
-	  if (isset($postUltimaPagina)) {
-		$sql = "
+	//si existe la variable significa que estamos en la ultima pagina y solo vamos a mostrar los post que quedan por mostrar
+	if (isset($postUltimaPagina)) {
+	  $sql = "
 										SELECT * 
 										FROM ob_post 
-										LIMIT 0," . $postUltimaPagina
-		;
-	  } else {
-		$sql = "
+										LIMIT 0, :postUltimaPagina"
+	  ;
+	  $sth = $this->db->prepare($sql);
+	  $sth->bindValuei(':postUltimaPagina', (int) $postUltimaPagina, PDO::PARAM_INT);	  
+	} else {
+	  $sql = "
 										SELECT * 
-										FROM ob_post 
-										LIMIT " . $primerPostPagina . "," . $this->numPost
-		;
-	  }
-
-
-	  $sentencia = $conn->prepare($sql);
-
-	  $sentencia->execute();
-	  while ($fila = $sentencia->fetch()) {
-		$post = new Post(0, 0, 0, "", "", "", "", 0);
-
-		$post->setId($fila["id"]);
-		$post->setIdUsuario($fila["idUsuario"]);
-		$post->setIdCategoria($fila["idCategoria"]);
-		$post->setTitulo($fila["titulo"]);
-		$post->setTexto($fila["texto"]);
-		$post->setFechaCreacion($fila["fechaCreacion"]);
-		$post->setFechaModificacion($fila["fechaModificacion"]);
-		$post->setModificaciones($fila["modificaciones"]);
-
-		array_push($posts, $post);
-	  }
-
-	  $conn = null;
-	  // Invertimos el array antes de pasarselo al template, de manera que se muestren del mas nuevo al mas antiguo, esto NO se puede hacer por ORDER BY ** CREO **
-	  $posts = array_reverse($posts, true);
-	  return $posts;
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
+										FROM ob_post
+										LIMIT :primerPostPagina , :numPost ;"
+	  ;
+	  $sth = $this->db->prepare($sql);
+	  //  Hay que hacer casting a INT y indicarle que le pasas un Integer ya que sino da error la sentencia SQL
+	  $sth->bindValue(':primerPostPagina', (int) $primerPostPagina, PDO::PARAM_INT);
+	  $sth->bindValue(':numPost', (int) $this->numPost, PDO::PARAM_INT);	  
 	}
+	$sth->execute();
+
+	$postsPagina = $sth->fetchAll(PDO::FETCH_CLASS, 'src\entidades\Post');
+
+
+	$postsPaginaOrdenados = array_reverse($postsPagina, true);
+
+	return $postsPaginaOrdenados;
   }
 
   public function getNumeroTotalPosts() {
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	  $sql = "SELECT count(*) as numTotalPosts FROM ob_post;";
-	  $sentencia = $conn->prepare($sql);
-	  $sentencia->execute();
-	  $fila = $sentencia->fetch();
-	  $conn = null;
+	$sql = "SELECT count(*) as numTotalPosts FROM ob_post;";
+	$sentencia = $this->db->prepare($sql);
+	$sentencia->execute();
+	$totalPost = $sentencia->fetchColumn(0);
 
-	  return $fila['numTotalPosts'];
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
+	return $totalPost;
   }
 
-  //CATEGORIA
-  public function createCategoria(Categoria $categoria) {
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  /*
+   * CATEGORIA
+   */
 
-	  $sql = "
+  public function createCategoria(Categoria $categoria) {
+	$sql = "
 								INSERT INTO ob_categoria (nombre, descripcion) 
 								VALUES (:nombre, :descripcion)
 						";
-	  $sentencia = $conn->prepare($sql);
+	$sentencia = $this->db->prepare($sql);
 
-	  $nombre = $categoria->getNombre();
-	  $descripcion = $categoria->getDescripcion();
+	$nombre = $categoria->getNombre();
+	$descripcion = $categoria->getDescripcion();
 
-	  $sentencia->bindParam(":nombre", $nombre);
-	  $sentencia->bindParam(":descripcion", $descripcion);
-	  $sentencia->execute();
-
-	  //Cierra la conexion (no existe metodo close() en pdo)
-	  $conn = null;
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
+	$sentencia->bindParam(":nombre", $nombre);
+	$sentencia->bindParam(":descripcion", $descripcion);
+	return $sentencia->execute();
   }
 
   public function getCategoria($id) {
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-	  $sql = "
+	$sql = "
 								SELECT * 
 								FROM ob_categoria 
-								WHERE id = " . $id
-	  ;
-	  $sentencia = $conn->prepare($sql);
-	  $sentencia->execute();
-	  $fila = $sentencia->fetch();
+								WHERE id = :id"
+	;
+	$sth = $this->db->prepare($sql);
+	$sth->bindParam(":id", $id);
+	$sth->execute();
+	$categoria = $sth->fetchAll(PDO::FETCH_CLASS, 'src\entidades\Categoria');
 
-	  $categoria = new Categoria(0, "", "");
-
-	  $categoria->setId($fila["id"]);
-	  $categoria->setNombre($fila["nombre"]);
-	  $categoria->setDescripcion($fila["descripcion"]);
-
-	  $conn = null;
-
-	  return $categoria;
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
+	return $categoria;
   }
 
   public function updateCategoria($id, Categoria $categoria) {
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	  $sql = "
+	$sql = "
 								UPDATE ob_categoria
 								SET nombre = :nombre, descripcion = :descripcion
-								WHERE id = " . $id
-	  ;
-	  $sentencia = $conn->prepare($sql);
+								WHERE id = :id"
+	;
+	$sentencia = $this->db->prepare($sql);
 
-	  $nombre = $categoria->getNombre();
-	  $descripcion = $categoria->getDescripcion();
+	$nombre = $categoria->getNombre();
+	$descripcion = $categoria->getDescripcion();
+	
+	$sentencia->bindParam(':id', $id);
+	$sentencia->bindParam(":nombre", $nombre);
+	$sentencia->bindParam(":descripcion", $descripcion);
 
-	  $sentencia->bindParam(":nombre", $nombre);
-	  $sentencia->bindParam(":descripcion", $descripcion);
-
-	  $sentencia->execute();
-
-	  $conn = null;
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
+	return $sentencia->execute();
   }
 
   public function deleteCategoria($id) {
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	  $sql = "
+	$sql = "
 								DELETE FROM ob_categoria
-								WHERE id=" . $id
-	  ;
-	  $sentencia = $conn->prepare($sql);
-	  $sentencia->execute();
-
-	  $conn = null;
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
+								WHERE id= :id"
+	;
+	$sentencia = $this->db->prepare($sql);
+	$sentencia->bindParam(':id', $id);
+	return $sentencia->execute();
   }
 
   public function obtenerNombreCategoria($id) {
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	  $sql = "
+	$sql = "
 								SELECT nombre 
 								FROM ob_categoria 
 								WHERE id = :id"
-	  ;
-	  $sentencia = $conn->prepare($sql);
-	  $sentencia->bindParam(":id", $id);
-	  $sentencia->execute();
-	  $fila = $sentencia->fetch();
+	;
+	$sentencia = $this->db->prepare($sql);
+	$sentencia->bindParam(":id", $id);
+	$sentencia->execute();
+	$nombreCategoria = $sentencia->fetchColumn(0);
 
-	  $conn = null;
-
-	  return $fila["nombre"];
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
+	return $nombreCategoria;
   }
 
-  //COMENTARIO
-  public function createComentario(Comentario $comentario) {
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  /*
+   * COMENTARIO
+   */
 
-	  $sql = "
+  public function createComentario(Comentario $comentario) {
+	$sql = "
 								INSERT INTO ob_comentario (texto, fecha, idUsuario, idPost) 
 								VALUES (:texto, :fecha, :idUsuario, :idPost)
 						";
-	  $sentencia = $conn->prepare($sql);
+	$sentencia = $this->db->prepare($sql);
 
-	  $texto = $comentario->getTexto();
-	  $fecha = $comentario->getFecha();
-	  $idUsuario = $comentario->getIdUsuario();
-	  $idPost = $comentario->getIdPost();
-
-	  $sentencia->bindParam(":texto", $texto);
-	  $sentencia->bindParam(":fecha", $fecha);
-	  $sentencia->bindParam(":idUsuario", $idUsuario);
-	  $sentencia->bindParam(":idPost", $idPost);
-	  $sentencia->execute();
-
-	  //Cierra la conexion (no existe metodo close() en pdo)
-	  $conn = null;
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
+	$sentencia->bindParam(":texto", $comentario->getTexto());
+	$sentencia->bindParam(":fecha", $comentario->getFecha());
+	$sentencia->bindParam(":idUsuario", $comentario->getIdUsuario());
+	$sentencia->bindParam(":idPost", $comentario->getIdPost());
+	return $sentencia->execute();
   }
 
   public function getComentario($id) {
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	  $sql = "
+	$sql = "
 								SELECT * 
 								FROM ob_comentario 
-								WHERE id = " . $id
-	  ;
-	  $sentencia = $conn->prepare($sql);
-	  $sentencia->execute();
-	  $fila = $sentencia->fetch();
+								WHERE id = :id"
+	;
+	$sth = $this->db->prepare($sql);
+	$sentencia->bindParam(":id", $id);
+	$sth->execute();
+	$comentario = $sth->fetchObject('src\entidades\Comentario');
 
-	  $comentario = new Comentario(0, "", "", "", "");
-
-	  $comentario->setId($fila["id"]);
-	  $comentario->setTexto($fila["texto"]);
-	  $comentario->setFecha($fila["fecha"]);
-	  $comentario->setIdUsuario($fila["idUsuario"]);
-	  $comentario->setIdPost($fila["idPost"]);
-
-	  $conn = null;
-
-	  return $comentario;
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
+	return $comentario;
   }
 
   public function updateComentario($id, Comentario $comentario) {
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	  $sql = "
+	$sql = "
 								UPDATE ob_comentario
 								SET texto = :texto, fecha = :fecha, idUsuario = :idUsuario, idPost = :idPost
-								WHERE id = " . $id
-	  ;
-	  $sentencia = $conn->prepare($sql);
+								WHERE id = :id;"
+	;
+	$sentencia = $this->db->prepare($sql);
 
-	  $texto = $comentario->getTexto();
-	  $fecha = $comentario->getFecha();
-	  $idUsuario = $comentario->getIdUsuario();
-	  $idPost = $comentario->getIdPost();
+	$sentencia->bindParam(":texto", $comentario->getTexto());
+	$sentencia->bindParam(":fecha", $comentario->getFecha());
+	$sentencia->bindParam(":idUsuario", $comentario->getIdUsuario());
+	$sentencia->bindParam(":idPost", $comentario->getIdPost());
+	$sentencia->bindParam(':id', $id);
 
-	  $sentencia->bindParam(":texto", $texto);
-	  $sentencia->bindParam(":fecha", $fecha);
-	  $sentencia->bindParam(":idUsuario", $idUsuario);
-	  $sentencia->bindParam(":idPost", $idPost);
-
-	  $sentencia->execute();
-
-	  $conn = null;
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
+	return $sentencia->execute();
   }
 
   public function deleteComentario($id) {
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	  $sql = "
+	$sql = "
 								DELETE FROM ob_comentario
-								WHERE id=" . $id
-	  ;
-	  $sentencia = $conn->prepare($sql);
-	  $sentencia->execute();
-
-	  $conn = null;
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
+								WHERE id= :id"
+	;
+	$sentencia = $this->db->prepare($sql);
+	$sentencia->bindParam(':id', $id);
+	return $sentencia->execute();
   }
 
   public function obtenerNumeroComentarios($id) {
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	  $sql = "
+	$sql = "
 								SELECT count(*)
 								FROM ob_comentario
 								WHERE idPost = :id"
-	  ;
-	  $sentencia = $conn->prepare($sql);
-	  $sentencia->bindParam(":id", $id);
-	  $sentencia->execute();
-	  $fila = $sentencia->fetch();
+	;
+	$sentencia = $this->db->prepare($sql);
+	$sentencia->bindParam(":id", $id);
+	$sentencia->execute();
+	$numeroComentarios = $sentencia->fetchColumn(0);
 
-	  $conn = null;
-
-	  return $fila[0];
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
+	return $numeroComentarios;
   }
 
-  public function obtenerUltimosComentarios() {
-	//Función encargada de obtener los ultimos 5 comentarios, para mostrarlos en la página inicial
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	  $comentarios = array();
-	  if (func_num_args() == 0) {
-		$sql = "
-					 SELECT c.idUsuario, c.texto, c.fecha, c.idPost
+  /*
+   * Obtiene los 5 ultimos comentarios del post que se le indique, en caso de que no se le indique ningun post, extrae los ultimos 5 comentarios de todos los posts
+   */
+
+  public function obtenerUltimosComentarios($idPost = null) {
+	if ($idPost == null) {
+	  $sql = "
+					 SELECT *
 					 FROM ob_comentario c, ob_usuario u 
 					 WHERE c.idUsuario = u.id 
 					 ORDER BY c.fecha DESC 
 					 LIMIT 5;"
-		;
-	  } else {
-
-		$idPost = func_get_arg(0);
-
-		$sql = "
-					 SELECT c.idUsuario, c.texto, c.fecha, c.idPost
-					 FROM ob_comentario c, ob_usuario u 
-					 WHERE c.idUsuario = u.id
-					 AND c.idPost = " . $idPost . "
-					 ORDER BY c.fecha DESC 
-					 LIMIT 5;"
-		;
-	  }
-	  $sentencia = $conn->prepare($sql);
-	  $sentencia->execute();
-	  while ($fila = $sentencia->fetch()) {
-		$comentario = new comentario(0, "", 0, 0, 0);
-		$comentario->setId($fila["idUsuario"]);
-		$comentario->setTexto($fila["texto"]);
-		$comentario->setFecha($fila["fecha"]);
-		$comentario->setIdUsuario($fila["idUsuario"]);
-		$comentario->setIdPost($fila["idPost"]);
-		array_push($comentarios, $comentario);
-	  }
-
-	  $conn = null;
-
-	  return $comentarios;
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
-  }
-
-  //ROL
-  public function createRol(Rol $rol) {
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	  ;
+	} else {
 
 	  $sql = "
+					 SELECT *
+					 FROM ob_comentario c, ob_usuario u 
+					 WHERE c.idPost = :idPost
+					 ORDER BY c.fecha DESC 
+					 LIMIT 5;"
+	  ;
+	}
+	$sth = $this->db->prepare($sql);
+	$sth->bindParam(":idPost", $idPost);
+	$sth->execute();
+	$comentarios = $sth->fetchAll(PDO::FETCH_CLASS, 'src\entidades\Comentario');
+	return $comentarios;
+  }
+
+  /*
+   * ROL
+   */
+
+  public function createRol(Rol $rol) {
+	$sql = "
 									 INSERT INTO ob_rol (nombre, descripcion) 
 									 VALUES (:nombre, :descripcion)
 				";
-	  $sentencia = $conn->prepare($sql);
+	$sentencia = $this->db->prepare($sql);
 
-	  $nombre = $rol->getNombre();
-	  $descripcion = $rol->getDescripcion();
-
-	  $sentencia->bindParam(":nombre", $nombre);
-	  $sentencia->bindParam(":descripcion", $descripcion);
-	  $sentencia->execute();
-
-	  //Cierra la conexion (no existe metodo close() en pdo)
-	  $conn = null;
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
+	$sentencia->bindParam(":nombre", $rol->getNombre());
+	$sentencia->bindParam(":descripcion", $rol->getDescripcion());
+	return $sentencia->execute();
   }
 
   public function getRol($id) {
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	  $sql = "
+	$sql = "
 								SELECT * 
 								FROM ob_rol 
 								WHERE id = " . $id
-	  ;
-	  $sentencia = $conn->prepare($sql);
-	  $sentencia->execute();
-	  $fila = $sentencia->fetch();
-
-	  $rol = new Rol(0, "", "");
-
-	  $rol->setId($fila["id"]);
-	  $rol->setNombre($fila["nombre"]);
-	  $rol->setDescripcion($fila["descripcion"]);
-
-	  $conn = null;
-
-	  return $rol;
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
+	;
+	$sth = $this->db->prepare($sql);
+	$sth->execute();
+	$rol = $sth->fetchObject('src\entidades\Rol');
+	return $rol;
   }
 
   public function updateRol($id, Rol $rol) {
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	  $sql = "
+	$sql = "
 								UPDATE ob_rol
 								SET nombre = :nombre, descripcion = :descripcion
 								WHERE id = " . $id
-	  ;
-	  $sentencia = $conn->prepare($sql);
+	;
+	$sentencia = $this->db->prepare($sql);
 
-	  $nombre = $rol->getNombre();
-	  $descripcion = $rol->getDescripcion();
+	$nombre = $rol->getNombre();
+	$descripcion = $rol->getDescripcion();
 
-	  $sentencia->bindParam(":nombre", $nombre);
-	  $sentencia->bindParam(":descripcion", $descripcion);
+	$sentencia->bindParam(":nombre", $nombre);
+	$sentencia->bindParam(":descripcion", $descripcion);
 
-	  $sentencia->execute();
-
-	  $conn = null;
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
+	return $sentencia->execute();
   }
 
   public function deleteRol($id) {
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	  $sql = "
+	$sql = "
 								DELETE FROM ob_rol
-								WHERE id=" . $id
-	  ;
-	  $sentencia = $conn->prepare($sql);
-	  $sentencia->execute();
-
-	  $conn = null;
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
+								WHERE id= :id"
+	;
+	$sentencia = $this->db->prepare($sql);
+	$sentencia->bindParam(":id", $id);
+	return $sentencia->execute();
   }
 
   //USUARIO
   public function createUsuario(Usuario $usuario) {
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	  $sql = "
+	$sql = "
 								INSERT INTO ob_usuario (nombre, pass, mail, idRol) 
 								VALUES (:nombre, :pass, :mail, :idRol)
 						";
-	  $sentencia = $conn->prepare($sql);
+	$sentencia = $this->db->prepare($sql);
 
-	  $nombre = $usuario->getNombre();
-	  $pass = $usuario->getPass();
-	  $mail = $usuario->getMail();
-	  $idRol = $usuario->getIdRol();
-
-	  $sentencia->bindParam(":nombre", $nombre);
-	  $sentencia->bindParam(":pass", $pass);
-	  $sentencia->bindParam(":mail", $mail);
-	  $sentencia->bindParam(":idRol", $idRol);
-	  $sentencia->execute();
-
-	  //Cierra la conexion (no existe metodo close() en pdo)
-	  $conn = null;
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
+	$sentencia->bindParam(":nombre", $usuario->getNombre());
+	$sentencia->bindParam(":pass", $usuario->getPass());
+	$sentencia->bindParam(":mail", $usuario->getMail());
+	$sentencia->bindParam(":idRol", $usuario->getIdRol());
+	return $sentencia->execute();
   }
 
   public function getUsuario($id) {
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	  $sql = "
+	$sql = "
 								SELECT * 
 								FROM ob_usuario 
-								WHERE id = " . $id
-	  ;
-	  $sentencia = $conn->prepare($sql);
-	  $sentencia->execute();
-	  $fila = $sentencia->fetch();
-
-	  $usuario = new Usuario(0, "", "", "", 0);
-
-	  $usuario->setId($fila["id"]);
-	  $usuario->setNombre($fila["nombre"]);
-	  $usuario->setPass($fila["pass"]);
-	  $usuario->setMail($fila["mail"]);
-	  $usuario->setIdRol($fila["idRol"]);
-
-	  $conn = null;
-
-	  return $usuario;
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
+								WHERE id = :id"
+	;
+	$sentencia = $this->db->prepare($sql);
+	$sentencia->bindParam(":id", $id);
+	$sentencia->execute();
+	$usuario = $sentencia->fetchObject('src\entidades\Usuario');
+	return $usuario;
   }
 
   public function updateUsuario($id, Usuario $usuario) {
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	  $sql = "
+	$sql = "
 								UPDATE ob_usuario
 								SET nombre = :nombre, pass = :pass, mail = :mail, idRol = :idRol
-								WHERE id = " . $id
-	  ;
-	  $sentencia = $conn->prepare($sql);
+								WHERE id = :id"
+	;
+	$sentencia = $this->db->prepare($sql);
 
-	  $nombre = $usuario->getNombre();
-	  $pass = $usuario->getPass();
-	  $mail = $usuario->getMail();
-	  $idRol = $usuario->getIdRol();
+	$sentencia->bindParam(":nombre", $usuario->getNombre());
+	$sentencia->bindParam(":pass", $usuario->getPass());
+	$sentencia->bindParam(":mail", $usuario->getMail());
+	$sentencia->bindParam(":idRol", $usuario->getIdRol());
+	$sentencia->bindParam(":id", $id);
 
-	  $sentencia->bindParam(":nombre", $nombre);
-	  $sentencia->bindParam(":pass", $pass);
-	  $sentencia->bindParam(":mail", $mail);
-	  $sentencia->bindParam(":idRol", $idRol);
-
-	  $sentencia->execute();
-
-	  $conn = null;
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
+	return $sentencia->execute();
   }
 
   public function deleteUsuario($id) {
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	  $sql = "
+	$sql = "
 								DELETE FROM ob_usuario
-								WHERE id=" . $id
-	  ;
-	  $sentencia = $conn->prepare($sql);
-	  $sentencia->execute();
+								WHERE id= : id;"
+	;
+	$sentencia = $this->db->prepare($sql);
+	$sentencia->bindParam(":id", $id);
 
-	  $conn = null;
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
+	return $sentencia->execute();
   }
 
   public function obtenerNombreAutor($id) {
-	try {
-	  $conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	  $sql = "
+	$sql = "
 								SELECT nombre 
 								FROM ob_usuario 
 								WHERE id = :id"
-	  ;
-	  $sentencia = $conn->prepare($sql);
-	  $sentencia->bindParam(":id", $id);
-	  $sentencia->execute();
-	  $fila = $sentencia->fetch();
-
-	  $conn = null;
-
-	  return $fila["nombre"];
-	} catch (PDOException $e) {
-	  echo 'ERROR: ' . $e->getMessage();
-	}
+	;
+	$sentencia = $this->db->prepare($sql);
+	$sentencia->bindParam(":id", $id);
+	$sentencia->execute();
+	$nombreAutor = $sentencia->fetchColumn(0);
+	return $nombreAutor;
   }
 
 }

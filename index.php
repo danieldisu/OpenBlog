@@ -80,7 +80,7 @@
            <h3> Ultimos Comentarios </h3>
            <ul>
              <?php 
-                 $comentarios = $mbd->obtenerUltimosComentarios();                 
+                 $comentarios = $mbd->obtenerUltimosComentarios();       
                  foreach ($comentarios as $comentario) {
                    include "src/templates/listaUltimosComentariosTemplate.php";
                  }
