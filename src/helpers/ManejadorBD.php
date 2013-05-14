@@ -84,25 +84,19 @@ class ManejadorBD {
 	$sql = "
 								UPDATE ob_post
 								SET idUsuario = :idUsuario, idCategoria = :idCategoria, titulo = :titulo, texto = :texto, fechaCreacion = :fechaCreacion, fechaModificacion = :fechaModificacion, modificaciones = :modificaciones
-								WHERE id = " . $id
+								WHERE id = :id;"
 	;
 	$sentencia = $this->db->prepare($sql);
 
-	$idUsuario = $post->getIdUsuario();
-	$idCategoria = $post->getIdCategoria();
-	$titulo = $post->getTitulo();
-	$texto = $post->getTexto();
-	$fechaCreacion = $post->getFechaCreacion();
-	$fechaModificacion = $post->getFechaModificacion();
-	$modificaciones = $post->getModificaciones();
-
-	$sentencia->bindParam(":idUsuario", $idUsuario);
-	$sentencia->bindParam(":idCategoria", $idCategoria);
-	$sentencia->bindParam(":titulo", $titulo);
-	$sentencia->bindParam(":texto", $texto);
-	$sentencia->bindParam(":fechaCreacion", $fechaCreacion);
-	$sentencia->bindParam(":fechaModificacion", $fechaModificacion);
-	$sentencia->bindParam(":modificaciones", $modificaciones);
+	$sentencia->bindParam(":idUsuario", $post->getIdUsuario());
+	$sentencia->bindParam(":idCategoria", $post->getIdCategoria());
+	$sentencia->bindParam(":titulo", $post->getTitulo());
+	$sentencia->bindParam(":texto",$post->getTexto());
+	$sentencia->bindParam(":fechaCreacion", $post->getFechaCreacion());
+	$sentencia->bindParam(":fechaModificacion", $post->getFechaModificacion());
+	$sentencia->bindParam(":modificaciones",$post->getModificaciones());
+	$sth->bindParam(':id', $id);
+	
 
 	return $sentencia->execute();
   }
@@ -406,10 +400,11 @@ class ManejadorBD {
 	$sql = "
 								SELECT * 
 								FROM ob_rol 
-								WHERE id = " . $id
+								WHERE id = :id"
 	;
 	$sth = $this->db->prepare($sql);
 	$sth->execute();
+	$sth->bindParam(":id", $id);
 	$rol = $sth->fetchObject('src\entidades\Rol');
 	return $rol;
   }
@@ -418,16 +413,13 @@ class ManejadorBD {
 	$sql = "
 								UPDATE ob_rol
 								SET nombre = :nombre, descripcion = :descripcion
-								WHERE id = " . $id
+								WHERE id = :id "
 	;
 	$sentencia = $this->db->prepare($sql);
 
-	$nombre = $rol->getNombre();
-	$descripcion = $rol->getDescripcion();
-
-	$sentencia->bindParam(":nombre", $nombre);
-	$sentencia->bindParam(":descripcion", $descripcion);
-
+	$sentencia->bindParam(":nombre", $rol->getNombre());
+	$sentencia->bindParam(":descripcion", $rol->getDescripcion());
+	$sth->bindParam(":id", $id);
 	return $sentencia->execute();
   }
 
