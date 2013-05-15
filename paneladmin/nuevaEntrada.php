@@ -11,7 +11,7 @@ $mbd = new ManejadorBD();
 	<h2>Nueva Entrada</h2>
   </div>
   <div class="span12 cajaContenidoCategoria">
-	<form method="POST" action="paneladmin/nuevoPost.php">
+	<form class="formNuevoPost">
       <div class="cajaTitulo">
         <label>Titulo:</label><input name="titulo" type="text" />
       </div>
@@ -26,14 +26,14 @@ $mbd = new ManejadorBD();
 		  $categorias = $mbd->getAllCategorias();
 		  foreach ($categorias as $categoria) {
 			echo "<option value='".$categoria->getId()."'>";
-			echo $categoria->getNombre();
+			 echo $categoria->getNombre();
 			echo "</option>";
 		  }
 		  ?>
 		</select>
 	  </div>
 	
-	<button class="btn">Publicar Entrada</button>
+	<input type="submit" class="btn" id="botonNuevoPost" value="Publicar Nueva Entrada">
 	<input type="reset" class="btn" value="Limpiar">
 	</form>
   </div>
