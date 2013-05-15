@@ -190,6 +190,22 @@ overflow: hidden;
    margin-bottom:5px;
 }
 
+/*Nube*/
+.categoriaMayorCantidadPost{
+  font-size: 2.8em;  
+}
+.categoriaSecundaria{
+ font-size: 2.1em;
+}
+.categoriaTerciaria{
+ font-size: 1.8em;
+}
+.categoriaCuarta{
+ font-size: 1.3em;
+}
+.categoriaNormal{
+ font-size: 1em;
+}
 /* --- Indice y menu lateral de administrador --- */
 /** Todo esto a retocar en su momento */
 .cajaMenu{
