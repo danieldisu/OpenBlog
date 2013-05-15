@@ -7,8 +7,11 @@
         if(isset($_GET['idCategoria']))
             $idCategoria = $_GET['idCategoria'];
         else
-            $idCategoria = 1;
-            //LLAMAR A LA PÁGINA DE ERROR
+            Header::mostrarPaginaError("Categoria Incorrecta");
+		
+		//Comprobamos que la categoria existe, sino existe la posicion 0 vendrá vacia
+		if(empty($mbd->getCategoria($idCategoria)[0]))
+			Header::mostrarPaginaError("La categoria no existe");		  
 ?>
 
 <!DOCTYPE html>
@@ -36,6 +39,14 @@
 
 		<div class="row main">
 			<div class="span9 contenido">
+			  <div class="cajaTituloCategoria">
+			  <?php
+				echo "<h1>";
+				echo "Categoria : ";
+				echo "<span>" . $mbd->obtenerNombreCategoria($idCategoria) . "</span>" ;
+				echo "</h1>";
+			  ?>
+			  </div>
 				<?php
 					$posts = $mbd->getPostsCategoria($idCategoria);
 					foreach ($posts as $post){

@@ -294,3 +294,14 @@ tbody{
    font-size: 1.15em;
    color:red;
 }
+
+/* Post por Categoria */
+
+.cajaTituloCategoria{
+  
+}
+
+.cajaTituloCategoria span{
+  font-size: 2em;
+  color:#DF4931;
+}
