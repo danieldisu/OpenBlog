@@ -296,7 +296,30 @@ class ManejadorBD {
 
 	return $nombreCategoria;
   }
+  public function obtenerCategorias(){
+  	$sql = "
+  	SELECT * 
+  	FROM ob_categoria"
+  	;
+  	$sentencia = $this->db->prepare($sql);
+  	$sentencia->execute();
+  	$categorias = $sentencia->fetchAll(PDO::FETCH_CLASS, 'src\entidades\Categoria');
 
+	return $categorias;
+  }
+  public function obtenerNumPostPorCategoria($idCategoria){
+  	$sql = "
+								SELECT count(*) 
+								FROM ob_post
+								WHERE idCategoria = :idCategoria"
+	;
+	$sentencia = $this->db->prepare($sql);
+	$sentencia->bindParam(":idCategoria", $idCategoria);
+	$sentencia->execute();
+	$numPosts = $sentencia->fetchColumn(0);
+
+	return $numPosts;
+  }
   /*
    * COMENTARIO
    */
