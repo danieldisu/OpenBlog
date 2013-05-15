@@ -297,15 +297,6 @@ class ManejadorBD {
 	return $nombreCategoria;
   }
 
-  public function getAllCategorias() {
-	$sql = "SELECT * FROM ob_categoria;";
-	$sth = $this->db->prepare($sql);
-	$sth->execute();
-	$categorias =  $sth->fetchAll(PDO::FETCH_CLASS, 'src\entidades\Categoria');
-
-	return $categorias;
-  }
-
   /*
    * COMENTARIO
    */
