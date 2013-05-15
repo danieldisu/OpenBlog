@@ -10,8 +10,10 @@
             Header::mostrarPaginaError("Categoria Incorrecta");
 		
 		//Comprobamos que la categoria existe, sino existe la posicion 0 vendrá vacia
-		if(empty($mbd->getCategoria($idCategoria)[0]))
-			Header::mostrarPaginaError("La categoria no existe");		  
+		$id = $mbd->getCategoria($idCategoria);
+		if(empty($id)){
+		  Header::mostrarPaginaError("La categoria no existe");	
+		}  
 ?>
 
 <!DOCTYPE html>
@@ -70,19 +72,21 @@
 			<div class="cajaUltimosPost">
 			  <h3> Ultimos Post </h3>
 			  <ul>
-					<?php 
+					<?php
 					$UltimosPosts = $mbd->obtenerUltimosPost();
-					foreach ($UltimosPosts as $Post){
+					
+					foreach ($UltimosPosts as $post){
 						include "src/templates/listaUltimosPostTemplate.php";
 					}
 					?>
 					
 			  </ul>
 			</div>
+		  
          <div class="cajaUltimosComentarios">
            <h3> Ultimos Comentarios </h3>
            <ul>
-             <?php 
+             <?php
                  $comentarios = $mbd->obtenerUltimosComentarios();                 
                  foreach ($comentarios as $comentario) {
                    include "src/templates/listaUltimosComentariosTemplate.php";
@@ -94,7 +98,6 @@
        </div>
      </div>
    </div> <!-- /container -->
-
    <!-- Le javascript
    ================================================== -->
    <!-- Placed at the end of the document so the pages load faster -->

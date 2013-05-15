@@ -91,12 +91,12 @@ class ManejadorBD {
 	$sentencia->bindParam(":idUsuario", $post->getIdUsuario());
 	$sentencia->bindParam(":idCategoria", $post->getIdCategoria());
 	$sentencia->bindParam(":titulo", $post->getTitulo());
-	$sentencia->bindParam(":texto",$post->getTexto());
+	$sentencia->bindParam(":texto", $post->getTexto());
 	$sentencia->bindParam(":fechaCreacion", $post->getFechaCreacion());
 	$sentencia->bindParam(":fechaModificacion", $post->getFechaModificacion());
-	$sentencia->bindParam(":modificaciones",$post->getModificaciones());
+	$sentencia->bindParam(":modificaciones", $post->getModificaciones());
 	$sth->bindParam(':id', $id);
-	
+
 
 	return $sentencia->execute();
   }
@@ -170,7 +170,7 @@ class ManejadorBD {
 										LIMIT 0, :postUltimaPagina"
 	  ;
 	  $sth = $this->db->prepare($sql);
-	  $sth->bindValuei(':postUltimaPagina', (int) $postUltimaPagina, PDO::PARAM_INT);	  
+	  $sth->bindValuei(':postUltimaPagina', (int) $postUltimaPagina, PDO::PARAM_INT);
 	} else {
 	  $sql = "
 										SELECT * 
@@ -180,7 +180,7 @@ class ManejadorBD {
 	  $sth = $this->db->prepare($sql);
 	  //  Hay que hacer casting a INT y indicarle que le pasas un Integer ya que sino da error la sentencia SQL
 	  $sth->bindValue(':primerPostPagina', (int) $primerPostPagina, PDO::PARAM_INT);
-	  $sth->bindValue(':numPost', (int) $this->numPost, PDO::PARAM_INT);	  
+	  $sth->bindValue(':numPost', (int) $this->numPost, PDO::PARAM_INT);
 	}
 	$sth->execute();
 
@@ -230,7 +230,7 @@ class ManejadorBD {
 	$sth = $this->db->prepare($sql);
 	$sth->bindParam(":id", $id);
 	$sth->execute();
-	$categoria = $sth->fetchAll(PDO::FETCH_CLASS, 'src\entidades\Categoria');
+	$categoria = $sth->fetchObject('src\entidades\Categoria');
 
 	return $categoria;
   }
@@ -245,7 +245,7 @@ class ManejadorBD {
 
 	$nombre = $categoria->getNombre();
 	$descripcion = $categoria->getDescripcion();
-	
+
 	$sentencia->bindParam(':id', $id);
 	$sentencia->bindParam(":nombre", $nombre);
 	$sentencia->bindParam(":descripcion", $descripcion);
@@ -275,6 +275,15 @@ class ManejadorBD {
 	$nombreCategoria = $sentencia->fetchColumn(0);
 
 	return $nombreCategoria;
+  }
+
+  public function getAllCategorias() {
+	$sql = "SELECT * FROM ob_categoria;";
+	$sth = $this->db->prepare($sql);
+	$sth->execute();
+	$categorias =  $sth->fetchAll(PDO::FETCH_CLASS, 'src\entidades\Categoria');
+
+	return $categorias;
   }
 
   /*
