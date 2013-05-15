@@ -7,9 +7,15 @@
          Aqui es donde tiene que ir el plugin de jQuery con un bonito editor de texto
       </p>
       <div class="cajaEditorTexto">
-         <textarea>ejemplo</textarea>
+        <form>
+          <textarea>ejemplo</textarea>
+        </form>
       </div>
       <button class="btn">Publicar Entrada</button>
       <button class="btn">Limpiar</button>
    </div>
 </div>
+
+<?php
+  
+?>
