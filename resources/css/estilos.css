@@ -242,11 +242,23 @@ overflow: hidden;
 .cajaContenidoCategoria{
 
 }
-
+#cajaNuevoPost{
+  
+}
+#cajaNuevoPost label{
+  color:#DF4931;
+  font-weight: bold;
+  font-size: 1.25em;
+}
 .cajaEditorTexto textarea{
    min-width: 900px;
    min-height: 450px;
    
+}
+
+.cajaTitulo input{
+   min-width: 600px;
+   min-height: 35px;
 }
 
 .botonBorrarPost{
