@@ -19,7 +19,7 @@ Class Header {
   public static function cargarHojasDeEstilos() {
 	// en caso de que ya hayamos cargado el JSON anteriormente usamos las opciones ya cargadas en memoría, esto pasa si cargamos antes el manejadorBD con la config del JSON
 
-	if (isset(self::$json))
+	if (!isset(self::$json))
 	  self::cargarJSON();
 
 	$rutaCSS = self::$json["rutaCss"];
@@ -28,6 +28,26 @@ Class Header {
 	echo '<link href="resources/css/fuentes.css" rel="stylesheet">';
 	echo '<link href="' . $rutaCSS . '" rel="stylesheet">';
   }
+  
+  /*
+   * De momento es la misma funcion que arriba, pero alomejor nos interesa cambiar algo
+   */
+  public static function cargarHojasEstilosAdmin(){
+	if (!isset(self::$json))
+	  self::cargarJSON();
+	
+	$rutaCSS = self::$json["rutaCss"];
+	echo '<link href="resources/css/bootstrap.css" rel="stylesheet">';
+	echo '<link href="resources/css/bootstrap-responsive.css" rel="stylesheet">';
+	echo '<link href="resources/css/fuentes.css" rel="stylesheet">';
+	echo '<link href="' . $rutaCSS . '" rel="stylesheet">';	
+  }
+  
+  public static function cargarJsAdmin(){
+	echo '<script src="resources/js/jquery.js"></script>';
+	echo '<script src="resources/js/panelAdmin.js"></script>';
+  }
+  
   /*
    * Muestra la página de error con el mensaje de error que se le pase por parametro, el codigo de error por defecto es el 1, si quisiesemos estilar distinto algún error se le cambia el codigo
    * de error

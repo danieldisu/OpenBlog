@@ -224,7 +224,7 @@ overflow: hidden;
 }
 .cajaAdministracion.row{
    background:white;
-   min-width: 1280px;
+   min-width: 1080px;
    border:1px solid #ddd;
    padding-bottom: 30px;
    padding-top: 15px;
@@ -235,7 +235,7 @@ overflow: hidden;
    margin-left: 150px;
    margin-top: 50px;
    width: 100%;
-   min-width: 960px;
+   min-width: 860px;
    height: 100%;
 }
 
@@ -245,7 +245,8 @@ overflow: hidden;
 
 .cajaEditorTexto textarea{
    min-width: 900px;
-   min-height: 350px;
+   min-height: 450px;
+   
 }
 
 .botonBorrarPost{
