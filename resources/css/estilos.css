@@ -90,6 +90,7 @@ h3{
 }
 
 .post{
+   word-wrap:break-word;
    border:1px solid #ddd;
    background-color: #fff;   
    padding:25px;
@@ -242,11 +243,29 @@ overflow: hidden;
 .cajaContenidoCategoria{
 
 }
-
+#cajaNuevoPost{
+  
+}
+#cajaNuevoPost label{
+  color:#DF4931;
+  font-weight: bold;
+  font-size: 1.25em;
+}
 .cajaEditorTexto textarea{
    min-width: 900px;
    min-height: 450px;
    
+}
+
+.cajaTitulo input{
+   min-width: 600px;
+   min-height: 35px;
+}
+
+.alertaNuevoPost{
+   font-size: 1.25em;
+   padding: 15px;
+   line-height: 2em;
 }
 
 .botonBorrarPost{

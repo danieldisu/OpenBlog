@@ -4,8 +4,10 @@
 	include 'autoloader.php';
 
 use src\helpers\Header;
+use src\helpers\ManejadorBD;
 
 Header::cargarHojasEstilosAdmin();
+
 	?>	
   </head>
   <body>
@@ -18,7 +20,7 @@ Header::cargarHojasEstilosAdmin();
 	  </div> 
 	</div>	
 
-<?php Header::cargarJsAdmin() ?>
+	<?php Header::cargarJsAdmin() ?>
   </body>
 </html>
 

@@ -45,13 +45,13 @@ class ManejadorBD {
 								VALUES (:idUsuario, :idCategoria, :titulo, :texto, :fechaCreacion, :fechaModificacion, :modificaciones)
 						";
 	$sth = $this->db->prepare($sql);
-	$sth->bindParam(":idUsuario", $post->getIdUsuario());
-	$sth->bindParam(":idCategoria", $post->getIdCategoria());
-	$sth->bindParam(":titulo", $post->getTitulo());
-	$sth->bindParam(":texto", $post->getTexto());
-	$sth->bindParam(":fechaCreacion", $post->getFechaCreacion());
-	$sth->bindParam(":fechaModificacion", $post->getFechaModificacion());
-	$sth->bindParam(":modificaciones", $post->getModificaciones());
+	$sth->bindValue(":idUsuario", $post->getIdUsuario());
+	$sth->bindValue(":idCategoria", $post->getIdCategoria());
+	$sth->bindValue(":titulo", $post->getTitulo());
+	$sth->bindValue(":texto", $post->getTexto());
+	$sth->bindValue(":fechaCreacion", $post->getFechaCreacion());
+	$sth->bindValue(":fechaModificacion", null);
+	$sth->bindValue(":modificaciones", 0);
 	return $sth->execute();
   }
 
@@ -101,6 +101,19 @@ class ManejadorBD {
 	return $sentencia->execute();
   }
 
+  public function getUltimoPostDe($idUsuario){
+  	$sql = "SELECT *
+  	FROM ob_post
+  	WHERE idUsuario = :idUsuario
+  	ORDER BY id DESC
+  	LIMIT 1;";
+  	$sentencia = $this->db->prepare($sql);
+  	$sentencia->bindParam(':idUsuario', $idUsuario);
+  	$sentencia->execute();
+  	$post = $sentencia->fetchObject('src\entidades\Post');
+  	return $post;
+  }
+
   public function deletePost($id) {
 	$sql = "
 								DELETE FROM ob_post
@@ -126,6 +139,13 @@ class ManejadorBD {
 	$posts = $sth->fetchAll(PDO::FETCH_CLASS, 'src\entidades\Post');
 
 	return $posts;
+  }
+  
+  public function getAllCategorias(){
+	$sql = "SELECT * FROM ob_categoria";
+	$sth = $this->db->prepare($sql);
+	$sth->execute();
+	return $sth->fetchAll(PDO::FETCH_CLASS, 'src\entidades\Categoria');
   }
 
   public function obtenerUltimosPost($inicio = 0, $numPost = 5) {
