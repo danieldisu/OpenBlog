@@ -170,7 +170,7 @@ class ManejadorBD {
 										LIMIT 0, :postUltimaPagina"
 	  ;
 	  $sth = $this->db->prepare($sql);
-	  $sth->bindValuei(':postUltimaPagina', (int) $postUltimaPagina, PDO::PARAM_INT);	  
+	  $sth->bindValue(':postUltimaPagina', (int) $postUltimaPagina, PDO::PARAM_INT);	  
 	} else {
 	  $sql = "
 										SELECT * 
