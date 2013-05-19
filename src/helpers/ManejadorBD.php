@@ -45,13 +45,13 @@ class ManejadorBD {
 								VALUES (:idUsuario, :idCategoria, :titulo, :texto, :fechaCreacion, :fechaModificacion, :modificaciones)
 						";
 	$sth = $this->db->prepare($sql);
-	$sth->bindParam(":idUsuario", $post->getIdUsuario());
-	$sth->bindParam(":idCategoria", $post->getIdCategoria());
-	$sth->bindParam(":titulo", $post->getTitulo());
-	$sth->bindParam(":texto", $post->getTexto());
-	$sth->bindParam(":fechaCreacion", $post->getFechaCreacion());
-	$sth->bindParam(":fechaModificacion", $post->getFechaModificacion());
-	$sth->bindParam(":modificaciones", $post->getModificaciones());
+	$sth->bindValue(":idUsuario", $post->getIdUsuario());
+	$sth->bindValue(":idCategoria", $post->getIdCategoria());
+	$sth->bindValue(":titulo", $post->getTitulo());
+	$sth->bindValue(":texto", $post->getTexto());
+	$sth->bindValue(":fechaCreacion", $post->getFechaCreacion());
+	$sth->bindValue(":fechaModificacion", null);
+	$sth->bindValue(":modificaciones", 0);
 	return $sth->execute();
   }
 
@@ -91,14 +91,27 @@ class ManejadorBD {
 	$sentencia->bindParam(":idUsuario", $post->getIdUsuario());
 	$sentencia->bindParam(":idCategoria", $post->getIdCategoria());
 	$sentencia->bindParam(":titulo", $post->getTitulo());
-	$sentencia->bindParam(":texto",$post->getTexto());
+	$sentencia->bindParam(":texto", $post->getTexto());
 	$sentencia->bindParam(":fechaCreacion", $post->getFechaCreacion());
 	$sentencia->bindParam(":fechaModificacion", $post->getFechaModificacion());
-	$sentencia->bindParam(":modificaciones",$post->getModificaciones());
+	$sentencia->bindParam(":modificaciones", $post->getModificaciones());
 	$sth->bindParam(':id', $id);
-	
+
 
 	return $sentencia->execute();
+  }
+
+  public function getUltimoPostDe($idUsuario){
+  	$sql = "SELECT *
+  	FROM ob_post
+  	WHERE idUsuario = :idUsuario
+  	ORDER BY id DESC
+  	LIMIT 1;";
+  	$sentencia = $this->db->prepare($sql);
+  	$sentencia->bindParam(':idUsuario', $idUsuario);
+  	$sentencia->execute();
+  	$post = $sentencia->fetchObject('src\entidades\Post');
+  	return $post;
   }
 
   public function deletePost($id) {
@@ -126,6 +139,13 @@ class ManejadorBD {
 	$posts = $sth->fetchAll(PDO::FETCH_CLASS, 'src\entidades\Post');
 
 	return $posts;
+  }
+  
+  public function getAllCategorias(){
+	$sql = "SELECT * FROM ob_categoria";
+	$sth = $this->db->prepare($sql);
+	$sth->execute();
+	return $sth->fetchAll(PDO::FETCH_CLASS, 'src\entidades\Categoria');
   }
 
   public function obtenerUltimosPost($inicio = 0, $numPost = 5) {
@@ -180,7 +200,7 @@ class ManejadorBD {
 	  $sth = $this->db->prepare($sql);
 	  //  Hay que hacer casting a INT y indicarle que le pasas un Integer ya que sino da error la sentencia SQL
 	  $sth->bindValue(':primerPostPagina', (int) $primerPostPagina, PDO::PARAM_INT);
-	  $sth->bindValue(':numPost', (int) $this->numPost, PDO::PARAM_INT);	  
+	  $sth->bindValue(':numPost', (int) $this->numPost, PDO::PARAM_INT);
 	}
 	$sth->execute();
 
@@ -230,7 +250,7 @@ class ManejadorBD {
 	$sth = $this->db->prepare($sql);
 	$sth->bindParam(":id", $id);
 	$sth->execute();
-	$categoria = $sth->fetchAll(PDO::FETCH_CLASS, 'src\entidades\Categoria');
+	$categoria = $sth->fetchObject('src\entidades\Categoria');
 
 	return $categoria;
   }
@@ -245,7 +265,7 @@ class ManejadorBD {
 
 	$nombre = $categoria->getNombre();
 	$descripcion = $categoria->getDescripcion();
-	
+
 	$sentencia->bindParam(':id', $id);
 	$sentencia->bindParam(":nombre", $nombre);
 	$sentencia->bindParam(":descripcion", $descripcion);
@@ -276,7 +296,30 @@ class ManejadorBD {
 
 	return $nombreCategoria;
   }
+  public function obtenerCategorias(){
+  	$sql = "
+  	SELECT * 
+  	FROM ob_categoria"
+  	;
+  	$sentencia = $this->db->prepare($sql);
+  	$sentencia->execute();
+  	$categorias = $sentencia->fetchAll(PDO::FETCH_CLASS, 'src\entidades\Categoria');
 
+	return $categorias;
+  }
+  public function obtenerNumPostPorCategoria($idCategoria){
+  	$sql = "
+								SELECT count(*) 
+								FROM ob_post
+								WHERE idCategoria = :idCategoria"
+	;
+	$sentencia = $this->db->prepare($sql);
+	$sentencia->bindParam(":idCategoria", $idCategoria);
+	$sentencia->execute();
+	$numPosts = $sentencia->fetchColumn(0);
+
+	return $numPosts;
+  }
   /*
    * COMENTARIO
    */

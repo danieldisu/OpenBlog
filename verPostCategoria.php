@@ -7,8 +7,13 @@
         if(isset($_GET['idCategoria']))
             $idCategoria = $_GET['idCategoria'];
         else
-            $idCategoria = 1;
-            //LLAMAR A LA PÁGINA DE ERROR
+            Header::mostrarPaginaError("Categoria Incorrecta");
+		
+		//Comprobamos que la categoria existe, sino existe la posicion 0 vendrá vacia
+		$id = $mbd->getCategoria($idCategoria);
+		if(empty($id)){
+		  Header::mostrarPaginaError("La categoria no existe");	
+		}  
 ?>
 
 <!DOCTYPE html>
@@ -36,6 +41,14 @@
 
 		<div class="row main">
 			<div class="span9 contenido">
+			  <div class="cajaTituloCategoria">
+			  <?php
+				echo "<h1>";
+				echo "Categoria : ";
+				echo "<span>" . $mbd->obtenerNombreCategoria($idCategoria) . "</span>" ;
+				echo "</h1>";
+			  ?>
+			  </div>
 				<?php
 					$posts = $mbd->getPostsCategoria($idCategoria);
 					foreach ($posts as $post){
@@ -59,19 +72,21 @@
 			<div class="cajaUltimosPost">
 			  <h3> Ultimos Post </h3>
 			  <ul>
-					<?php 
+					<?php
 					$UltimosPosts = $mbd->obtenerUltimosPost();
-					foreach ($UltimosPosts as $Post){
+					
+					foreach ($UltimosPosts as $post){
 						include "src/templates/listaUltimosPostTemplate.php";
 					}
 					?>
 					
 			  </ul>
 			</div>
+		  
          <div class="cajaUltimosComentarios">
            <h3> Ultimos Comentarios </h3>
            <ul>
-             <?php 
+             <?php
                  $comentarios = $mbd->obtenerUltimosComentarios();                 
                  foreach ($comentarios as $comentario) {
                    include "src/templates/listaUltimosComentariosTemplate.php";
@@ -83,7 +98,6 @@
        </div>
      </div>
    </div> <!-- /container -->
-
    <!-- Le javascript
    ================================================== -->
    <!-- Placed at the end of the document so the pages load faster -->

@@ -90,6 +90,7 @@ h3{
 }
 
 .post{
+   word-wrap:break-word;
    border:1px solid #ddd;
    background-color: #fff;   
    padding:25px;
@@ -190,6 +191,22 @@ overflow: hidden;
    margin-bottom:5px;
 }
 
+/*Nube*/
+.categoriaMayorCantidadPost{
+  font-size: 2.8em;  
+}
+.categoriaSecundaria{
+ font-size: 2.1em;
+}
+.categoriaTerciaria{
+ font-size: 1.8em;
+}
+.categoriaCuarta{
+ font-size: 1.3em;
+}
+.categoriaNormal{
+ font-size: 1em;
+}
 /* --- Indice y menu lateral de administrador --- */
 /** Todo esto a retocar en su momento */
 .cajaMenu{
@@ -224,7 +241,7 @@ overflow: hidden;
 }
 .cajaAdministracion.row{
    background:white;
-   min-width: 1280px;
+   min-width: 1080px;
    border:1px solid #ddd;
    padding-bottom: 30px;
    padding-top: 15px;
@@ -235,17 +252,36 @@ overflow: hidden;
    margin-left: 150px;
    margin-top: 50px;
    width: 100%;
-   min-width: 960px;
+   min-width: 860px;
    height: 100%;
 }
 
 .cajaContenidoCategoria{
 
 }
-
+#cajaNuevoPost{
+  
+}
+#cajaNuevoPost label{
+  color:#DF4931;
+  font-weight: bold;
+  font-size: 1.25em;
+}
 .cajaEditorTexto textarea{
    min-width: 900px;
-   min-height: 350px;
+   min-height: 450px;
+   
+}
+
+.cajaTitulo input{
+   min-width: 600px;
+   min-height: 35px;
+}
+
+.alertaNuevoPost{
+   font-size: 1.25em;
+   padding: 15px;
+   line-height: 2em;
 }
 
 .botonBorrarPost{
@@ -293,4 +329,15 @@ tbody{
 .active{
    font-size: 1.15em;
    color:red;
+}
+
+/* Post por Categoria */
+
+.cajaTituloCategoria{
+  
+}
+
+.cajaTituloCategoria span{
+  font-size: 2em;
+  color:#DF4931;
 }
