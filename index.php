@@ -3,10 +3,11 @@
 	use src\helpers\Header;
 	use src\helpers\ManejadorBD;
 	use src\helpers\Paginador;
+        use src\helpers\Login;
 
    // Iniciamos el manejador BD con las opciones del JSON
 	$mbd = new ManejadorBD(Header::cargarJSON());
-
+        Header::iniciarSesion();
 	if(!empty($_GET['p']))
 		$pagina = $_GET['p'];
 	else
@@ -55,13 +56,25 @@
 		</div>
 		<div class="span3 sidebar">
 			<div class="cajaLogin">
-			  <h3> Login </h3>
-			  <label>Usuario</label>
-			  <input type="text" id="inputUsuario">
-			  <label>Contraseña</label>
-			  <input type="password" id="inputPassword">
-			  <input type="button" class="btn btn-block" value="Login">
-			  <input type="button" class="btn btn-block" value="Registrarse">
+                            <h3> Login </h3>
+                            <?php 
+                            if(!Login::isLogin()){
+                            ?>
+                            <label>Usuario</label>
+                            <input type="text" id="inputUsuario">
+                            <label>Contraseña</label>
+                            <input type="password" id="inputPassword">
+                            <input type="button" class="btn btn-block" value="Login">
+                            <input type="button" class="btn btn-block" value="Registrarse">
+                            <?php 
+                            }
+                            else{
+                            ?>
+                            <label>Bienvenido <?php echo Login::getNombre() ?></label>
+                            <input type="button" class="btn btn-block" value="Logout">
+                            <?php
+                            }
+                            ?>
 			</div>
 
 			<div class="cajaUltimosPost">

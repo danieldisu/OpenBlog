@@ -86,7 +86,12 @@ Class Header {
             $i++;
         }                         
         return $ruta.$index; 
-  }  
+  }
+  public static function iniciarSesion(){
+      if(!isset($_SESSION)){
+          session_start();
+      }
+  }
 }
 
 ?>

@@ -544,7 +544,37 @@ class ManejadorBD {
 	$nombreAutor = $sentencia->fetchColumn(0);
 	return $nombreAutor;
   }
+  
+  public function comprobarLogin($usuario, $pass){
+      $sql = "
+          SELECT *
+          FROM ob_usuario
+          WHERE (nombre = :usuario AND pass = :pass) OR (mail = :usuario AND pass = :pass)
+      ";
+      $sentencia = $this->db->prepare($sql);
+      $sentencia->bindParam(":usuario", $usuario);
+      $sentencia->bindParam(":pass", $pass);
+      $sentencia->execute();
+      if($sentencia->rowCount()){
+          return true;
+      }
+      else {
+          return false;
+      }
+  }
 
+  public function getUsuarioByName($nombre){
+        $sql = "
+             SELECT id, nombre, pass, mail, idRol
+             FROM ob_usuario
+             WHERE nombre = :usuario OR mail = :usuario
+         ";
+        $sentencia = $this->db->prepare($sql);
+        $sentencia->bindParam(":usuario", $nombre);
+        $sentencia->execute();
+        $usuario = $sentencia->fetchObject('src\entidades\Usuario');
+	return $usuario;
+   }
 }
 
 ?>

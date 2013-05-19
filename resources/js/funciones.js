@@ -40,8 +40,69 @@ $(document).ready(function(){
 		var textoComentario = $(this).parent().find("textarea").val();
 		enviarNuevoPost(xhr, idPost, autorComentario, textoComentario);	
 	});
+        
+        $("div.cajaLogin input[value='Login']").click(function(e){
+            comprobarLogin();
+        });
+        
+        $("div.cajaLogin input[value='Logout']").click(function(e){
+            $.post("logout.php")
+            .done(function(data){
+                window.location.reload(true);
+            });
+            
+        });
 
 });
+
+function comprobarLogin(){
+    
+    var usuario = $("#inputUsuario").val();
+    var pass = $("#inputPassword").val();
+    
+    if(usuario == ""){
+        crearMensajeErrorLogin("El campo usuario no puede estar vacio");
+    }
+    else if(pass == ""){
+        crearMensajeErrorLogin("El campo contraseña no puede estar vacio");
+    }
+    else {
+        comprobarLoginAjax(usuario, pass);
+    }
+}
+
+function comprobarLoginAjax(usuario, pass){
+    $.post("comprobarLogin.php", {
+        usuario: usuario,
+        pass: pass
+    })
+    .done(function(data){
+        if(data == "exito"){
+            window.location.reload(true);
+        }
+        else {
+            crearMensajeErrorLogin(data);
+        }
+    });
+}
+
+function crearMensajeErrorLogin(msn){
+    $("div.loginError").remove();
+    $("div.cajaLogin h3").after("<div class='loginError'>"+msn+"</div>");
+    $("div.loginError").css({
+        color: "#df4931",
+        "background-color": "#f9f9f9",
+        width: "100%",
+        padding: "5px 10px",
+        margin: "5px 0 10px 0",
+        "font-weight": "bold",
+        border: "1px solid #363636",
+        display: "none"
+    });
+    $("div.loginError").fadeIn(500).delay(2500).fadeOut(1000, function(){
+        $("div.loginError").remove();
+    });
+}
 
 function enviarNuevoPost(xhr, idPost, autorComentario, textoComentario){
 	$.post("nuevoComentario.php", { idPost: idPost, autor: autorComentario , textoComentario : textoComentario} )
