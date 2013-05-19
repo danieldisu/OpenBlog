@@ -27,6 +27,7 @@ class DatosPrueba {
     public function datosRapidos(){
         $this->crearRol(1); //Rol Usuario
         $this->crearRol(2); //Rol Administrador
+        $this->crearCategoria(0); //Categoria sinCategoria
         $this->crearCategoria(1); //Categoria PhP
         $this->crearCategoria(2); //Categoria CSS
         $this->crearUsuario(1); //Rol administrador (nombre: rafa, pass: rafa)
@@ -92,6 +93,7 @@ class DatosPrueba {
     
     public function crearCategoria($ejemplo){
         switch($ejemplo){
+            case 0 :  $this->manejadorBD->createCategoria(new Categoria(0, "sinCategoria", "Post creados sin categorizar."));break;
             case 1 : $this->manejadorBD->createCategoria(new Categoria(null, "php", "Categoría sobre el lenguaje de servidor, php."));break;
             case 2 : $this->manejadorBD->createCategoria(new Categoria(null, "css", "Categoría sobre las hojas de estilo y el diseño de las páginas web"));break;
         }

@@ -1,5 +1,3 @@
-
-
   <div class="cajaLogo"><img src="resources/betaLogo01.png" class="logo"/></div>
 
   <button class="btn admin"  data-admin="indice"><i class="icon-home"></i> Indice</button>

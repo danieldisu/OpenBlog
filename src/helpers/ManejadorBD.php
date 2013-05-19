@@ -100,7 +100,19 @@ class ManejadorBD {
 
 	return $sentencia->execute();
   }
+  public function updateCategoriaPost($idCategoria) {
+  	# Funcion encargada de cambiar la categoria del post al ser borrada la categoría
+	$sql = "
+								UPDATE ob_post
+								SET idCategoria = 0
+								WHERE idCategoria = :idCategoria;"
+	;
+	$sentencia = $this->db->prepare($sql);
+	$sentencia->bindParam(":idCategoria", $idCategoria);
 
+
+	return $sentencia->execute();
+  }
   public function getUltimoPostDe($idUsuario){
   	$sql = "SELECT *
   	FROM ob_post

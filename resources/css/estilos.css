@@ -207,7 +207,7 @@ overflow: hidden;
 .categoriaNormal{
  font-size: 1em;
 }
-/* --- Indice y menu lateral de administrador --- */
+/* --- Indice y menu lateral de admºinistrador --- */
 /** Todo esto a retocar en su momento */
 .cajaMenu{
    width: 170px;
@@ -290,9 +290,25 @@ overflow: hidden;
 .acciones button{
 
 }
-
+.cajaCrearCategoria{
+   padding-bottom: 20px;
+}
+.cajaFormularioNuevaCategoria{
+   padding: 20px;
+   border: 1px solid #f2f2f2;
+   width: 25%;
+   margin-bottom: 10px;
+   display: none;
+}
+.cajaFormularioEditarCategoria{
+   padding: 20px;
+   border: 1px solid #f2f2f2;
+   width: 25%;
+   margin-bottom: 10px;
+   display: none;
+}
 .cajaContenidoCategoria table{
-   width:100%;
+   width:95%;
 }
 
 thead{

@@ -7,30 +7,31 @@ $('.btn.admin').on('click', function(e) {
   $cajaLoader = $('.cajaLoader'); // 'cacheamos' cajaLoader para que no tenga que estar buscandolo cada vez
   switch (indice) {
 	case "nEntrada": // Nuevo post
-	  $cajaLoader.load('panelAdmin/nuevaEntrada.php', function(){
+	  $cajaLoader.load('paneladmin/nuevaEntrada.php', function(){
 		cargarListenersNuevoPost();
 	  })
 	  break;
 	case "aEntradas": // Administrar entradas
-	  $cajaLoader.load('panelAdmin/administrarEntradas.php');
+	  $cajaLoader.load('paneladmin/administrarEntradas.php');
 	  break;
 	case "aUsuarios": // Administrar usuarios
-	  $cajaLoader.load('panelAdmin/administrarUsuarios.php');
+	  $cajaLoader.load('paneladmin/administrarUsuarios.php');
 	  break;
 	case "aCategorias": // Administrar categorías
-	  $cajaLoader.load('panelAdmin/administrarCategorias.php');
+	  $cajaLoader.load('paneladmin/administrarCategorias.php', function(){
+	  	cargarListenersCategoria();
+	  });
 	  break;
 	case "personalizar": // Personalizar
-	  $cajaLoader.load('panelAdmin/personalizar.php');
+	  $cajaLoader.load('paneladmin/personalizar.php');
 	  break;
 	case "aCuenta": // Administrar cuenta (mi cuenta)
-	  $cajaLoader.load('panelAdmin/administrarCuenta.php');
+	  $cajaLoader.load('paneladmin/administrarCuenta.php');
 	  break;
 	default: // Defecto, e Index.
-	  $cajaLoader.load('panelAdmin/indexAdministrador.php');
+	  $cajaLoader.load('paneladmin/indexAdministrador.php');
   }
 });
-
 /*
  *	Panel Nuevo Post
  *	IMPORTANTE!
@@ -69,4 +70,108 @@ function validarNuevoPost(titulo, texto) {
   if(texto === "") return false;
   return true;
 }
+function cargarListenersCategoria(){
+	// Mostrar u ocultar div nueva categoria
+	$('.botonCrearCategoria').on('click',function(e){
+		e.preventDefault();
+		var display = $('.cajaFormularioNuevaCategoria').css('display');
+		if (display == 'none'){
+			$('.cajaFormularioNuevaCategoria').css('display', 'block');
+		}
+		else{
+			$('.cajaFormularioNuevaCategoria').css('display', 'none');	
+		}
+		
+	});
+	// Mostrar u ocultar div editar categoria
+	$('.botonEditarCategoria').on('click',function(e){
+		e.preventDefault();
+		var display = $('.cajaFormularioEditarCategoria').css('display');
+		var idCategoria = $(this).data('idcategoria');
+		if (display == 'none'){
+			$('.editarCategoria').attr('data-idcategoria', idCategoria);
+			obtenerDatosCategoria(idCategoria);
+			$('.cajaFormularioEditarCategoria').css('display', 'block');
+		}
+		else{
+			$('.cajaFormularioEditarCategoria').css('display', 'none');	
+		}
+		
+	});
+	// Crear nueva categoria
+	$('.crearCategoria').on('click',function(e){
+		e.preventDefault();
+		var nombre = $('#nombreCategoria').val();
+		var descripcion = $('#descripcionCategoria').val();
+		var datosCategoria ={
+			nombre : nombre,
+			descripcion : descripcion
+		}
+		$.post('paneladmin/nuevaCategoria.php', datosCategoria)
+			.done(function(data){
+				$('.cajaFormularioNuevaCategoria').css('display', 'none');
+				 $cajaLoader.load('paneladmin/administrarCategorias.php', function(){
+		  			cargarListenersCategoria();
+		  			$('.cajaContenidoCategoria').find('table').before(data);
+		  		});			
+			})
+			.fail(function(){
+				console.log('Fallo en el envio de crear una categoria');
+			})
+	});
+	$('.botonBorrarCategoria').on('click', function(e){
+		// Cogemos el id de la categoria
+		var idCategoria = $(this).data('idcategoria');
+		var datosCategoria = {
+			id : idCategoria
+		}
+		$.post('paneladmin/borrarCategoria.php', datosCategoria)
+			.done(function(data){
+				 $cajaLoader.load('paneladmin/administrarCategorias.php', function(){
+		  			cargarListenersCategoria();
+		  			$('.cajaContenidoCategoria').find('table').before(data);
+		  		});			
+			})
+			.fail(function(){
+				console.log('Fallo en el envio de crear una categoria');
+			})		
+	});
+	$('.editarCategoria').on('click', function(e){
+		// Cogemos el id de la categoria
+		var id = $(this).data('idcategoria');
+		var nombre = $('#editarNombreCategoria').val();
+		var descripcion = $('#editarDescripcionCategoria').val();
+		var datosCategoria = {
+			id : id,
+			nombre : nombre,
+			descripcion: descripcion
+		}
+		$.post('paneladmin/editarCategoria.php', datosCategoria)
+			.done(function(data){
+				 $cajaLoader.load('paneladmin/administrarCategorias.php', function(){
+		  			cargarListenersCategoria();
+		  			$('.cajaContenidoCategoria').find('table').before(data);
+		  		});			
+			})
+			.fail(function(){
+				console.log('Fallo en el envio de crear una categoria');
+			})		
+	});
+}
 
+function obtenerDatosCategoria(idCategoria){
+	datosCategoria = {
+		id: idCategoria
+	};
+	datos = $.post('paneladmin/obtenedorCategoria.php', datosCategoria)
+			.done(function(data){
+				datos =  $.parseJSON(data);
+				$('#editarNombreCategoria').val(datos.nombre);
+				$('#editarDescripcionCategoria').val(datos.descripcion);
+			})
+			.fail(function(){
+				console.log('Fallo en el envio de crear una categoria');
+			})
+	return datos;
+	
+}

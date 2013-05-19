@@ -13,7 +13,7 @@ Header::cargarHojasEstilosAdmin();
   <body>
 	<div class="container">
 	  <div class="cajaMenu">	  
-		<?php include 'panelAdmin/menu.php' ?>
+		<?php include 'paneladmin/menu.php'; ?>
 	  </div>
 	  <div class="cajaLoader">
 
