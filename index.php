@@ -71,6 +71,13 @@
                             else{
                             ?>
                             <label>Bienvenido <?php echo Login::getNombre() ?></label>
+                            <?php
+                            	if(Login::isAdmin()){
+                            ?>
+                            <input type="button" class="btn btn-block" value="Administrar">
+                            <?php
+                            	}
+                            ?>
                             <input type="button" class="btn btn-block" value="Logout">
                             <?php
                             }

@@ -3,11 +3,10 @@
 	<?php
 	include 'autoloader.php';
 
-use src\helpers\Header;
-use src\helpers\ManejadorBD;
+	use src\helpers\Header;
+	use src\helpers\ManejadorBD;
 
-Header::cargarHojasEstilosAdmin();
-
+	Header::cargarHojasEstilosAdmin();
 	?>	
   </head>
   <body>

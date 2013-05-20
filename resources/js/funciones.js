@@ -52,7 +52,9 @@ $(document).ready(function(){
 	   });
 	   
 	});
-
+	$("div.cajaLogin input[value='Administrar']").click(function(e){
+	   window.location.replace('panelAdmin.php');	   
+	});
 });
 
 function comprobarLogin(){

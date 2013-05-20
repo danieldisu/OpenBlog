@@ -19,7 +19,7 @@
                <th class="span2">Nombre</th>
                <th class="span5">Descripcion</th>
                <th class="span2">Número de post</th>
-               <th class="span1">Acciones</th>
+               <th class="span3">Acciones</th>
             </tr>
          </thead>   
          <tbody>
