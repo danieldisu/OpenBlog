@@ -87,22 +87,10 @@ function comprobarLoginAjax(usuario, pass){
 }
 
 function crearMensajeErrorLogin(msn){
-    $("div.loginError").remove();
+    $("div.alert").remove();
     $("div.cajaLogin h3").after("<div class='alert alert-error'>"+msn+"</div>");
-    /* Usamos los estilos que nos aporta Bootstrap, de todas maneras los estilos css los puedes tener creados en el archivo .css y ya se aplican cuando agregues esto
-    $("div.loginError").css({
-        color: "#df4931",
-        "background-color": "#f9f9f9",
-        width: "100%",
-        padding: "5px 10px",
-        margin: "5px 0 10px 0",
-        "font-weight": "bold",
-        border: "1px solid #363636",
-        display: "none"
-    });
-	*/
-    $("div.loginError").fadeIn(500).delay(2500).fadeOut(1000, function(){
-        $("div.loginError").remove();
+    $("div.alert").fadeIn(500).delay(2500).fadeOut(1000, function(){
+        $("div.alert").remove();
     });
 }
 
