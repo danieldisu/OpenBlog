@@ -26,7 +26,8 @@
         session_start();
         $_SESSION["usuario"]["id"] = $user->getId();
         $_SESSION["usuario"]["nombre"] = $user->getNombre();
-        $_SESSION["usuario"]["pass"] = $user->getPass();
+        // LA PASS MEJOR NO PASARLA EN LA SESION!
+        // $_SESSION["usuario"]["pass"] = $user->getPass();
         $_SESSION["usuario"]["mail"] = $user->getMail();
         $_SESSION["usuario"]["idRol"] = $user->getIdRol();
         echo "exito";
