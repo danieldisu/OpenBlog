@@ -41,17 +41,17 @@ $(document).ready(function(){
 		enviarNuevoPost(xhr, idPost, autorComentario, textoComentario);	
 	});
         
-        $("div.cajaLogin input[value='Login']").click(function(e){
-            comprobarLogin();
-        });
-        
-        $("div.cajaLogin input[value='Logout']").click(function(e){
-            $.post("logout.php")
-            .done(function(data){
-                window.location.reload(true);
-            });
-            
-        });
+	$("div.cajaLogin input[value='Login']").click(function(e){
+	   comprobarLogin();
+	});
+
+	$("div.cajaLogin input[value='Logout']").click(function(e){
+	   $.post("logout.php")
+	   .done(function(data){
+	       window.location.reload(true);
+	   });
+	   
+	});
 
 });
 
@@ -88,7 +88,8 @@ function comprobarLoginAjax(usuario, pass){
 
 function crearMensajeErrorLogin(msn){
     $("div.loginError").remove();
-    $("div.cajaLogin h3").after("<div class='loginError'>"+msn+"</div>");
+    $("div.cajaLogin h3").after("<div class='alert alert-error'>"+msn+"</div>");
+    /* Usamos los estilos que nos aporta Bootstrap, de todas maneras los estilos css los puedes tener creados en el archivo .css y ya se aplican cuando agregues esto
     $("div.loginError").css({
         color: "#df4931",
         "background-color": "#f9f9f9",
@@ -99,6 +100,7 @@ function crearMensajeErrorLogin(msn){
         border: "1px solid #363636",
         display: "none"
     });
+	*/
     $("div.loginError").fadeIn(500).delay(2500).fadeOut(1000, function(){
         $("div.loginError").remove();
     });
