@@ -30,6 +30,7 @@ $('.btn.admin').on('click', function(e) {
 	  break;
 	case "aSalir": // Administrar cuenta (mi cuenta)
 		// IMPLEMENTAR FUNCION QUE ME LLEVE A INDEX
+		goToIndex();
 		break;
 	default: // Defecto, e Index.
 	  $cajaLoader.load('paneladmin/indexAdministrador.php');
@@ -39,7 +40,13 @@ $('.btn.admin').on('click', function(e) {
 	Funcion que me manda a index
 */
 function goToIndex(){
-	
+	/**
+	* Funcion encargada de obtener el enlace actual en el panel admin
+	* y quitarle 'panelAdmin.php' para volver al indice.
+	 */
+	var actualHref = $(location).attr('href');
+	var hrefRaiz = actualHref.replace('panelAdmin.php', '');
+	$(location).attr('href', hrefRaiz);
 }
 
 /*
