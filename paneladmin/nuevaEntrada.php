@@ -15,10 +15,13 @@ $mbd = new ManejadorBD();
       <div class="cajaTitulo">
         <label>Titulo:</label><input name="titulo" type="text" />
       </div>
-     <div class="cajaEditorTexto">
+     <!--<div class="cajaEditorTexto">
       <label>Texto:</label>
 		  <textarea name="texto"></textarea>
-      </div>
+      </div>-->
+	   <div id="epiceditor">
+	   	
+	   </div>
 	  <div class="cajaCategoria">
 		<label>Categoria: </label>
 		<select name="categoria">

@@ -9,6 +9,9 @@ $('.btn.admin').on('click', function(e) {
 	case "nEntrada": // Nuevo post
 	  $cajaLoader.load('paneladmin/nuevaEntrada.php', function(){
 		cargarListenersNuevoPost();
+		var editor = new EpicEditor({
+			basePath: 'resources/js/epiceditor'
+		}).load();
 	  })
 	  break;
 	case "aEntradas": // Administrar entradas
@@ -192,3 +195,4 @@ function obtenerDatosCategoria(idCategoria){
 	return datos;
 	
 }
+

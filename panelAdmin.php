@@ -7,7 +7,7 @@
 	use src\helpers\ManejadorBD;
 
 	Header::cargarHojasEstilosAdmin();
-	?>	
+	?>
   </head>
   <body>
 	<div class="container">
