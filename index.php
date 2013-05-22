@@ -3,14 +3,11 @@
 	use src\helpers\Header;
 	use src\helpers\ManejadorBD;
 	use src\helpers\Paginador;
-  use src\helpers\Login;
-
-  $login = Login::isLogin();
-
-  print_r($login);
+  	use src\helpers\Login;
 
    // Iniciamos el manejador BD con las opciones del JSON
 	$mbd = new ManejadorBD(Header::cargarJSON());
+
   Header::iniciarSesion();
 
 	if(!empty($_GET['p']))
@@ -20,31 +17,19 @@
 ?>
 <!DOCTYPE html>
 <html lang="es">
-	<head>
-		<meta charset="utf-8">
-		<title>OpenBlog</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-		<!-- Le styles -->
-		<?php Header::cargarHojasDeEstilos(); ?>	
-
-		<!-- Favicon -->
-		<link rel="shortcut icon" href="../resources/ico/favicon.ico">
-	</head>
-
+	<?php Header::cargarHead(false/*false == no es pagina admin*/); ?>;
 	<body>
 	  <div class="container">
 			<div class="row">
-				<div class="span12 header">
+				<a href="index.php"><div class="span12 header">
 					<img src="resources/betaLogo01.png">
 					<h1><?php echo Header::$json["tituloBlog"] ?></h1>
-				</div>
+				</div></a>
 			</div><!-- /header -->
 
 		<div class="row main">
 			<div class="span9 contenido">
 				<?php
-
 					$posts = $mbd->getPostPagina($pagina);
 					foreach ($posts as $post){
 						include "src/templates/plantillaPost.php";
@@ -59,77 +44,21 @@
 			</div>
 									
 		</div>
-		<div class="span3 sidebar">
-			<div class="cajaLogin">
-        <h3> Login </h3>
-        <?php
-        ## Seria ideal mover esto a dos templates, al igual que todo el sidebar
-          if(!Login::isLogin()){
-        ?>
-          <label>Usuario</label>
-          <input type="text" id="inputUsuario">
-          <label>Contraseña</label>
-          <input type="password" id="inputPassword">
-          <input type="button" class="btn btn-block" value="Login">
-          <input type="button" class="btn btn-block" value="Registrarse">
-        <?php 
-        }
-        else{
-        ?>
-        <label>Bienvenido <?php echo Login::getNombre() ?></label>
-        <?php
-        	if(Login::isAdmin()){
-        ?>
-        <input type="button" class="btn btn-block" value="Administrar">
-        <?php
-        	}
-        ?>
-        <input type="button" class="btn btn-block" value="Logout">
-        <?php
-        }
-        ?>
-			</div>
+		<div class="span3 sidebar"><!-- sidebar -->
+      <?php
+      	use src\helpers\Sidebar;
 
-			<div class="cajaUltimosPost">
-			  <h3> Ultimos Post </h3>
-			  <ul>
-					<?php 
-					$posts = $mbd->obtenerUltimosPost();
-					foreach ($posts as $post){
-						include "src/templates/listaUltimosPostTemplate.php";
-					}
-					?>
-					
-			  </ul>
-			</div>
-         <div class="cajaUltimosComentarios">
-           <h3> Ultimos Comentarios </h3>
-           <ul>
-             <?php 
-                 $comentarios = $mbd->obtenerUltimosComentarios();       
-                 foreach ($comentarios as $comentario) {
-                   include "src/templates/listaUltimosComentariosTemplate.php";
-                 }
-                 
-             ?>    
-           </ul>            
-         </div>
-         <div class="cajaCategorias">
-           <h3> Nube de categorías </h3>
-           <ul>
-             <?php 
-                 $categorias = $mbd->obtenerCategorias();
-                 $cantidades = array();
-                 $i = 0;   //Variable para comprobar en listaCategoriasTemplate que es la ultima vuelta de bucle   
-                 foreach ($categorias as $categoria) {
-                   include "src/templates/listaCategoriasTemplate.php";
-                 }
-                 
-             ?>    
-           </ul>            
-         </div>
+      	Sidebar::addCajaLogin();
+
+      	Sidebar::addCajaUltimosPost($mbd);
+
+      	Sidebar::addCajaUltimosComentarios($mbd);
+
+      	Sidebar::addCajaCategorias($mbd);
+
+      ?>  
        </div>
-     </div>
+     </div><!-- /sidebar -->
    </div> <!-- /container -->
 
    <!-- Le javascript

@@ -17,30 +17,36 @@ Class Header {
   }
 
   public static function cargarHojasDeEstilos() {
-	// en caso de que ya hayamos cargado el JSON anteriormente usamos las opciones ya cargadas en memoría, esto pasa si cargamos antes el manejadorBD con la config del JSON
+	 // en caso de que ya hayamos cargado el JSON anteriormente usamos las opciones ya cargadas en memoría, esto pasa si cargamos antes el manejadorBD con la config del JSON
+  	if (!isset(self::$json))
+  	  self::cargarJSON();
 
-	if (!isset(self::$json))
-	  self::cargarJSON();
+  	$rutaCSS = self::$json["rutaCss"];
+  	echo '<link href="resources/css/bootstrap.css" rel="stylesheet">';
+  	echo '<link href="resources/css/bootstrap-responsive.css" rel="stylesheet">';
+  	echo '<link href="resources/css/fuentes.css" rel="stylesheet">';
+  	echo '<link href="' . $rutaCSS . '" rel="stylesheet">';
+  }
 
-	$rutaCSS = self::$json["rutaCss"];
-	echo '<link href="resources/css/bootstrap.css" rel="stylesheet">';
-	echo '<link href="resources/css/bootstrap-responsive.css" rel="stylesheet">';
-	echo '<link href="resources/css/fuentes.css" rel="stylesheet">';
-	echo '<link href="' . $rutaCSS . '" rel="stylesheet">';
+  public static function cargarHead($admin){
+    if(!$admin)
+      include 'src/templates/header/templateHeadHome.php';
+    else
+      include 'src/templates/header/templateHeadAdmin.php';
   }
   
   /*
    * De momento es la misma funcion que arriba, pero alomejor nos interesa cambiar algo
    */
   public static function cargarHojasEstilosAdmin(){
-	if (!isset(self::$json))
-	  self::cargarJSON();
-	
-	$rutaCSS = self::$json["rutaCss"];
-	echo '<link href="resources/css/bootstrap.css" rel="stylesheet">';
-	echo '<link href="resources/css/bootstrap-responsive.css" rel="stylesheet">';
-	echo '<link href="resources/css/fuentes.css" rel="stylesheet">';
-	echo '<link href="' . $rutaCSS . '" rel="stylesheet">';	
+  	if (!isset(self::$json))
+  	  self::cargarJSON();
+    	
+  	$rutaCSS = self::$json["rutaCss"];
+  	echo '<link href="resources/css/bootstrap.css" rel="stylesheet">';
+  	echo '<link href="resources/css/bootstrap-responsive.css" rel="stylesheet">';
+  	echo '<link href="resources/css/fuentes.css" rel="stylesheet">';
+  	echo '<link href="' . $rutaCSS . '" rel="stylesheet">';	
   }
   
   public static function cargarJsAdmin(){
@@ -93,6 +99,11 @@ Class Header {
           session_start();
       }
   }
+
+  public static function getRootDirectory(){
+    return $_SERVER['HTTP_HOST'].self::getOpenBlogDir()."/OpenBlog";
+  }
+
 }
 
 ?>

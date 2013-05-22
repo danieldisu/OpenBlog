@@ -14,12 +14,7 @@ $mbd = new ManejadorBD();
 	 <form class="formNuevoPost">
     <div class="cajaAdmin cajaTitulo">
       <label>Titulo del Post:</label><input name="titulo" type="text" />
-    </div>
-       <!--<div class="cajaEditorTexto">
-        <label>Texto:</label>
-  		  <textarea name="texto"></textarea>
-        </div>-->
-        
+    </div>        
     <div class="cajaAdmin">
       <label>Texto:</label>
   	   <div id="epiceditor">

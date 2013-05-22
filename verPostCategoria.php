@@ -2,6 +2,7 @@
 	include 'autoloader.php';
 	use src\helpers\ManejadorBD;
 	use src\helpers\Header;
+  	use src\helpers\Login;	
 
 	$mbd = new ManejadorBD(Header::cargarJSON());
         if(isset($_GET['idCategoria']))
@@ -13,29 +14,21 @@
 		$id = $mbd->getCategoria($idCategoria);
 		if(empty($id)){
 		  Header::mostrarPaginaError("La categoria no existe");	
-		}  
+		}
+	
+	Header::iniciarSesion();
+
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
-	<head>
-		<meta charset="utf-8">
-		<title>OpenBlog</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-		<!-- Le styles -->
-		<?php Header::cargarHojasDeEstilos(); ?>	
-
-		<!-- Favicon -->
-		<link rel="shortcut icon" href="../resources/ico/favicon.ico">
-	</head>
-
+	<?php Header::cargarHead(false/*false == no es pagina admin*/); ?>;
 	<body>
 	  <div class="container">
 			<div class="row">
 				<div class="span12 header">
 					<img src="resources/betaLogo01.png">
-					<h1><?php echo Header::$json["tituloBlog"] ?></h1>
+					<a href="index.php"><h1><?php echo Header::$json["tituloBlog"] ?></h1></a>
 				</div>
 			</div><!-- /header -->
 
@@ -59,42 +52,18 @@
 									
 		</div>
 		<div class="span3 sidebar">
-			<div class="cajaLogin">
-			  <h3> Login </h3>
-			  <label>Usuario</label>
-			  <input type="text" id="inputUsuario">
-			  <label>Contraseña</label>
-			  <input type="password" id="inputPassword">
-			  <input type="button" class="btn btn-block" value="Login">
-			  <input type="button" class="btn btn-block" value="Registrarse">
-			</div>
+	      <?php
+	      	use src\helpers\Sidebar;
 
-			<div class="cajaUltimosPost">
-			  <h3> Ultimos Post </h3>
-			  <ul>
-					<?php
-					$UltimosPosts = $mbd->obtenerUltimosPost();
-					
-					foreach ($UltimosPosts as $post){
-						include "src/templates/listaUltimosPostTemplate.php";
-					}
-					?>
-					
-			  </ul>
-			</div>
-		  
-         <div class="cajaUltimosComentarios">
-           <h3> Ultimos Comentarios </h3>
-           <ul>
-             <?php
-                 $comentarios = $mbd->obtenerUltimosComentarios();                 
-                 foreach ($comentarios as $comentario) {
-                   include "src/templates/listaUltimosComentariosTemplate.php";
-                 }
-                 
-             ?>    
-           </ul>            
-         </div>
+	      	Sidebar::addCajaLogin();
+
+	      	Sidebar::addCajaUltimosPost($mbd);
+
+	      	Sidebar::addCajaUltimosComentarios($mbd);
+
+	      	Sidebar::addCajaCategorias($mbd);
+
+	      ?> 
        </div>
      </div>
    </div> <!-- /container -->
