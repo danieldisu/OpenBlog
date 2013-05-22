@@ -90,7 +90,7 @@ function comprobarLoginAjax(usuario, pass){
 
 function crearMensajeErrorLogin(msn){
     $("div.alert").remove();
-    $("div.cajaLogin h3").after("<div class='alert alert-error'>"+msn+"</div>");
+    $("div.cajaLogin h3").after("<div class='alert alert-msn'>"+info+"</div>");
     $("div.alert").fadeIn(500).delay(2500).fadeOut(1000, function(){
         $("div.alert").remove();
     });
@@ -99,7 +99,10 @@ function crearMensajeErrorLogin(msn){
 function enviarNuevoPost(xhr, idPost, autorComentario, textoComentario){
 	$.post("nuevoComentario.php", { idPost: idPost, autor: autorComentario , textoComentario : textoComentario} )
 	.done(function(data){
-		console.log(data)
+		console.log(data);
+		$(".cajaNuevoComentario").fadeOut('fast',function(){
+			$(this).html(data).fadeIn();
+		})
 	})
 }
 

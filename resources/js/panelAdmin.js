@@ -28,10 +28,20 @@ $('.btn.admin').on('click', function(e) {
 	case "aCuenta": // Administrar cuenta (mi cuenta)
 	  $cajaLoader.load('paneladmin/administrarCuenta.php');
 	  break;
+	case "aSalir": // Administrar cuenta (mi cuenta)
+		// IMPLEMENTAR FUNCION QUE ME LLEVE A INDEX
+		break;
 	default: // Defecto, e Index.
 	  $cajaLoader.load('paneladmin/indexAdministrador.php');
   }
 });
+/*
+	Funcion que me manda a index
+*/
+function goToIndex(){
+	
+}
+
 /*
  *	Panel Nuevo Post
  *	IMPORTANTE!

@@ -144,6 +144,10 @@ overflow: hidden;
    height:200px;
 }
 
+.cajaNuevoComentario .alert{
+   margin-top: 25px;
+}
+
 .cajaNuevoComentario .btn{
    float:right;
 }
