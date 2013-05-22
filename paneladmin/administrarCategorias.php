@@ -1,17 +1,17 @@
-<div class="cajaAdministracion row">
-   <div class="span12 cajaTituloCategoria">
+<div class="cajaAdministracion">
+   <div class=" cajaTituloCategoria">
       <h2>Administrar Categorias</h2>
    </div>
-   <div class="span12 cajaCrearCategoria">
+   <div class=" cajaCrearCategoria">
       <button class="botonCrearCategoria"><i class="icon-plus-sign"></i> Nueva categoría</button>
    </div>
-   <div class="span12 cajaFormularioNuevaCategoria">
+   <div class=" cajaFormularioNuevaCategoria">
       <label>Nueva categoría: </label><input type="text" id="nombreCategoria" placeholder="Nombre ...">
       <label>Descripción: </label>
       <textarea id="descripcionCategoria"></textarea><br/>
       <button class="crearCategoria"><i class="icon-plus"></i> Añadir</button>
    </div>
-   <div class="span12 cajaContenidoCategoria">         
+   <div class=" cajaContenidoCategoria">         
       <table class="table table-bordered table-striped">
          <thead>
             <tr>
@@ -42,7 +42,7 @@
          </tbody>
          </table>       
    </div>   
-   <div class="span12 cajaFormularioEditarCategoria">
+   <div class=" cajaFormularioEditarCategoria">
       <label>Editar categoría: </label><input type="text" id="editarNombreCategoria" placeholder="Nombre ...">
       <label>Descripción: </label>
       <textarea id="editarDescripcionCategoria"></textarea><br/>
