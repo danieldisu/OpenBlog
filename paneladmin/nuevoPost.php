@@ -26,8 +26,8 @@
     $nuevoPost->setIdCategoria($idCategoria);
     $nuevoPost->setIdUsuario($idUsuario);
     $nuevoPost->setFechaCreacion($fechaCreacion);
-    $nuevoPost->setTexto(strip_tags($texto));
-    $nuevoPost->setTitulo(strip_tags($titulo));    
+    $nuevoPost->setTexto($texto);
+    $nuevoPost->setTitulo(strip_tags($titulo));
   }
 
   

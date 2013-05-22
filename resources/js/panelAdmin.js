@@ -1,3 +1,4 @@
+var editor;
 $('.btn.admin').on('click', function(e) {
   e.preventDefault();
   var indice = $(this).data('admin');
@@ -9,7 +10,7 @@ $('.btn.admin').on('click', function(e) {
 	case "nEntrada": // Nuevo post
 	  $cajaLoader.load('paneladmin/nuevaEntrada.php', function(){
 		cargarListenersNuevoPost();
-		var editor = new EpicEditor({
+		editor = new EpicEditor({
 			basePath: 'resources/js/epiceditor'
 		}).load();
 	  })
@@ -61,7 +62,8 @@ function goToIndex(){
 function cargarListenersNuevoPost(){
   $('#botonNuevoPost').on('click', function(e){
 	e.preventDefault();
-	var texto = $('.cajaEditorTexto textarea').val();
+	editor.preview();
+	var texto = $(editor.getElement('previewer').body).find("div").html();
 	var titulo = $('.cajaTitulo input').val();
 	var idCategoria = $('.cajaCategoria select').val();
 
@@ -76,6 +78,7 @@ function cargarListenersNuevoPost(){
 	}
 	$.post('paneladmin/nuevoPost.php', datosPost)
 		.done(function(data){
+			editor.remove(); // Limpiamos el editor de texto si todo va bien
 			$('.formNuevoPost').fadeOut(function(){
 				$('.formNuevoPost').parent().append(data);
 			});
