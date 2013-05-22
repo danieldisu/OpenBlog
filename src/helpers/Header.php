@@ -51,6 +51,8 @@ Class Header {
   
   public static function cargarJsAdmin(){
 	echo '<script src="resources/js/jquery.js"></script>';
+  echo '<script src="resources/js/bootstrap.js"></script>';
+  echo '<script src="resources/js/epiceditor/js/toMarkdown.js"></script>';
   echo '<script src="resources/js/epiceditor/js/epiceditor.js"></script>'; 
 	echo '<script src="resources/js/panelAdmin.js"></script>';
   }

@@ -88,14 +88,14 @@ class ManejadorBD {
 	;
 	$sentencia = $this->db->prepare($sql);
 
-	$sentencia->bindParam(":idUsuario", $post->getIdUsuario());
-	$sentencia->bindParam(":idCategoria", $post->getIdCategoria());
-	$sentencia->bindParam(":titulo", $post->getTitulo());
-	$sentencia->bindParam(":texto", $post->getTexto());
-	$sentencia->bindParam(":fechaCreacion", $post->getFechaCreacion());
-	$sentencia->bindParam(":fechaModificacion", $post->getFechaModificacion());
-	$sentencia->bindParam(":modificaciones", $post->getModificaciones());
-	$sth->bindParam(':id', $id);
+	$sentencia->bindValue(":idUsuario", $post->getIdUsuario());
+	$sentencia->bindValue(":idCategoria", $post->getIdCategoria());
+	$sentencia->bindValue(":titulo", $post->getTitulo());
+	$sentencia->bindValue(":texto", $post->getTexto());
+	$sentencia->bindValue(":fechaCreacion", $post->getFechaCreacion());
+	$sentencia->bindValue(":fechaModificacion", $post->getFechaModificacion());
+	$sentencia->bindValue(":modificaciones", $post->getModificaciones());
+	$sentencia->bindValue(':id', $id);
 
 
 	return $sentencia->execute();

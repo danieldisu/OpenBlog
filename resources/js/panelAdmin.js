@@ -1,5 +1,6 @@
 var editor;
 $('.btn.admin').on('click', function(e) {
+	
   e.preventDefault();
   var indice = $(this).data('admin');
   /*Obtengo el id del boton, para saber cual se pulsa*/
@@ -16,7 +17,9 @@ $('.btn.admin').on('click', function(e) {
 	  })
 	  break;
 	case "aEntradas": // Administrar entradas
-	  $cajaLoader.load('paneladmin/administrarEntradas.php');
+	  $cajaLoader.load('paneladmin/administrarPosts.php',function(){
+	  	funcionesListaPost();
+	  });
 	  break;
 	case "aUsuarios": // Administrar usuarios
 	  $cajaLoader.load('paneladmin/administrarUsuarios.php');
@@ -198,4 +201,65 @@ function obtenerDatosCategoria(idCategoria){
 	return datos;
 	
 }
+
+
+/* LISTA POSTS */
+function funcionesListaPost(){
+	var textoPost;
+	var idPost;
+	var editor2;
+	var botonGuardarModificaciones = "<button class='btn btn-warning botonGuardarModificaciones'> Guardar Modificaciones </button>";
+
+	$('.listaPosts a').click(function(){
+		mostrarTexto(this);
+	});
+
+	$('.botonModificarPost').click(function(){
+		
+		$(".modal-body").html("<div id='epiceditor'></div>");
+		
+		file = {
+			name : "modificacionPost"+idPost,
+			defaultContent : toMarkdown(textoPost)
+		}
+		editor2 = new EpicEditor({
+			clientSideStorage: false,
+			basePath: 'resources/js/epiceditor',
+			file : file
+		}).load();
+
+		$(this).hide().parent().append(botonGuardarModificaciones);
+
+		$('.botonGuardarModificaciones').click(guardarModificaciones);
+	})
+
+	function guardarModificaciones(){
+		
+		var texto = $(editor2.getElement('previewer').body).find("div").html();
+		$.post('paneladmin/src/actualizarTextoPost.php', {texto : texto, idPost : idPost} ,function(data){
+			if(!JSON.parse(data).resultado)
+				$('.modal-footer').prepend('<div class="alert alert-error">Se ha encontrado un error</div>').fadeIn('slow');
+			else{
+				console.log(JSON.parse(data).resultado);
+				$('.modal-footer').prepend('<div class="alert alert-success">Se ha Modificado correctamente el post</div>').fadeIn('slow');
+					setTimeout(function(){
+					  $('div .alert').fadeOut('slow');
+					}, 5000);
+				
+			}
+		})
+	}
+
+	function mostrarTexto(enlace){
+		textoPost = $(enlace).siblings(".textoPost").html();
+		idPost = $(enlace).data('idpost');
+		
+		$(".modal-body").html(textoPost);
+		//$(".modal-header h3").html("Modificando el post con id: "+idPost);
+	}
+
+}
+
+
+
 

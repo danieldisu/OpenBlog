@@ -543,6 +543,27 @@ tbody{
   color:#DF4931;
 }
 
+/* ADMINISTRAR POSTS */
+
+.textoPost{
+   display:none;
+}
+
+#myModal{
+   min-height: 60%;
+}
+
+#myModal .modal-body{
+   min-height: 500px;
+   max-height:100% !important;
+}
+
+#myModal #epiceditor{
+   height:500px;
+}
+#myModal .alert{
+   text-align: center;
+}
 
 /* RETOQUES MOVIL */
 
