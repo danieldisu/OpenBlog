@@ -359,3 +359,16 @@ tbody{
   font-size: 2em;
   color:#DF4931;
 }
+
+
+/* RETOQUES MOVIL */
+
+@media (max-width: 767px) {
+   .cajaAcciones .btn{
+     width:300px;
+     display:block;
+     margin-left:auto;
+     margin-right: auto;
+     margin-bottom: 10px;
+   }
+}
