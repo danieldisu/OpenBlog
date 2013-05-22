@@ -23,21 +23,22 @@
 			# Tenemos idCategoria y cantidadPost
 			# Entonces según la cantidadPost le asignaremos una clase css
 			# To-Do añadir enlace a post de x categoria
+			$idCategoria = $cantidad['idCategoria'];
 			switch ($j) {
 				case 0:
-					$lineaSalida ='<a href="" class="categoriaMayorCantidadPost">'.$mbd->obtenerNombreCategoria($cantidad['idCategoria']).'</a> ';
+					$lineaSalida ='<a href="verPostCategoria.php?idCategoria='.$idCategoria.'" class="categoriaMayorCantidadPost">'.$mbd->obtenerNombreCategoria($cantidad['idCategoria']).'</a> ';
 					break;
 				case 1:
-					$lineaSalida ='<a href="" class="categoriaSecundaria">'.$mbd->obtenerNombreCategoria($cantidad['idCategoria']).'</a> ';
+					$lineaSalida ='<a href="verPostCategoria.php?idCategoria='.$idCategoria.'" class="categoriaSecundaria">'.$mbd->obtenerNombreCategoria($cantidad['idCategoria']).'</a> ';
 					break;
 				case 2:
-					$lineaSalida ='<a href="" class="categoriaTerciaria">'.$mbd->obtenerNombreCategoria($cantidad['idCategoria']).'</a> ';
+					$lineaSalida ='<a href="verPostCategoria.php?idCategoria='.$idCategoria.'" class="categoriaTerciaria">'.$mbd->obtenerNombreCategoria($cantidad['idCategoria']).'</a> ';
 					break;
 				case 3:
-					$lineaSalida ='<a href="" class="categoriaCuarta">'.$mbd->obtenerNombreCategoria($cantidad['idCategoria']).'</a> ';
+					$lineaSalida ='<a href="verPostCategoria.php?idCategoria='.$idCategoria.'" class="categoriaCuarta">'.$mbd->obtenerNombreCategoria($cantidad['idCategoria']).'</a> ';
 					break;
 				default:
-					$lineaSalida ='<a href="" class="categoriaNormal">'.$mbd->obtenerNombreCategoria($cantidad['idCategoria']).'</a> ';
+					$lineaSalida ='<a href="verPostCategoria.php?idCategoria='.$idCategoria.'" class="categoriaNormal">'.$mbd->obtenerNombreCategoria($cantidad['idCategoria']).'</a> ';
 					break;
 			}
 			$j++;
