@@ -40,13 +40,69 @@ $(document).ready(function(){
 		var textoComentario = $(this).parent().find("textarea").val();
 		enviarNuevoPost(xhr, idPost, autorComentario, textoComentario);	
 	});
+        
+	$("div.cajaLogin input[value='Login']").click(function(e){
+	   comprobarLogin();
+	});
 
+	$("div.cajaLogin input[value='Logout']").click(function(e){
+	   $.post("logout.php")
+	   .done(function(data){
+	       window.location.reload(true);
+	   });
+	   
+	});
+	$("div.cajaLogin input[value='Administrar']").click(function(e){
+	   window.location.replace('panelAdmin.php');	   
+	});
 });
+
+function comprobarLogin(){
+    
+    var usuario = $("#inputUsuario").val();
+    var pass = $("#inputPassword").val();
+    
+    if(usuario == ""){
+        crearMensajeErrorLogin("El campo usuario no puede estar vacio");
+    }
+    else if(pass == ""){
+        crearMensajeErrorLogin("El campo contraseña no puede estar vacio");
+    }
+    else {
+        comprobarLoginAjax(usuario, pass);
+    }
+}
+
+function comprobarLoginAjax(usuario, pass){
+    $.post("comprobarLogin.php", {
+        usuario: usuario,
+        pass: pass
+    })
+    .done(function(data){
+        if(data == "exito"){
+            window.location.reload(true);
+        }
+        else {
+            crearMensajeErrorLogin(data);
+        }
+    });
+}
+
+function crearMensajeErrorLogin(msn){
+    $("div.alert").remove();
+    $("div.cajaLogin h3").after("<div class='alert alert-msn'>"+info+"</div>");
+    $("div.alert").fadeIn(500).delay(2500).fadeOut(1000, function(){
+        $("div.alert").remove();
+    });
+}
 
 function enviarNuevoPost(xhr, idPost, autorComentario, textoComentario){
 	$.post("nuevoComentario.php", { idPost: idPost, autor: autorComentario , textoComentario : textoComentario} )
 	.done(function(data){
-		console.log(data)
+		console.log(data);
+		$(".cajaNuevoComentario").fadeOut('fast',function(){
+			$(this).html(data).fadeIn();
+		})
 	})
 }
 

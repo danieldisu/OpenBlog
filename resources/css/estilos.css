@@ -120,6 +120,171 @@ h3{
    font-size: 1.2em;
    text-align:justify;
 }
+
+/* ESTILOS DEL POST */
+.cajaContenidoPost *{
+   color:#333;
+   font-size: 1em;
+
+}
+
+.cajaContenidoPost h1{
+   font-size: 1.8em;
+   line-height: 30px;
+}
+
+.cajaContenidoPost h2{
+   font-size: 1.5em;
+   line-height: 30px;
+}
+
+.cajaContenidoPost h3{
+   font-size: 1.5em;
+   font-weight: bold;
+   font-style: none;
+   line-height: 30px;
+}
+
+.cajaContenidoPost h4{
+   font-size: 1.15em;
+   line-height: 30px;
+}
+
+.cajaContenidoPost h5{
+   font-size: 1.05em;
+   line-height: 30px;
+}
+
+.cajaContenidoPost a{
+   color:#005580;
+   font-weight: bold;
+}
+
+.cajaContenidoPost ul{
+
+}
+.cajaContenidoPost ol{
+   counter-reset: li; /* Initiate a counter */
+   list-style: none; /* Remove default numbering */
+   *list-style: decimal; /* Keep using default numbering for IE6/7 */
+   font: 15px 'trebuchet MS', 'lucida sans';
+   padding: 0;
+   margin-bottom: 4em;
+   text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+ol ol{
+   margin: 0 0 0 2em; /* Add some left margin for inner lists */
+}
+.cajaContenidoPost ol li{
+
+   position: relative;
+   display: block;
+   padding: .4em .4em .4em .8em;
+   *padding: .4em;
+   margin: 0.5em 5em .5em 5em;
+   background: #ddd;
+   color: #444;
+   text-decoration: none;
+   transition: all .3s ease-out; 
+}
+
+.cajaContenidoPost ol li:hover{
+   background: #eee;   
+   }
+
+.cajaContenidoPost ol li:before{
+   content: counter(li);
+   counter-increment: li;
+   position: absolute;  
+   left: -5em;
+   top: 50%;
+   margin-top: -1em;
+   background: #DF4931;
+   color:white;
+   height: 2em;
+   width: 4em;
+   line-height: 2em;
+   font-weight: bold;
+}
+
+.cajaContenidoPost ol li:after{
+   position: absolute;  
+   content: '';
+   border: .5em solid transparent;
+   left: -4em;
+   top: 50%;
+   margin-top: -.5em;
+   transition: all .3s ease-out;    
+}
+
+.cajaContenidoPost ol li:hover:after{
+   left: -1em;
+   border-left-color: #DF4931;
+}
+
+
+.cajaContenidoPost ul{
+   counter-reset: li; /* Initiate a counter */
+   list-style: none; /* Remove default numbering */
+   *list-style: decimal; /* Keep using default numbering for IE6/7 */
+   font: 15px 'trebuchet MS', 'lucida sans';
+   padding: 0;
+   margin-bottom: 4em;
+   text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+ul ul{
+   margin: 0 0 0 2em; /* Add some left margin for inner lists */
+}
+.cajaContenidoPost ul li{
+
+   position: relative;
+   display: block;
+   padding: .4em .4em .4em .8em;
+   *padding: .4em;
+   margin: 0.5em 5em .5em 5em;
+   background: #0;
+   color: #333;
+   text-decoration: none;
+   transition: all .3s ease-out; 
+}
+
+.cajaContenidoPost ul li:hover{
+   background: #eee;   
+   }
+
+.cajaContenidoPost ul li:before{
+   content: '*';
+   counter-increment: li;
+   position: absolute;  
+   left: -3em;
+   top: 50%;
+   margin-top: -1em;
+   background: #DF4931;
+   color:white;
+   height: 2em;
+   width: 4em;
+   line-height: 2em;
+   font-weight: bold;
+}
+
+.cajaContenidoPost ul li:after{
+   position: absolute;  
+   content: '';
+   border: .5em solid transparent;
+   left: -4em;
+   top: 50%;
+   margin-top: -.5em;
+   transition: all .3s ease-out;    
+}
+
+.cajaContenidoPost ul li:hover:after{
+   left: 1em;
+   border-left-color: #DF4931;
+}
+
+/* FIN ESTILOS POST */
+
+
 .cajaComentarios {
 height: 0;
 }
@@ -142,6 +307,10 @@ overflow: hidden;
 .cajaNuevoComentario textarea{
    width:98%;
    height:200px;
+}
+
+.cajaNuevoComentario .alert{
+   margin-top: 25px;
 }
 
 .cajaNuevoComentario .btn{
@@ -207,10 +376,11 @@ overflow: hidden;
 .categoriaNormal{
  font-size: 1em;
 }
-/* --- Indice y menu lateral de administrador --- */
+/* --- Indice y menu lateral de admºinistrador --- */
 /** Todo esto a retocar en su momento */
 .cajaMenu{
-   width: 170px;
+   width: 10%;
+   min-width: 170px;
    border-right: 1px solid #ddd;
    background: white;
    position: fixed;
@@ -239,21 +409,18 @@ overflow: hidden;
    margin-left: 5%;
    text-align: left;
 }
-.cajaAdministracion.row{
+
+.cajaAdministracion{
    background:white;
-   min-width: 1080px;
+   width:100%;
+   margin-top: 2%;
    border:1px solid #ddd;
-   padding-bottom: 30px;
-   padding-top: 15px;
+   padding:2%;
    margin-bottom: 25px;
 }
 
 .cajaLoader{
-   margin-left: 150px;
-   margin-top: 50px;
-   width: 100%;
-   min-width: 860px;
-   height: 100%;
+   margin-left: 12%;
 }
 
 .cajaContenidoCategoria{
@@ -273,9 +440,28 @@ overflow: hidden;
    
 }
 
-.cajaTitulo input{
-   min-width: 600px;
-   min-height: 35px;
+.cajaAdministracion .cajaTituloCategoria {
+   margin-bottom:35px;
+}
+
+.cajaAdmin{
+   margin-bottom:25px;
+}
+
+.cajaAdministracion label{
+   margin-bottom: 10px;
+}
+
+.cajaAdmin input{
+   border-radius: 2px;
+   height:30px;
+   min-width: 600px; 
+}
+
+#epiceditor{
+   min-height:40%;
+   border:1px solid #333;
+   border-radius: 2px;
 }
 
 .alertaNuevoPost{
@@ -288,11 +474,26 @@ overflow: hidden;
 }
 
 .acciones button{
-
 }
-
+.cajaCrearCategoria{
+   padding-bottom: 20px;
+}
+.cajaFormularioNuevaCategoria{
+   padding: 20px;
+   border: 1px solid #f2f2f2;
+   width: 25%;
+   margin-bottom: 10px;
+   display: none;
+}
+.cajaFormularioEditarCategoria{
+   padding: 20px;
+   border: 1px solid #f2f2f2;
+   width: 25%;
+   margin-bottom: 10px;
+   display: none;
+}
 .cajaContenidoCategoria table{
-   width:100%;
+   width:95%;
 }
 
 thead{
@@ -340,4 +541,17 @@ tbody{
 .cajaTituloCategoria span{
   font-size: 2em;
   color:#DF4931;
+}
+
+
+/* RETOQUES MOVIL */
+
+@media (max-width: 767px) {
+   .cajaAcciones .btn{
+     width:300px;
+     display:block;
+     margin-left:auto;
+     margin-right: auto;
+     margin-bottom: 10px;
+   }
 }

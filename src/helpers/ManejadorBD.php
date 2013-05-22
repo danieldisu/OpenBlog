@@ -100,7 +100,19 @@ class ManejadorBD {
 
 	return $sentencia->execute();
   }
+  public function updateCategoriaPost($idCategoria) {
+  	# Funcion encargada de cambiar la categoria del post al ser borrada la categoría
+	$sql = "
+								UPDATE ob_post
+								SET idCategoria = 0
+								WHERE idCategoria = :idCategoria;"
+	;
+	$sentencia = $this->db->prepare($sql);
+	$sentencia->bindParam(":idCategoria", $idCategoria);
 
+
+	return $sentencia->execute();
+  }
   public function getUltimoPostDe($idUsuario){
   	$sql = "SELECT *
   	FROM ob_post
@@ -190,7 +202,7 @@ class ManejadorBD {
 										LIMIT 0, :postUltimaPagina"
 	  ;
 	  $sth = $this->db->prepare($sql);
-	  $sth->bindValuei(':postUltimaPagina', (int) $postUltimaPagina, PDO::PARAM_INT);
+	  $sth->bindValue(':postUltimaPagina', (int) $postUltimaPagina, PDO::PARAM_INT);	  
 	} else {
 	  $sql = "
 										SELECT * 
@@ -544,7 +556,37 @@ class ManejadorBD {
 	$nombreAutor = $sentencia->fetchColumn(0);
 	return $nombreAutor;
   }
+  
+  public function comprobarLogin($usuario, $pass){
+      $sql = "
+          SELECT *
+          FROM ob_usuario
+          WHERE (nombre = :usuario AND pass = :pass) OR (mail = :usuario AND pass = :pass)
+      ";
+      $sentencia = $this->db->prepare($sql);
+      $sentencia->bindParam(":usuario", $usuario);
+      $sentencia->bindParam(":pass", $pass);
+      $sentencia->execute();
+      if($sentencia->rowCount()){
+          return true;
+      }
+      else {
+          return false;
+      }
+  }
 
+  public function getUsuarioByName($nombre){
+        $sql = "
+             SELECT id, nombre, pass, mail, idRol
+             FROM ob_usuario
+             WHERE nombre = :usuario OR mail = :usuario
+         ";
+        $sentencia = $this->db->prepare($sql);
+        $sentencia->bindParam(":usuario", $nombre);
+        $sentencia->execute();
+        $usuario = $sentencia->fetchObject('src\entidades\Usuario');
+	return $usuario;
+   }
 }
 
 ?>

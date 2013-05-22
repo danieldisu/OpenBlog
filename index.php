@@ -3,9 +3,15 @@
 	use src\helpers\Header;
 	use src\helpers\ManejadorBD;
 	use src\helpers\Paginador;
+  use src\helpers\Login;
+
+  $login = Login::isLogin();
+
+  print_r($login);
 
    // Iniciamos el manejador BD con las opciones del JSON
 	$mbd = new ManejadorBD(Header::cargarJSON());
+  Header::iniciarSesion();
 
 	if(!empty($_GET['p']))
 		$pagina = $_GET['p'];
@@ -55,13 +61,33 @@
 		</div>
 		<div class="span3 sidebar">
 			<div class="cajaLogin">
-			  <h3> Login </h3>
-			  <label>Usuario</label>
-			  <input type="text" id="inputUsuario">
-			  <label>Contraseña</label>
-			  <input type="password" id="inputPassword">
-			  <input type="button" class="btn btn-block" value="Login">
-			  <input type="button" class="btn btn-block" value="Registrarse">
+        <h3> Login </h3>
+        <?php
+        ## Seria ideal mover esto a dos templates, al igual que todo el sidebar
+          if(!Login::isLogin()){
+        ?>
+          <label>Usuario</label>
+          <input type="text" id="inputUsuario">
+          <label>Contraseña</label>
+          <input type="password" id="inputPassword">
+          <input type="button" class="btn btn-block" value="Login">
+          <input type="button" class="btn btn-block" value="Registrarse">
+        <?php 
+        }
+        else{
+        ?>
+        <label>Bienvenido <?php echo Login::getNombre() ?></label>
+        <?php
+        	if(Login::isAdmin()){
+        ?>
+        <input type="button" class="btn btn-block" value="Administrar">
+        <?php
+        	}
+        ?>
+        <input type="button" class="btn btn-block" value="Logout">
+        <?php
+        }
+        ?>
 			</div>
 
 			<div class="cajaUltimosPost">
