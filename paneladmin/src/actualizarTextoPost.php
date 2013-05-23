@@ -1,5 +1,7 @@
 <?php
 	include '../../autoloader.php';
+	include '../../chromephp.php';
+
 	use src\helpers\ManejadorBD;
 	use src\helpers\Header;
 
@@ -12,6 +14,9 @@
 	else{
 		$texto = $_POST['texto'];
 		$idPost = $_POST['idPost'];
+
+		ChromePhp::log($idPost);
+		ChromePhp::log($texto);
 
 		$post = $mbd->getPost($idPost);
 

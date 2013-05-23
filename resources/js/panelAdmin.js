@@ -234,7 +234,7 @@ function funcionesListaPost(){
 	})
 
 	function guardarModificaciones(){
-		
+		editor2.preview();
 		var texto = $(editor2.getElement('previewer').body).find("div").html();
 		$.post('paneladmin/src/actualizarTextoPost.php', {texto : texto, idPost : idPost} ,function(data){
 			if(!JSON.parse(data).resultado)
