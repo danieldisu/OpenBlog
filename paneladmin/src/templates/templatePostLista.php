@@ -3,10 +3,10 @@
 	<?php echo $post->getId(); ?>
 </td>
 <td>
-	<?php echo $post->getTitulo(); ?>
+	<a href="verPost.php?id=<?php echo $post->getId(); ?>"><?php echo $post->getTitulo(); ?></a>
 </td>
 <td>
-	<a href="#myModal" role="button" class="btn" data-toggle="modal" data-idPost='<?php echo $post->getId(); ?>'>Ver Texto Post</a><code class="textoPost"><?php echo $post->getTexto(); ?> </code>
+	<a href="#myModal" role="button" class="btn btn-small" data-toggle="modal" data-idPost='<?php echo $post->getId(); ?>'>Ver/Modificar Texto Post</a><code class="textoPost"><?php echo $post->getTexto(); ?> </code>
 </td>
 <td>
 	<?php echo $post->getFechaCreacion(); ?>

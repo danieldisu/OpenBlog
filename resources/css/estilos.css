@@ -377,7 +377,7 @@ overflow: hidden;
  font-size: 1em;
 }
 /* --- Indice y menu lateral de admºinistrador --- */
-/** Todo esto a retocar en su momento */
+
 .cajaMenu{
    width: 10%;
    min-width: 170px;
@@ -411,8 +411,9 @@ overflow: hidden;
 }
 
 .cajaAdministracion{
-   background:white;
+   margin-left: 100px;
    width:100%;
+   background:white;
    margin-top: 2%;
    border:1px solid #ddd;
    padding:2%;
@@ -420,7 +421,8 @@ overflow: hidden;
 }
 
 .cajaLoader{
-   margin-left: 12%;
+   min-width: 1200px;
+   width:100%;
 }
 
 .cajaContenidoCategoria{
@@ -493,7 +495,7 @@ overflow: hidden;
    display: none;
 }
 .cajaContenidoCategoria table{
-   width:95%;
+   width:100%;
 }
 
 thead{

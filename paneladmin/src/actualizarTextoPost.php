@@ -15,17 +15,17 @@
 		$texto = $_POST['texto'];
 		$idPost = $_POST['idPost'];
 
-		ChromePhp::log($idPost);
-		ChromePhp::log($texto);
+		
+		
 
 		$post = $mbd->getPost($idPost);
 
 		$post->setTexto($texto);
 		$modificaciones = $post->getModificaciones();
 		$post->setModificaciones($modificaciones+1);
-
-		# SETTEAR LA FECHA DE HOY A LA ULTIMA MODIFICACION!!
-
+		$fechaModificacion = date("Y-m-d H:i:s");
+		$post->setFechaModificacion($fechaModificacion);
+		ChromePhp::log($post);
 		if($mbd->updatePost($idPost, $post)){
 			$json = $post->getJsonData();
 			$json['resultado'] = true;

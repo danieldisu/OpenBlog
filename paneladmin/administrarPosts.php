@@ -47,6 +47,7 @@ $mbd = new ManejadorBD(src\helpers\Header::$json);
 		  <div class="modal-footer">
 		    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 		    <button class="btn botonModificarPost">Modificar</button>
+        <button class="btn botonGuardarModificaciones btn-warning">Guardar Modificaciones</button>
 		  </div>
 
 	</div>         

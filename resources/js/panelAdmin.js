@@ -205,42 +205,81 @@ function obtenerDatosCategoria(idCategoria){
 
 /* LISTA POSTS */
 function funcionesListaPost(){
-	var textoPost;
-	var idPost;
 	var editor2;
-	var botonGuardarModificaciones = "<button class='btn btn-warning botonGuardarModificaciones'> Guardar Modificaciones </button>";
+	//var botonGuardarModificaciones = "<button class='btn btn-warning botonGuardarModificaciones'> Guardar Modificaciones </button>";
+	var botonGuardar = $('.botonModificarPost');
+	var botonModificar = $('.botonGuardarModificaciones');
+	var datosPost;
 
-	$('.listaPosts a').click(function(){
-		mostrarTexto(this);
+ 	/* EVENTOS */
+	$('.listaPosts a').click(function(){//Evento para abrir modal
+		datosPost = getDatosPost(this);
+		var textoPost = datosPost.textoPost;
+		var tituloPost = datosPost.tituloPost;
+
+		actualizarModal(tituloPost, textoPost, false);
 	});
 
 	$('.botonModificarPost').click(function(){
-		
-		$(".modal-body").html("<div id='epiceditor'></div>");
-		
-		file = {
-			name : "modificacionPost"+idPost,
-			defaultContent : toMarkdown(textoPost)
+		getDatosPost();
+		var contenidoModal = "<div id='epiceditor'></div>";
+		var tituloModal = "editando el post:";
+		actualizarModal(tituloModal, contenidoModal,true);
+		cargarEditor();
+	})
+
+	$('.botonGuardarModificaciones').click(function(){
+		guardarModificaciones();
+	});
+
+	$('#myModal').on('hidden', function () {	// Reiniciamos los valores del modal al cerrarlo
+ 		   actualizarModal(" ", " ", false);
+ 	})
+
+	/* FIN EVENTOS */
+
+	function cargarEditor(){
+		var now = new Date().getTime();
+
+		var file = {
+			name : "modificandoPost"+now,
+			defaultContent : toMarkdown(datosPost.textoPost)
 		}
+
 		editor2 = new EpicEditor({
 			clientSideStorage: false,
 			basePath: 'resources/js/epiceditor',
 			file : file
 		}).load();
 
-		$(this).hide().parent().append(botonGuardarModificaciones);
+	}
 
-		$('.botonGuardarModificaciones').click(guardarModificaciones);
-	})
+	function actualizarModal(titulo, contenido, modificando){
+		$(".modal-header h3").html(titulo);
+		$(".modal-body").html(contenido);
+		actualizarBotonesModal(modificando);
+	}
+
+	function actualizarBotonesModal(editando){
+		var div = $('.modal-footer');
+
+		if(!editando){
+			botonGuardar.show();
+			botonModificar.hide();
+		}else{
+			botonGuardar.hide();
+			botonModificar.show();
+		}
+	}
 
 	function guardarModificaciones(){
-		editor2.preview();
-		var texto = $(editor2.getElement('previewer').body).find("div").html();
+		editor2.preview();	// Pequeño hack, antes de mandar los datos, hacemos un preview y así obligamos al markdown a generarse
+		var texto = $(editor2.getElement('previewer').body).find("div").html(); // Obtenemos el texto de la pantalla de preview
 		$.post('paneladmin/src/actualizarTextoPost.php', {texto : texto, idPost : idPost} ,function(data){
-			if(!JSON.parse(data).resultado)
+			if(!JSON.parse(data).resultado)	// Si el php devuelve algun error mostramos una alerta de error
 				$('.modal-footer').prepend('<div class="alert alert-error">Se ha encontrado un error</div>').fadeIn('slow');
 			else{
-				console.log(JSON.parse(data).resultado);
+				console.log(JSON.parse(data).resultado); // En caso de que vaya todo bien, mostramos una alerta 
 				$('.modal-footer').prepend('<div class="alert alert-success">Se ha Modificado correctamente el post</div>').fadeIn('slow');
 					setTimeout(function(){
 					  $('div .alert').fadeOut('slow');
@@ -250,14 +289,17 @@ function funcionesListaPost(){
 		})
 	}
 
-	function mostrarTexto(enlace){
-		textoPost = $(enlace).siblings(".textoPost").html();
-		idPost = $(enlace).data('idpost');
+	function getDatosPost(enlace){
+		var textoPost = $(enlace).siblings(".textoPost").html();
+		var idPost = $(enlace).data('idpost');
 		
-		$(".modal-body").html(textoPost);
-		//$(".modal-header h3").html("Modificando el post con id: "+idPost);
-	}
+		var datosPost = {
+			idPost : idPost,
+			textoPost : textoPost
+		}
 
+		return datosPost;
+	}
 }
 
 
