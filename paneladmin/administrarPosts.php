@@ -22,12 +22,14 @@ $mbd = new ManejadorBD(src\helpers\Header::$json);
                <th class="span2">Usuario</th>
                <th class="span1">Modificaciones</th>
                <th class="span2">Ultima Modificacion</th>
-               <th class="span4">Acciones</th>
+               <th class="span2">Acciones</th>
             </tr>
          </thead>
 			<?php
 				$posts = $mbd->getAllPosts();
 				foreach ($posts as $post) {
+          $nombreCategoria = $mbd->obtenerNombreCategoria($post->getIdCategoria());
+          $nombreUsuario = $mbd->getUsuario($post->getIdUsuario())->getNombre();
 					include 'src/templates/templatePostLista.php';
 				}
 			?>
@@ -47,9 +49,31 @@ $mbd = new ManejadorBD(src\helpers\Header::$json);
 		  <div class="modal-footer">
 		    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 		    <button class="btn botonModificarPost">Modificar</button>
-        <button class="btn botonGuardarModificaciones btn-warning">Guardar Modificaciones</button>
+        <button class="btn botonGuardarModificaciones btn-warning" data-postentero="true">Guardar Modificaciones</button>
+
 		  </div>
 
-	</div>         
+	 </div>    
+  
+  <div class="formularioModificarPost" style="display:none">
+    <input type="hidden" id="idpost">
+  
+    <label>Titulo:</label>
+    <div>
+      
+    
+     <input type="text" id="titulo">
+    
+    </div>
+    <label>Categoria</label>
+    <select id="categorias">
+      
+    </select>
+    <label>Usuario:</label>
+    <select id="usuarios">
+      
+    </select>
+  </div>
+
   </div>
 </div>

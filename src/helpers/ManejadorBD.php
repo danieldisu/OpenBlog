@@ -516,6 +516,18 @@ class ManejadorBD {
 	return $usuario;
   }
 
+  public function getAllUsuarios() {
+	$sql = "
+								SELECT * 
+								FROM ob_usuario 
+								
+	  ";
+	$sth = $this->db->prepare($sql);
+	$sth->execute();
+	$usuarios = $sth->fetchAll(PDO::FETCH_CLASS, 'src\entidades\Usuario');
+	return $usuarios;
+  }
+
   public function updateUsuario($id, Usuario $usuario) {
 	$sql = "
 								UPDATE ob_usuario

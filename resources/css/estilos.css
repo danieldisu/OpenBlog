@@ -552,11 +552,11 @@ tbody{
 }
 
 #myModal{
-   min-height: 60%;
+   min-height: 50%;
 }
 
 #myModal .modal-body{
-   min-height: 500px;
+   min-height: 400px;
    max-height:100% !important;
 }
 
@@ -565,6 +565,28 @@ tbody{
 }
 #myModal .alert{
    text-align: center;
+}
+.columnaAcciones a{
+    width: 70%;
+    margin:auto;
+    display:block;
+    font-size: 1.05em;
+}
+
+.formularioModificarPost *{
+   margin:auto;
+   width:60%;
+   display:block;
+}
+
+.formularioModificarPost label{
+   text-align: center;
+   margin-bottom: 15px;
+}
+
+.formularioModificarPost input{
+   width:100%;
+   height:30px;
 }
 
 /* RETOQUES MOVIL */
@@ -577,4 +599,19 @@ tbody{
      margin-right: auto;
      margin-bottom: 10px;
    }
+}
+
+/* BOTONES */
+
+.btn-warning:hover{
+   color:red;
+   border:1px solid grey;
+}
+.btn-danger:hover{
+   color:orange;
+   border:1px solid grey;
+}
+.btn-info:hover{
+   color:lightgrey;
+   border:1px solid lightgrey;
 }

@@ -202,7 +202,6 @@ function obtenerDatosCategoria(idCategoria){
 	
 }
 
-
 /* LISTA POSTS */
 function funcionesListaPost(){
 	var editor2;
@@ -216,7 +215,7 @@ function funcionesListaPost(){
 		datosPost = getDatosPost(this);
 		var textoPost = datosPost.textoPost;
 		var tituloPost = datosPost.tituloPost;
-
+		botonModificar.data('postentero',false);
 		actualizarModal(tituloPost, textoPost, false);
 	});
 
@@ -229,11 +228,20 @@ function funcionesListaPost(){
 	})
 
 	$('.botonGuardarModificaciones').click(function(){
-		guardarModificaciones();
+		if($(this).data('postentero')){
+			guardarModificacionPost();
+		}else{
+			guardarModificaciones();
+		}
 	});
 
 	$('#myModal').on('hidden', function () {	// Reiniciamos los valores del modal al cerrarlo
- 		   actualizarModal(" ", " ", false);
+ 		actualizarModal(" ", " ", false);
+ 	})
+
+ 	$('.botonEditarPost').click(function(){
+ 		botonModificar.data('postentero',true);
+ 		var contenido = getFormularioEditarPost(this);
  	})
 
 	/* FIN EVENTOS */
@@ -262,8 +270,9 @@ function funcionesListaPost(){
 
 	function actualizarBotonesModal(editando){
 		var div = $('.modal-footer');
+		if(editando == null){
 
-		if(!editando){
+		}else if(!editando){
 			botonGuardar.show();
 			botonModificar.hide();
 		}else{
@@ -271,8 +280,10 @@ function funcionesListaPost(){
 			botonModificar.show();
 		}
 	}
-
+	/* MODIFICACIONES REALIZADAS PARA EL EDITOR DE POST */
 	function guardarModificaciones(){
+		var texto = datosPost.textoPost;
+		var idPost = datosPost.idPost;
 		editor2.preview();	// Pequeño hack, antes de mandar los datos, hacemos un preview y así obligamos al markdown a generarse
 		var texto = $(editor2.getElement('previewer').body).find("div").html(); // Obtenemos el texto de la pantalla de preview
 		$.post('paneladmin/src/actualizarTextoPost.php', {texto : texto, idPost : idPost} ,function(data){
@@ -289,6 +300,33 @@ function funcionesListaPost(){
 		})
 	}
 
+	function guardarModificacionPost(){
+		var $modal = $('#myModal');
+		var idPost = $modal.find('#idpost').val();
+		var titulo = $modal.find('#titulo').val();
+		var categoria = $modal.find('#categorias').val();
+		var usuario = $modal.find('#usuarios').val();
+
+		var infoPost = {
+			id : idPost,
+			idCategoria : categoria,
+			idUsuario : usuario,
+			titulo : titulo 
+		}
+		$.post('paneladmin/src/modificarPostEntero.php',{ post : infoPost },function(data){
+			$('#myModal').on('hidden', function () {	// Reiniciamos los valores del modal al cerrarlo
+		 		$cajaLoader.load('paneladmin/administrarPosts.php',function(){
+		  			funcionesListaPost();
+		  		});
+		 	})	
+			$('.modal-footer').prepend('<div class="alert alert-success">Se ha Modificado correctamente el post</div>').fadeIn('slow');
+
+			setTimeout(function(){
+			  $('div .alert').fadeOut('slow');
+			}, 5000);
+		})
+	}
+
 	function getDatosPost(enlace){
 		var textoPost = $(enlace).siblings(".textoPost").html();
 		var idPost = $(enlace).data('idpost');
@@ -297,11 +335,57 @@ function funcionesListaPost(){
 			idPost : idPost,
 			textoPost : textoPost
 		}
-
 		return datosPost;
 	}
+
+
+	function getFormularioEditarPost(boton){
+		var idPost = $(boton).data('idpost');
+		var post;
+		var usuarios;
+		var categorias;
+		$.get('paneladmin/src/getPost.php?idPost='+idPost, function(data){
+			post = $.parseJSON(data);
+			$.get('paneladmin/src/getCategorias.php', function(data){
+				categorias = $.parseJSON(data);
+				$.get('paneladmin/src/getUsuarios.php', function(data){
+					usuarios = $.parseJSON(data);
+					var contenido = rellenarFormulario(post,usuarios,categorias);
+					console.log(contenido);
+					actualizarModal('Editando Post',contenido, true);
+					$('#myModal').modal();
+				})
+			})
+		})
+
+	}
+
+	function rellenarFormulario(post,usuarios,categorias){
+		var $form = $('.formularioModificarPost').clone();
+		
+		$form.css('display','block');
+
+		$form.find('#idpost').val(post.id);
+		$form.find('#titulo').val(post.titulo);
+		var $selectCategorias = $form.find('#categorias');
+		for (var i = 0; i < categorias.length; i++) {
+			var nombrecat = categorias[i].nombre;
+			var idcat = categorias[i].id;
+			$selectCategorias.append(new Option(nombrecat, idcat));
+		};
+
+		var $selectUsuarios = $form.find('#usuarios');
+
+		for (var i = 0; i < usuarios.length; i++) {
+			var nombreusuario = usuarios[i].nombre;
+			var idusuario = usuarios[i].id;
+			$selectUsuarios.append(new Option(nombreusuario, idusuario));			
+		};
+
+		//console.log(post);
+
+		//console.log(usuarios);
+		
+		return $form;
+	}
 }
-
-
-
-
