@@ -23,7 +23,7 @@ class ManejadorBD {
 	if (!isset($config)) {
 	  $this->host = "127.0.0.1";
 	  $this->username = "root";
-	  $this->password = "";
+	  $this->password = "SacredShadow23";
 	  $this->bd = "openblog";
 	  $this->numPost = "5";
 	} else {
