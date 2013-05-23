@@ -1,44 +1,45 @@
 /* --- Parte menu administrador --- */
 $(document).ready(function(){
 	/*
-		Evento click en boton de comentarios. 
+		Evento click en boton de comentarios. Mostrar comentarios.
 	*/
 	$('.btnComentarios').on('click', function(e){
 		e.preventDefault();
-		var idPost = $(this).attr('id');
+		var idPost = $(this).parent().parent().data('idpost');		
 		if (window.XMLHttpRequest){
 			xhr = new XMLHttpRequest();
 		}else if (window.ActiveXObject) {
 			var xhr= new ActiveXObject("Microsoft.XMLHTTP");
 		}
+		var lanzadorEvento = $(this);
 		//Enviamos peticion ajax
-		enviarPeticionAJAX(idPost, xhr);
+		enviarPeticionAJAX(idPost, xhr, lanzadorEvento);
 	});
 
 	/*
 		Escribir nuevo comentario botonNuevoComentario
 	*/
 	$('.botonNuevoComentario').on('click', function(e){
-		console.log("click en nuevo comentario")
 		e.preventDefault();
-		var idPost = $(this).attr('id');
-			if($('#cajaNuevoComentario'+idPost).attr("class") == "cajaNuevoComentario oculto"){
-				$('#cajaNuevoComentario'+idPost).removeClass("oculto");
-				$('#cajaNuevoComentario'+idPost).addClass("visible");
+		var idPost = $(this).parent().parent().data('idpost');
+			var cajaNuevoComentario = $(this).parent().parent().next().next();			
+			if(cajaNuevoComentario.attr("class") == "cajaNuevoComentario oculto"){
+				cajaNuevoComentario.removeClass("oculto");
+				cajaNuevoComentario.addClass("visible");
 			}
 			else{
-				$('#cajaNuevoComentario'+idPost).removeClass("visible");
-				$('#cajaNuevoComentario'+idPost).addClass("oculto");				
+				cajaNuevoComentario.removeClass("visible");
+				cajaNuevoComentario.addClass("oculto");				
 			}				
 	});
 
 	$('.botonEnviarComentario').on('click', function(e){
 		e.preventDefault();
 		xhr = new XMLHttpRequest();		
-		var idPost = $(this).parent().find("#idPost").val();
+		var idPost = $(this).parent().parent().prev().prev().data('idpost');
 		var autorComentario = $(this).parent().find("#autor").val();
 		var textoComentario = $(this).parent().find("textarea").val();
-		enviarNuevoPost(xhr, idPost, autorComentario, textoComentario);	
+		enviarNuevoComentario(xhr, idPost, autorComentario, textoComentario);	
 	});
         
 	$("div.cajaLogin input[value='Login']").click(function(e){
@@ -57,8 +58,7 @@ $(document).ready(function(){
 	});
 });
 
-function comprobarLogin(){
-    
+function comprobarLogin(){    
     var usuario = $("#inputUsuario").val();
     var pass = $("#inputPassword").val();
     
@@ -96,31 +96,31 @@ function crearMensajeErrorLogin(msn){
     });
 }
 
-function enviarNuevoPost(xhr, idPost, autorComentario, textoComentario){
+function enviarNuevoComentario(xhr, idPost, autorComentario, textoComentario){
 	$.post("nuevoComentario.php", { idPost: idPost, autor: autorComentario , textoComentario : textoComentario} )
 	.done(function(data){
-		console.log(data);
+		
 		$(".cajaNuevoComentario").fadeOut('fast',function(){
 			$(this).html(data).fadeIn();
 		})
 	})
 }
 
-function enviarPeticionAJAX(idPost, xhr) {
+function enviarPeticionAJAX(idPost, xhr, lanzadorEvento) {
 	var idPost = idPost;
 	xhr.onreadystatechange = function(){
 		if (xhr.readyState == 4 && xhr.status == 200) {
-
-			if($('#caja'+idPost).attr("class") == "cajaComentarios oculto"){
-				$('#caja'+idPost).removeClass("oculto");
-				$('#caja'+idPost).addClass("visible");				
-				$('#caja'+idPost).html(xhr.responseText);	
+			var cajaComentarios = lanzadorEvento.parent().parent().next();
+			if(cajaComentarios.attr("class") == "cajaComentarios oculto"){
+				
+				cajaComentarios.removeClass("oculto");
+				cajaComentarios.addClass("visible");				
+				cajaComentarios.html(xhr.responseText);
 			}
 			else{
-				$('#caja'+idPost).removeClass("visible");
-				$('#caja'+idPost).addClass("oculto");				
+				cajaComentarios.removeClass("visible");
+				cajaComentarios.addClass("oculto");				
 			}
-			
 		}
 	}
 	xhr.open('POST', 'src/helpers/cargadorComentarios.php', true);

@@ -413,19 +413,18 @@ class ManejadorBD {
 	if ($idPost == null) {
 	  $sql = "
 					 SELECT *
-					 FROM ob_comentario c, ob_usuario u 
-					 WHERE c.idUsuario = u.id 
-					 ORDER BY c.fecha DESC 
-					 LIMIT 5;"
+					 FROM ob_comentario 
+					 ORDER BY fecha DESC 
+					 LIMIT 5"
 	  ;
 	} else {
 
 	  $sql = "
 					 SELECT *
-					 FROM ob_comentario c, ob_usuario u 
-					 WHERE c.idPost = :idPost
-					 ORDER BY c.fecha DESC 
-					 LIMIT 5;"
+					 FROM ob_comentario 
+					 WHERE idPost = :idPost
+					 ORDER BY fecha DESC 
+					 LIMIT 5"
 	  ;
 	}
 	$sth = $this->db->prepare($sql);

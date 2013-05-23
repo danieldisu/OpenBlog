@@ -21,17 +21,17 @@
   <div class="cajaContenidoPost">
     <p><?php echo $post->getTexto(); ?></p>
   </div>
-  <div class="row cajaAcciones">
+  <div class="row cajaAcciones" data-idpost="<?php echo $post->getId(); ?>">
     <div class="cajaVerComentarios span3 offset1">
-      <button class="btn btnComentarios" id="<?php echo $post->getId(); ?>">Ver Comentarios</button>
+      <button class="btn btnComentarios">Ver Comentarios</button>
     </div>
     <div class="cajaEscribirComentarios span3 offset1">
-      <button class="btn botonNuevoComentario" id="<?php echo $post->getId(); ?>">Escribir Comentario</button>
+      <button class="btn botonNuevoComentario" >Escribir Comentario</button>
     </div>
   </div>
-  <div class="cajaComentarios oculto" id="caja<?php echo $post->getId(); ?>">
+  <div class="cajaComentarios oculto">
   </div>
-  <div class="cajaNuevoComentario oculto" id="cajaNuevoComentario<?php echo $post->getId(); ?>">
+  <div class="cajaNuevoComentario oculto">
     <?php
     if(src\helpers\Login::isLogin()){
       $userid = src\helpers\Login::getId();

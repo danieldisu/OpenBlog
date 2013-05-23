@@ -17,7 +17,7 @@ Class Sidebar{
 	}
 
 	public static function addCajaUltimosComentarios($mbd){
-   	$comentarios = $mbd->obtenerUltimosComentarios();       
+	   	$comentarios = $mbd->obtenerUltimosComentarios();       
 		include 'src/templates/sidebar/templateCajaUltimosComentarios.php';
 	}
 

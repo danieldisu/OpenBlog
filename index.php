@@ -17,7 +17,7 @@
 ?>
 <!DOCTYPE html>
 <html lang="es">
-	<?php Header::cargarHead(false/*false == no es pagina admin*/); ?>;
+	<?php Header::cargarHead(false/*false == no es pagina admin*/); ?>
 	<body>
 	  <div class="container">
 			<div class="row">
