@@ -33,7 +33,7 @@
 
 	}else{
 		//MOSTRAR PAGINA ERROR
-		echo "No se ha agregado el comentario, hay un error con los datos";
+		echo "No se ha agregado el comentario, hay un error con los datos ";
 		echo Validador::estaVacio("");
 	}
 

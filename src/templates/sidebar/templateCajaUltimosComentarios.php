@@ -2,11 +2,11 @@
  <h3> Ultimos Comentarios </h3>
  <ul>
    <?php 
-       $comentarios = $mbd->obtenerUltimosComentarios();       
+  
        foreach ($comentarios as $comentario) {
-          $usuario = $mbd->getUsuario($comentario->getId());
+          $usuario = $mbd->getUsuario($comentario -> getIdUsuario());
           $userName = $usuario->getNombre();
-          echo '<li>Por: <a href="#">'.$userName.'</a><br/>'.$comentario->getTexto().'</li>';
+          echo '<li>Por: <a href="#">'.$userName.'</a><br/>'.$comentario->getTexto().'</li>';          
        }
    ?>    
  </ul>            
