@@ -67,6 +67,11 @@
 
 		 	$('.botonGuardarModificaciones').click(function(){
 		 		_this.guardarModificacionesPost();
+		 	});
+
+		 	$('.administrarComentarios').click(function(){
+				var idPost = $(this).data('idpost');		 		
+		 		administrarComentarios.abrirVentana(idPost);
 		 	})
 		},
 		reloadLista : function(){
@@ -261,6 +266,12 @@
 			$('.modal-body .formularioModificarPost').hide();
 			listaPost.cargarVistaEditor();
 			listaPost.setFooterModal();
+		}
+	}
+
+	var administrarComentarios = {
+		abrirVentana : function(idPost){
+			window.open('paneladmin/administrarComentarios.php?idPost='+idPost,'Administracion de Comentarios', 'width=900,height=500,resizable=no,status=no');
 		}
 	}
 })();

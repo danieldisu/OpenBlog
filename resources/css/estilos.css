@@ -552,12 +552,12 @@ tbody{
 }
 .tdTextoPost{
    box-sizing:border-box;
-   width:500px;
+   width:300px;
 }
 
-.tdTextoPost>.btn{
+.tdTextoPost>a{
+   width:100px;
    margin:auto;
-   width:150px;
    display:block;
 }
 
@@ -587,7 +587,8 @@ tbody{
    text-align: center;
 }
 .columnaAcciones a{
-    width: 70%;
+   box-sizing:border-box;
+    width: 50%;
     margin:auto;
     display:block;
     font-size: 1.05em;
@@ -633,6 +634,14 @@ tbody{
    margin-top:25px;
 }
 
+/* Administrar Comentarios */
+
+.cajaAdministrarComentarios{
+   margin: 100px;
+}
+.cajaAdministrarComentarios h2{
+   color:red;
+}
 .
 
 /* RETOQUES MOVIL */

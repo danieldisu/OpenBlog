@@ -3,7 +3,7 @@ include '../autoloader.php';
 
 use src\helpers\ManejadorBD;
 
-$mbd = new ManejadorBD(src\helpers\Header::$json);
+$mbd = new ManejadorBD(src\helpers\Header::cargarJSON());
 ?>
 
 <div class="cajaAdministracion" id="cajaAdministrarPosts">
@@ -16,13 +16,14 @@ $mbd = new ManejadorBD(src\helpers\Header::$json);
             <tr>
                <th class="span1">ID</th>
                <th class="span4">Titulo</th>
-               <th class="span5">Texto</th>
+               <th class="span3">Texto</th>
                <th class="span2">FechaCreacion</th>
-               <th class="span2">Categoria</th>
-               <th class="span2">Usuario</th>
+               <th class="span1">Categoria</th>
+               <th class="span1">Usuario</th>
                <th class="span1">Modificaciones</th>
                <th class="span2">Ultima Modificacion</th>
                <th class="span2">Acciones</th>
+               <th class="span2">Comentarios</th>
             </tr>
          </thead>
 			<?php
@@ -84,5 +85,5 @@ $mbd = new ManejadorBD(src\helpers\Header::$json);
 
   </div>
 
-  <script src="resources/js/listaPost.js"></script>
+  <script src="resources/js/administrarPost.js"></script>
 </div>
