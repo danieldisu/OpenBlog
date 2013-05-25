@@ -389,7 +389,8 @@ class ManejadorBD {
 	;
 	$sentencia = $this->db->prepare($sql);
 	$sentencia->bindParam(':id', $id);
-	return $sentencia->execute();
+	$sentencia->execute();
+   return $sentencia->rowCount();
   }
 
   public function obtenerNumeroComentarios($id) {
@@ -409,7 +410,6 @@ class ManejadorBD {
   /*
    * Obtiene los 5 ultimos comentarios del post que se le indique, en caso de que no se le indique ningun post, extrae los ultimos 5 comentarios de todos los posts
    */
-
   public function obtenerUltimosComentarios($idPost = null) {
 	if ($idPost == null) {
 	  $sql = "
@@ -433,6 +433,21 @@ class ManejadorBD {
 	$sth->execute();
 	$comentarios = $sth->fetchAll(PDO::FETCH_CLASS, 'src\entidades\Comentario');
 	return $comentarios;
+  }
+
+  public function getAllComentarios($idPost){
+		  $sql = "
+						 SELECT *
+						 FROM ob_comentario 
+						 WHERE idPost = :idPost
+						 ORDER BY fecha DESC";
+		
+
+		$sth = $this->db->prepare($sql);
+		$sth->bindParam(":idPost", $idPost);
+		$sth->execute();
+		$comentarios = $sth->fetchAll(PDO::FETCH_CLASS, 'src\entidades\Comentario');
+		return $comentarios;
   }
 
   /*

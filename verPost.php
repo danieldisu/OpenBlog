@@ -8,7 +8,11 @@
    // Iniciamos el manejador BD con las opciones del JSON
 	$mbd = new ManejadorBD(Header::cargarJSON());
 
-  Header::iniciarSesion();
+	if(empty($_REQUEST['id'])){
+		Header::mostrarPaginaError('Se ha encontrado un error con la peticion');
+	}
+
+	Header::iniciarSesion();
 
 ?>
 <!DOCTYPE html>
