@@ -550,6 +550,26 @@ tbody{
 .textoPost{
    display:none;
 }
+.tdTextoPost{
+   box-sizing:border-box;
+   width:500px;
+}
+
+.tdTextoPost>.btn{
+   margin:auto;
+   width:150px;
+   display:block;
+}
+
+.tdTextoPost pre{
+   box-sizing:border-box;
+   display:block;
+   padding:15px;
+   margin:5px;
+   max-width:450px;
+   max-height:200px;
+   overflow: scroll;
+}
 
 #myModal{
    min-height: 50%;
@@ -588,6 +608,32 @@ tbody{
    width:100%;
    height:30px;
 }
+
+.formularioModificarPost pre{
+   margin-top:15px;
+   max-height:200px;
+   overflow: scroll;
+   width: 100%;
+   padding:0px;
+}
+
+.formularioModificarPost pre *{
+   padding:0px !important;
+   margin:auto;
+   width:90%;
+}
+
+.cajaAlertas{
+   position:fixed;
+   width:70%;
+   height:100px;
+}
+
+.cajaAlertas .alert{
+   margin-top:25px;
+}
+
+.
 
 /* RETOQUES MOVIL */
 

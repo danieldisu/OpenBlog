@@ -15,8 +15,8 @@ $mbd = new ManejadorBD(src\helpers\Header::$json);
          <thead>
             <tr>
                <th class="span1">ID</th>
-               <th class="span2">Titulo</th>
-               <th class="span2">Texto</th>
+               <th class="span4">Titulo</th>
+               <th class="span5">Texto</th>
                <th class="span2">FechaCreacion</th>
                <th class="span2">Categoria</th>
                <th class="span2">Usuario</th>
@@ -47,10 +47,10 @@ $mbd = new ManejadorBD(src\helpers\Header::$json);
 		    
 		  </div>
 		  <div class="modal-footer">
-		    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-		    <button class="btn botonModificarPost">Modificar</button>
+        <button class="btn botonVolver"> Volver </button>
+		    <button class="btn" data-dismiss="modal" aria-hidden="true"> Cerrar </button>
         <button class="btn botonGuardarModificaciones btn-warning" data-postentero="true">Guardar Modificaciones</button>
-
+        <button class="btn botonGuardarTexto btn-warning"> Guardar y Volver</button>
 		  </div>
 
 	 </div>    
@@ -73,9 +73,16 @@ $mbd = new ManejadorBD(src\helpers\Header::$json);
     <select id="usuarios">
       
     </select>
+    <div>
+      <pre id="texto">
+        
+      </pre>
 
-    <a role="button" class="btn btn-info botonModificarTextoPost" data-idpost="">Ver/Modificar Texto Post</a>
+      <a role="button" class="btn btn-info botonModificarTextoPost" data-idpost="">Modificar Texto</a>
+    </div>
+ 
+
   </div>
 
-  </div>
+  <script src="resources/js/listaPost.js"></script>
 </div>

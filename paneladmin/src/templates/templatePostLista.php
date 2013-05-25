@@ -5,8 +5,8 @@
 <td>
 	<a href="verPost.php?id=<?php echo $post->getId(); ?>"><?php echo $post->getTitulo(); ?></a>
 </td>
-<td>
-	<a href="#myModal" role="button" class="btn btn-info" data-toggle="modal" data-idPost='<?php echo $post->getId(); ?>'>Ver/Modificar Texto Post</a><code class="textoPost"><?php echo $post->getTexto(); ?> </code>
+<td class="tdTextoPost">
+	<button class="btn btn-small botonVerTexto"> ver Texto </button><pre style="display:none"><?php echo $post->getTexto(); ?></pre> 
 </td>
 <td>
 	<?php echo $post->getFechaCreacion(); ?>

@@ -55,6 +55,7 @@ Class Header {
   echo '<script src="resources/js/epiceditor/js/toMarkdown.js"></script>';
   echo '<script src="resources/js/epiceditor/js/epiceditor.js"></script>'; 
 	echo '<script src="resources/js/panelAdmin.js"></script>';
+  
   }
   
   /*
