@@ -133,7 +133,8 @@ class ManejadorBD {
 	;
 	$sentencia = $this->db->prepare($sql);
 	$sentencia->bindValue(':id', $id);
-	return $sentencia->execute();
+	$sentencia->execute();
+	return $count = $sentencia->rowCount();
   }
 
   public function getPostsCategoria($idCategoria) {

@@ -603,15 +603,35 @@ tbody{
 
 /* BOTONES */
 
+.btn-warning{
+   background-color: #f89406;
+   background-image: none;
+}
+
 .btn-warning:hover{
-   color:red;
-   border:1px solid grey;
+   color:#f89406;
+   background-image: none;
+   background-color: white;
+   border:1px solid #f89406;
 }
+
+.btn-danger{
+   background-image: none;
+   background-color: #DF4931;
+}
+
 .btn-danger:hover{
-   color:orange;
-   border:1px solid grey;
+   color:#DF4931;
+   border:1px solid #DF4931;
 }
+
+.btn-info{
+   
+   background-color: #2f96b4;
+   background-image: none;   
+}
+
 .btn-info:hover{
-   color:lightgrey;
-   border:1px solid lightgrey;
+   color:#2f96b4;
+   border:1px solid #2f96b4;
 }

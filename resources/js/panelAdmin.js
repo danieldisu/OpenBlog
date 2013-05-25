@@ -204,6 +204,7 @@ function obtenerDatosCategoria(idCategoria){
 
 /* LISTA POSTS */
 function funcionesListaPost(){
+	var idPostEditando;
 	var editor2;
 	//var botonGuardarModificaciones = "<button class='btn btn-warning botonGuardarModificaciones'> Guardar Modificaciones </button>";
 	var botonGuardar = $('.botonModificarPost');
@@ -211,7 +212,7 @@ function funcionesListaPost(){
 	var datosPost;
 
  	/* EVENTOS */
-	$('.listaPosts a').click(function(){//Evento para abrir modal
+	$('.listaPosts .btn-info').click(function(){//Evento para abrir modal
 		datosPost = getDatosPost(this);
 		var textoPost = datosPost.textoPost;
 		var tituloPost = datosPost.tituloPost;
@@ -240,13 +241,31 @@ function funcionesListaPost(){
  	})
 
  	$('.botonEditarPost').click(function(){
+ 		idPostEditando = $('this').data('idpost');
  		botonModificar.data('postentero',true);
  		var contenido = getFormularioEditarPost(this);
- 	})
+ 	});
+
+ 	$('.botonBorrarPost').click(function(){
+ 		if(window.confirm('¿Está seguro que desea borrar el post?'))
+ 			mandarPeticionBorrarPost($(this).data('idpost'));
+ 	});
+
 
 	/* FIN EVENTOS */
 
-	function cargarEditor(){
+	function mandarPeticionBorrarPost(idPost){
+		$.post('paneladmin/src/borrarPost.php', { idPost : idPost }, function(data){
+			if(data){
+				recargarListaPost();
+				alert("Se ha eliminado correctamente el post");
+			}
+			else
+				alert("Se ha encontrado un error eliminando el post");
+		});
+	}
+
+	function cargarEditor_old(){
 		var now = new Date().getTime();
 
 		var file = {
@@ -260,6 +279,21 @@ function funcionesListaPost(){
 			file : file
 		}).load();
 
+	}
+
+	function cargarEditor(post){
+		var now = new Date().getTime();
+
+		var file = {
+			name : "modificandoPost"+now,
+			defaultContent : toMarkdown(post.texto)
+		}
+
+		editor2 = new EpicEditor({
+			clientSideStorage: false,
+			basePath: 'resources/js/epiceditor',
+			file : file
+		}).load();		
 	}
 
 	function actualizarModal(titulo, contenido, modificando){
@@ -280,6 +314,7 @@ function funcionesListaPost(){
 			botonModificar.show();
 		}
 	}
+
 	/* MODIFICACIONES REALIZADAS PARA EL EDITOR DE POST */
 	function guardarModificaciones(){
 		var texto = datosPost.textoPost;
@@ -315,9 +350,7 @@ function funcionesListaPost(){
 		}
 		$.post('paneladmin/src/modificarPostEntero.php',{ post : infoPost },function(data){
 			$('#myModal').on('hidden', function () {	// Reiniciamos los valores del modal al cerrarlo
-		 		$cajaLoader.load('paneladmin/administrarPosts.php',function(){
-		  			funcionesListaPost();
-		  		});
+		 		recargarListaPost();
 		 	})	
 			$('.modal-footer').prepend('<div class="alert alert-success">Se ha Modificado correctamente el post</div>').fadeIn('slow');
 
@@ -325,6 +358,14 @@ function funcionesListaPost(){
 			  $('div .alert').fadeOut('slow');
 			}, 5000);
 		})
+	}
+
+	function recargarListaPost(){
+		return $cajaLoader.load('paneladmin/administrarPosts.php',function(){
+			funcionesListaPost();
+			return true;
+		});
+
 	}
 
 	function getDatosPost(enlace){
@@ -351,12 +392,19 @@ function funcionesListaPost(){
 				$.get('paneladmin/src/getUsuarios.php', function(data){
 					usuarios = $.parseJSON(data);
 					var contenido = rellenarFormulario(post,usuarios,categorias);
-					console.log(contenido);
 					actualizarModal('Editando Post',contenido, true);
 					$('#myModal').modal();
+					$('.botonModificarTextoPost').click(function(){
+						var contenidoModal = "<div id='epiceditor'></div>";
+						var tituloModal = "editando el post:";
+				 		actualizarModal(tituloModal, contenidoModal,true);
+						cargarEditor(post);
+				 	})
 				})
 			})
 		})
+
+
 
 	}
 
@@ -368,18 +416,34 @@ function funcionesListaPost(){
 		$form.find('#idpost').val(post.id);
 		$form.find('#titulo').val(post.titulo);
 		var $selectCategorias = $form.find('#categorias');
+		post.idCategoria;
+		post.idUsuario;
 		for (var i = 0; i < categorias.length; i++) {
 			var nombrecat = categorias[i].nombre;
 			var idcat = categorias[i].id;
-			$selectCategorias.append(new Option(nombrecat, idcat));
+
+			var selected = false;
+
+			if(idcat == post.idCategoria)
+				selected = true;	// Si el id de la categoria a mostrar es el id al que pertenece el post se le indica que tiene que estar seleccionado por defecto
+
+			$selectCategorias.append(new Option(nombrecat, idcat, selected, selected));	// Los dos selected hacen que el option seleccionado por defecto sea el correcto
 		};
+
+
+
 
 		var $selectUsuarios = $form.find('#usuarios');
 
 		for (var i = 0; i < usuarios.length; i++) {
 			var nombreusuario = usuarios[i].nombre;
 			var idusuario = usuarios[i].id;
-			$selectUsuarios.append(new Option(nombreusuario, idusuario));			
+			var selected = false;
+
+			if(idusuario == post.idUsuario)
+				selected = true;
+
+			$selectUsuarios.append(new Option(nombreusuario, idusuario, selected, selected));			
 		};
 
 		//console.log(post);

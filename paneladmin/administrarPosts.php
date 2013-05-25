@@ -73,6 +73,8 @@ $mbd = new ManejadorBD(src\helpers\Header::$json);
     <select id="usuarios">
       
     </select>
+
+    <a role="button" class="btn btn-info botonModificarTextoPost" data-idpost="">Ver/Modificar Texto Post</a>
   </div>
 
   </div>

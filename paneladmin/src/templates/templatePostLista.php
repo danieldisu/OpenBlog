@@ -25,7 +25,7 @@
 </td>
 <td class="columnaAcciones">
     <a href="#myModal" class="btn btn-warning botonEditarPost" data-idpost="<?php echo $post->getId(); ?>"><i class="icon-pencil icon-white"></i> Editar</a>
-    <a href="#myModal" data-toggle="modal" class="btn btn-dangerbotonBorrarPost" data-idpost="<?php echo $post->getId(); ?>"><i class="icon-remove-sign icon-white" ></i> Borrar</a>
+    <a class="btn btn-danger botonBorrarPost" data-idpost="<?php echo $post->getId(); ?>"><i class="icon-remove-sign icon-white" ></i> Borrar</a>
 </td>
 </tr>
 
