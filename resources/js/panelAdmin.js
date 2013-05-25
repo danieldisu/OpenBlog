@@ -1,5 +1,6 @@
 var editor;
 $('.btn.admin').on('click', function(e) {
+	
   e.preventDefault();
   var indice = $(this).data('admin');
   /*Obtengo el id del boton, para saber cual se pulsa*/
@@ -16,7 +17,8 @@ $('.btn.admin').on('click', function(e) {
 	  })
 	  break;
 	case "aEntradas": // Administrar entradas
-	  $cajaLoader.load('paneladmin/administrarEntradas.php');
+	  $cajaLoader.load('paneladmin/administrarPosts.php',function(){
+	  });
 	  break;
 	case "aUsuarios": // Administrar usuarios
 	  $cajaLoader.load('paneladmin/administrarUsuarios.php');
@@ -198,4 +200,3 @@ function obtenerDatosCategoria(idCategoria){
 	return datos;
 	
 }
-

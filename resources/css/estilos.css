@@ -377,7 +377,7 @@ overflow: hidden;
  font-size: 1em;
 }
 /* --- Indice y menu lateral de admºinistrador --- */
-/** Todo esto a retocar en su momento */
+
 .cajaMenu{
    width: 10%;
    min-width: 170px;
@@ -411,8 +411,9 @@ overflow: hidden;
 }
 
 .cajaAdministracion{
-   background:white;
+   margin-left: 100px;
    width:100%;
+   background:white;
    margin-top: 2%;
    border:1px solid #ddd;
    padding:2%;
@@ -420,7 +421,8 @@ overflow: hidden;
 }
 
 .cajaLoader{
-   margin-left: 12%;
+   min-width: 1200px;
+   width:100%;
 }
 
 .cajaContenidoCategoria{
@@ -493,7 +495,7 @@ overflow: hidden;
    display: none;
 }
 .cajaContenidoCategoria table{
-   width:95%;
+   width:100%;
 }
 
 thead{
@@ -543,6 +545,95 @@ tbody{
   color:#DF4931;
 }
 
+/* ADMINISTRAR POSTS */
+
+.textoPost{
+   display:none;
+}
+.tdTextoPost{
+   box-sizing:border-box;
+   width:500px;
+}
+
+.tdTextoPost>.btn{
+   margin:auto;
+   width:150px;
+   display:block;
+}
+
+.tdTextoPost pre{
+   box-sizing:border-box;
+   display:block;
+   padding:15px;
+   margin:5px;
+   max-width:450px;
+   max-height:200px;
+   overflow: scroll;
+}
+
+#myModal{
+   min-height: 50%;
+}
+
+#myModal .modal-body{
+   min-height: 400px;
+   max-height:100% !important;
+}
+
+#myModal #epiceditor{
+   height:500px;
+}
+#myModal .alert{
+   text-align: center;
+}
+.columnaAcciones a{
+    width: 70%;
+    margin:auto;
+    display:block;
+    font-size: 1.05em;
+}
+
+.formularioModificarPost *{
+   margin:auto;
+   width:60%;
+   display:block;
+}
+
+.formularioModificarPost label{
+   text-align: center;
+   margin-bottom: 15px;
+}
+
+.formularioModificarPost input{
+   width:100%;
+   height:30px;
+}
+
+.formularioModificarPost pre{
+   margin-top:15px;
+   max-height:200px;
+   overflow: scroll;
+   width: 100%;
+   padding:0px;
+}
+
+.formularioModificarPost pre *{
+   padding:0px !important;
+   margin:auto;
+   width:90%;
+}
+
+.cajaAlertas{
+   position:fixed;
+   width:70%;
+   height:100px;
+}
+
+.cajaAlertas .alert{
+   margin-top:25px;
+}
+
+.
 
 /* RETOQUES MOVIL */
 
@@ -554,4 +645,39 @@ tbody{
      margin-right: auto;
      margin-bottom: 10px;
    }
+}
+
+/* BOTONES */
+
+.btn-warning{
+   background-color: #f89406;
+   background-image: none;
+}
+
+.btn-warning:hover{
+   color:#f89406;
+   background-image: none;
+   background-color: white;
+   border:1px solid #f89406;
+}
+
+.btn-danger{
+   background-image: none;
+   background-color: #DF4931;
+}
+
+.btn-danger:hover{
+   color:#DF4931;
+   border:1px solid #DF4931;
+}
+
+.btn-info{
+   
+   background-color: #2f96b4;
+   background-image: none;   
+}
+
+.btn-info:hover{
+   color:#2f96b4;
+   border:1px solid #2f96b4;
 }

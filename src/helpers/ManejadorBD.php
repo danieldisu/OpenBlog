@@ -88,14 +88,14 @@ class ManejadorBD {
 	;
 	$sentencia = $this->db->prepare($sql);
 
-	$sentencia->bindParam(":idUsuario", $post->getIdUsuario());
-	$sentencia->bindParam(":idCategoria", $post->getIdCategoria());
-	$sentencia->bindParam(":titulo", $post->getTitulo());
-	$sentencia->bindParam(":texto", $post->getTexto());
-	$sentencia->bindParam(":fechaCreacion", $post->getFechaCreacion());
-	$sentencia->bindParam(":fechaModificacion", $post->getFechaModificacion());
-	$sentencia->bindParam(":modificaciones", $post->getModificaciones());
-	$sth->bindParam(':id', $id);
+	$sentencia->bindValue(":idUsuario", $post->getIdUsuario());
+	$sentencia->bindValue(":idCategoria", $post->getIdCategoria());
+	$sentencia->bindValue(":titulo", $post->getTitulo());
+	$sentencia->bindValue(":texto", $post->getTexto());
+	$sentencia->bindValue(":fechaCreacion", $post->getFechaCreacion());
+	$sentencia->bindValue(":fechaModificacion", $post->getFechaModificacion());
+	$sentencia->bindValue(":modificaciones", $post->getModificaciones());
+	$sentencia->bindValue(':id', $id);
 
 
 	return $sentencia->execute();
@@ -133,7 +133,8 @@ class ManejadorBD {
 	;
 	$sentencia = $this->db->prepare($sql);
 	$sentencia->bindValue(':id', $id);
-	return $sentencia->execute();
+	$sentencia->execute();
+	return $count = $sentencia->rowCount();
   }
 
   public function getPostsCategoria($idCategoria) {
@@ -513,6 +514,18 @@ class ManejadorBD {
 	$sentencia->execute();
 	$usuario = $sentencia->fetchObject('src\entidades\Usuario');
 	return $usuario;
+  }
+
+  public function getAllUsuarios() {
+	$sql = "
+								SELECT * 
+								FROM ob_usuario 
+								
+	  ";
+	$sth = $this->db->prepare($sql);
+	$sth->execute();
+	$usuarios = $sth->fetchAll(PDO::FETCH_CLASS, 'src\entidades\Usuario');
+	return $usuarios;
   }
 
   public function updateUsuario($id, Usuario $usuario) {

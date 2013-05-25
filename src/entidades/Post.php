@@ -78,6 +78,16 @@ class Post {
     public function setModificaciones($modificaciones){
         $this->modificaciones = $modificaciones;
     }
+
+    public function getJsonData(){
+        $var = get_object_vars($this);
+        foreach($var as &$value){
+           if(is_object($value) && method_exists($value,'getJsonData')){
+              $value = $value->getJsonData();
+           }
+        }
+        return $var;
+     }
 }
 
 ?>

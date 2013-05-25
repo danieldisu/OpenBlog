@@ -1,5 +1,6 @@
 <html>
   <head>
+  	<meta charset="utf-8">
 	<?php
 	include 'autoloader.php';
 
@@ -10,7 +11,10 @@
 	?>
   </head>
   <body>
+
+
 	<div class="container">
+	<div class="cajaAlertas"></div>
 	  <div class="cajaMenu">	  
 		<?php include 'paneladmin/menu.php'; ?>
 	  </div>
