@@ -21,7 +21,9 @@ $('.btn.admin').on('click', function(e) {
 	  });
 	  break;
 	case "aUsuarios": // Administrar usuarios
-	  $cajaLoader.load('paneladmin/administrarUsuarios.php');
+	  $cajaLoader.load('paneladmin/administrarUsuarios.php',function(){
+          cargarAdministrarUsuarios();
+      });
 	  break;
 	case "aCategorias": // Administrar categorías
 	  $cajaLoader.load('paneladmin/administrarCategorias.php', function(){
@@ -199,4 +201,64 @@ function obtenerDatosCategoria(idCategoria){
 			})
 	return datos;
 	
+}
+
+function cargarAdministrarUsuarios(){
+
+    $('.botonBorrarUsuario').click(function(){
+        if(confirm('¿Está seguro de que desea borrar el usuario?')){
+            var idUsuario = $(this).parents('tr').data('idusuario');
+            mandarPeticionBorrarUsuario(idUsuario);
+        }
+    });
+
+    $('.botonEditarUsuario').click(function(){
+		var idUsuario = $(this).parents('tr').data('idusuario');
+		$('#myModal').modal({});
+		$('#myModal .modal-body').load('paneladmin/src/templates/templateFormularioEditarUsuario.php?idUsuario='+idUsuario);
+
+
+
+
+	})
+	$('#myModal .btn-primary').click(function(){
+		$myForm = $(this).parent().siblings('.modal-body').find('form');
+		var datos = $myForm.serializeArray();
+		$('#myModal').modal('hide');
+		editarUsuario(datos);
+	})
+	function editarUsuario(datos){
+		$.post('paneladmin/src/editarUsuario.php', datos, function(data){
+			actualizarAlerta(data);
+		  $cajaLoader.load('paneladmin/administrarUsuarios.php',function(){
+	          cargarAdministrarUsuarios();
+	      });			
+		});
+
+	}
+
+	function actualizarAlerta(data){
+		$('.cajaAlertas').html(data).show().delay(2000).queue(function(n) {
+		  $(this).hide(); n();
+		});;
+		
+	}
+
+
+	function mandarPeticionBorrarUsuario(idUsuario){
+	  $.post('paneladmin/src/borrarUsuario.php',{ idUsuario : idUsuario },function(data){
+	      if(data){
+	          $('.cajaAlertas').html('<div class="alert alert-success">Se ha eliminado correctamente el usuario</div>').fadeIn('slow');
+	          $cajaLoader.load('paneladmin/administrarUsuarios.php',function(){
+	              cargarAdministrarUsuarios();
+	          });
+	      }else{
+	          $('.cajaAlertas').html('<div class="alert alert-error">Ha habido un problema intentando borrar el post, vuelva a intentarlo mas tarde</div>').fadeIn('slow');
+	      }
+	      setTimeout(function(){
+	          $('div .alert').fadeOut('slow',function(){
+	          });
+	      }, 4000);
+	  });
+	}
 }

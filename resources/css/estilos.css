@@ -646,7 +646,30 @@ tbody{
 .cajaAdministrarComentarios h2{
    color:red;
 }
-.
+
+/* Administrar Usuarios */
+
+#formularioEditarUsuario *{
+   margin:auto;
+   margin-bottom: 20px;
+   display:block;
+   width:60%;
+   text-align: center;
+}
+
+#formularioEditarUsuario label{
+   font-weight: bold;
+   color:#DF4931;
+   font-size: 1.25em;
+}
+
+#formularioEditarUsuario input{
+   height:50px;
+}
+
+#formularioEditarUsuario select{
+   height:50px;
+}
 
 /* RETOQUES MOVIL */
 
