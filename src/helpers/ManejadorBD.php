@@ -522,11 +522,14 @@ class ManejadorBD {
 								VALUES (:nombre, :pass, :mail, :idRol)
 						";
 	$sentencia = $this->db->prepare($sql);
-
-	$sentencia->bindParam(":nombre", $usuario->getNombre());
-	$sentencia->bindParam(":pass", $usuario->getPass());
-	$sentencia->bindParam(":mail", $usuario->getMail());
-	$sentencia->bindParam(":idRol", $usuario->getIdRol());
+        $nombre = $usuario->getNombre();
+        $pass = $usuario->getPass();
+        $mail = $usuario->getMail();
+        $idRol = $usuario->getIdRol();
+	$sentencia->bindParam(":nombre", $nombre);
+	$sentencia->bindParam(":pass", $pass);
+	$sentencia->bindParam(":mail", $mail);
+	$sentencia->bindParam(":idRol", $idRol);
 	return $sentencia->execute();
   }
 
@@ -608,6 +611,40 @@ class ManejadorBD {
       $sentencia = $this->db->prepare($sql);
       $sentencia->bindParam(":usuario", $usuario);
       $sentencia->bindParam(":pass", $pass);
+      $sentencia->execute();
+      if($sentencia->rowCount()){
+          return true;
+      }
+      else {
+          return false;
+      }
+  }
+  
+  public function comprobarNombreUsuario($usuario){
+      $sql = "
+          SELECT *
+          FROM ob_usuario
+          WHERE nombre = :usuario
+      ";
+      $sentencia = $this->db->prepare($sql);
+      $sentencia->bindParam(":usuario", $usuario);
+      $sentencia->execute();
+      if($sentencia->rowCount()){
+          return true;
+      }
+      else {
+          return false;
+      }
+  }
+  
+  public function comprobarEmailUsuario($mail){
+      $sql = "
+          SELECT *
+          FROM ob_usuario
+          WHERE mail = :mail
+      ";
+      $sentencia = $this->db->prepare($sql);
+      $sentencia->bindParam(":mail", $mail);
       $sentencia->execute();
       if($sentencia->rowCount()){
           return true;

@@ -3,4 +3,4 @@
 <label>Contraseña</label>
 <input type="password" id="inputPassword">
 <input type="button" class="btn btn-block" value="Login">
-<input type="button" class="btn btn-block" value="Registrarse">
+<a href="registro.php"><input type="button" class="btn btn-block" value="Registrarse"></a>
