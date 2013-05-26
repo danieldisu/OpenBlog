@@ -503,6 +503,18 @@ class ManejadorBD {
 	return $sentencia->execute();
   }
 
+  public function getAllRoles(){
+      $sql = "
+								SELECT *
+								FROM ob_rol
+
+	  ";
+      $sth = $this->db->prepare($sql);
+      $sth->execute();
+      $roles = $sth->fetchAll(PDO::FETCH_CLASS, 'src\entidades\Rol');
+      return $roles;
+  }
+
   //USUARIO
   public function createUsuario(Usuario $usuario) {
 	$sql = "
@@ -551,13 +563,14 @@ class ManejadorBD {
 	;
 	$sentencia = $this->db->prepare($sql);
 
-	$sentencia->bindParam(":nombre", $usuario->getNombre());
-	$sentencia->bindParam(":pass", $usuario->getPass());
-	$sentencia->bindParam(":mail", $usuario->getMail());
-	$sentencia->bindParam(":idRol", $usuario->getIdRol());
-	$sentencia->bindParam(":id", $id);
+	$sentencia->bindValue(":nombre", $usuario->getNombre());
+	$sentencia->bindValue(":pass", $usuario->getPass());
+	$sentencia->bindValue(":mail", $usuario->getMail());
+	$sentencia->bindValue(":idRol", $usuario->getIdRol());
+	$sentencia->bindValue(":id", $id);
 
-	return $sentencia->execute();
+	$sentencia->execute();
+    return $count = $sentencia->rowCount();
   }
 
   public function deleteUsuario($id) {
@@ -568,7 +581,9 @@ class ManejadorBD {
 	$sentencia = $this->db->prepare($sql);
 	$sentencia->bindParam(":id", $id);
 
-	return $sentencia->execute();
+	$sentencia->execute();
+    return $count = $sentencia->rowCount();
+
   }
 
   public function obtenerNombreAutor($id) {
