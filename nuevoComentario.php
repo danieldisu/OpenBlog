@@ -46,15 +46,14 @@
 	*/
 	function insertarComentario($comentario){
 			$bd = new ManejadorBD(Header::$json);
-			//$bd->createComentario($comentario);
+			$bd->createComentario($comentario);
 	}
 
 	function mostrarMensajeExito(){
 		// Estilar el mensaje de exito al agregar un comentario
-		echo "<div class='alert alert-success'>";
+		echo "<div class='alert alert-success alertaNuevoComentario'>";
+			echo '<a href="#" class="close" data-dismiss="alert">&times;</a>';
 			echo "Se ha agregado correctamente el comentario a la base de datos";
-			echo "<br/>";
-			echo "<a href='#'>ver comentarios</a>";
 		echo "</div>";
 	}
 

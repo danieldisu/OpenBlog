@@ -344,10 +344,10 @@ class ManejadorBD {
 						";
 	$sentencia = $this->db->prepare($sql);
 
-	$sentencia->bindParam(":texto", $comentario->getTexto());
-	$sentencia->bindParam(":fecha", $comentario->getFecha());
-	$sentencia->bindParam(":idUsuario", $comentario->getIdUsuario());
-	$sentencia->bindParam(":idPost", $comentario->getIdPost());
+	$sentencia->bindValue(":texto", $comentario->getTexto());
+	$sentencia->bindValue(":fecha", $comentario->getFecha());
+	$sentencia->bindValue(":idUsuario", $comentario->getIdUsuario());
+	$sentencia->bindValue(":idPost", $comentario->getIdPost());
 	return $sentencia->execute();
   }
 
