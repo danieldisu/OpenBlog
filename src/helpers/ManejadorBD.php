@@ -494,11 +494,14 @@ class ManejadorBD {
 								VALUES (:nombre, :pass, :mail, :idRol)
 						";
 	$sentencia = $this->db->prepare($sql);
-
-	$sentencia->bindParam(":nombre", $usuario->getNombre());
-	$sentencia->bindParam(":pass", $usuario->getPass());
-	$sentencia->bindParam(":mail", $usuario->getMail());
-	$sentencia->bindParam(":idRol", $usuario->getIdRol());
+        $nombre = $usuario->getNombre();
+        $pass = $usuario->getPass();
+        $mail = $usuario->getMail();
+        $idRol = $usuario->getIdRol();
+	$sentencia->bindParam(":nombre", $nombre);
+	$sentencia->bindParam(":pass", $pass);
+	$sentencia->bindParam(":mail", $mail);
+	$sentencia->bindParam(":idRol", $idRol);
 	return $sentencia->execute();
   }
 

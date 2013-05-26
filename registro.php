@@ -3,18 +3,12 @@ include_once 'autoloader.php';
 
 use src\helpers\Header;
 use src\helpers\ManejadorBD;
-use src\helpers\Paginador;
 use src\helpers\Login;
 
 // Iniciamos el manejador BD con las opciones del JSON
 $mbd = new ManejadorBD(Header::cargarJSON());
 
 Header::iniciarSesion();
-
-if (!empty($_GET['p']))
-    $pagina = $_GET['p'];
-else
-    $pagina = 1;
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -30,7 +24,7 @@ else
 
             <div class="row">
                 <div class="span7 registro main">
-                        <h2>Formulario de registro</h2>
+                        <h2>Formulario de registro</h2>  
                         <label id="regNombre"><input type="text" placeholder="Nombre de usuario" /><img src="" /><span></span></label>
                         <label id="regEmail"><input type="text" placeholder="Email"/><img src="" /><span></span></label>
                         <label id="regEmailR"><input type="text" placeholder="Repetir email"/><img src="" /><span></span></label>

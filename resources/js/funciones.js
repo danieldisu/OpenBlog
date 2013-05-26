@@ -115,7 +115,16 @@ $(document).ready(function(){
                             pass : $("#regPass input").val(),
                         })
                         .success(function(){
-                            
+                            var html = "<h3>¡Enhorabuena! Te has registrado correctamente</h3>";
+                            html += "<h4>Tus datos son:</h4>";
+                            html += "<p><b>Nombre de usuario:</b> "+$("#regNombre input").val()+"</p>";
+                            html += "<p><b>Email:</b> "+$("#regEmail input").val()+"</p>";
+                            $(".registro.main").html(html);
+                        })
+                        .fail(function(){
+                            var html = "<h3>Ha ocurrido un erro en el registro</h3>";
+                            html += "<h4>Por favor, intentelo más adelante</h4>";
+                            $(".registro.main").html(html);
                         });
                     }
                 });
