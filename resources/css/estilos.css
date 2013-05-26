@@ -317,6 +317,10 @@ overflow: hidden;
    float:right;
 }
 
+.alertaNuevoComentario{
+   margin-top: 15px;
+}
+
 .comentario{
    width: 650px;
    height: 40px;

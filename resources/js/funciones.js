@@ -22,15 +22,8 @@ $(document).ready(function(){
 	$('.botonNuevoComentario').on('click', function(e){
 		e.preventDefault();
 		var idPost = $(this).parent().parent().data('idpost');
-			var cajaNuevoComentario = $(this).parent().parent().next().next();			
-			if(cajaNuevoComentario.attr("class") == "cajaNuevoComentario oculto"){
-				cajaNuevoComentario.removeClass("oculto");
-				cajaNuevoComentario.addClass("visible");
-			}
-			else{
-				cajaNuevoComentario.removeClass("visible");
-				cajaNuevoComentario.addClass("oculto");				
-			}				
+			var cajaNuevoComentario = $(this).parents('.cajaAcciones').siblings('.cajaNuevoComentario');
+			cajaNuevoComentario.toggle();				
 	});
 
 	$('.botonEnviarComentario').on('click', function(e){
@@ -39,7 +32,7 @@ $(document).ready(function(){
 		var idPost = $(this).parent().parent().prev().prev().data('idpost');
 		var autorComentario = $(this).parent().find("#autor").val();
 		var textoComentario = $(this).parent().find("textarea").val();
-		enviarNuevoComentario(xhr, idPost, autorComentario, textoComentario);	
+		enviarNuevoComentario(xhr, idPost, autorComentario, textoComentario, this);	
 	});
         
 	$("div.cajaLogin input[value='Login']").click(function(e){
@@ -96,13 +89,16 @@ function crearMensajeErrorLogin(msn){
     });
 }
 
-function enviarNuevoComentario(xhr, idPost, autorComentario, textoComentario){
+function enviarNuevoComentario(xhr, idPost, autorComentario, textoComentario, lanzadorEvento){
 	$.post("nuevoComentario.php", { idPost: idPost, autor: autorComentario , textoComentario : textoComentario} )
 	.done(function(data){
-		
-		$(".cajaNuevoComentario").fadeOut('fast',function(){
-			$(this).html(data).fadeIn();
-		})
+		_this = $(lanzadorEvento);
+		_this.parents('.cajaNuevoComentario').fadeOut('fast');
+		_this.parents('.cajaNuevoComentario').find('form')[0].reset(); // Reiniciamos el formulario
+		_this.parents('.cajaNuevoComentario').after(data);
+		setTimeout(function(){
+			_this.parents('.cajaNuevoComentario').siblings('.alert').fadeOut('slow', function(){this.remove()});
+		},4000); // Inserto despues de la caja el resultado
 	})
 }
 

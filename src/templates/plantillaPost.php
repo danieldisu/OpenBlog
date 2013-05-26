@@ -31,7 +31,7 @@
   </div>
   <div class="cajaComentarios oculto">
   </div>
-  <div class="cajaNuevoComentario oculto">
+  <div class="cajaNuevoComentario" style='display:none'>
     <?php
     if(src\helpers\Login::isLogin()){
       $userid = src\helpers\Login::getId();
