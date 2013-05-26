@@ -1,7 +1,7 @@
 {
     "host": "127.0.0.1",
     "user": "root",
-    "pass": "",
+    "pass": "SacredShadow23",
     "nombreBd": "openblog",
     "tituloBlog": "OpenBlog",
     "descripcionBlog": "Esta es una descripcion de Prueba",

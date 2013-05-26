@@ -97,6 +97,46 @@ h3{
    margin-bottom: 15px;
 }
 
+.registro{
+   border:1px solid #ddd;
+   background-color: #fff;
+   padding: 25px 50px;
+}
+
+.registro h2{
+   margin-bottom: 25px;
+}
+
+.registro label {
+    margin: 0px;
+    cursor: default;
+}
+
+.registro img {
+    margin-top: -10px;
+    margin-left: 15px;
+}
+
+.registro span {
+    color: #df4931;
+    position: relative;
+    top: -3px;
+    margin-left: 15px;
+}
+
+.botonRegistro {
+    margin-top: 15px;
+    min-width: 220px;
+}
+
+.registro input {
+    width: 206px !important;
+ }
+ 
+ .cajaLogin a{
+     text-decoration: none !important;
+ }
+
 .cajaTituloPost *{
    font-family: proxima light;
    font-size: 3em;

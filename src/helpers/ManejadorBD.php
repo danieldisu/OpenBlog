@@ -573,6 +573,40 @@ class ManejadorBD {
           return false;
       }
   }
+  
+  public function comprobarNombreUsuario($usuario){
+      $sql = "
+          SELECT *
+          FROM ob_usuario
+          WHERE nombre = :usuario
+      ";
+      $sentencia = $this->db->prepare($sql);
+      $sentencia->bindParam(":usuario", $usuario);
+      $sentencia->execute();
+      if($sentencia->rowCount()){
+          return true;
+      }
+      else {
+          return false;
+      }
+  }
+  
+  public function comprobarEmailUsuario($mail){
+      $sql = "
+          SELECT *
+          FROM ob_usuario
+          WHERE mail = :mail
+      ";
+      $sentencia = $this->db->prepare($sql);
+      $sentencia->bindParam(":mail", $mail);
+      $sentencia->execute();
+      if($sentencia->rowCount()){
+          return true;
+      }
+      else {
+          return false;
+      }
+  }
 
   public function getUsuarioByName($nombre){
         $sql = "
