@@ -22,7 +22,7 @@
 	  <div class="container">
 			<div class="row">
 				<a href="index.php"><div class="span12 header">
-					<img src="resources/betaLogo01.png">
+                                        <img src="<?php echo Header::$json["logo"] ?>">
 					<h1><?php echo Header::$json["tituloBlog"] ?></h1>
 				</div></a>
 			</div><!-- /header -->

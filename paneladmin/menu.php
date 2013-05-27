@@ -1,4 +1,10 @@
-  <div class="cajaLogo"><img src="resources/betaLogo01.png" class="logo"/></div>
+<?php 
+    include_once 'autoloader.php';
+    use src\helpers\Header;
+    Header::cargarJSON();
+?>
+
+<div class="cajaLogo"><img src="<?php echo Header::$json["logo"] ?>" class="logo"/></div>
 
   <button class="btn admin"  data-admin="indice"><i class="icon-home"></i> Indice</button>
   <button class="btn admin"  data-admin="nEntrada"><i class="icon-edit"></i> Nuevo Post</button>

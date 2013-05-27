@@ -27,7 +27,7 @@
 	  <div class="container">
 			<div class="row">
 				<div class="span12 header">
-					<img src="resources/betaLogo01.png">
+                                    <img src="<?php echo Header::$json["logo"] ?>">
 					<a href="index.php"><h1><?php echo Header::$json["tituloBlog"] ?></h1></a>
 				</div>
 			</div><!-- /header -->
