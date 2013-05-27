@@ -473,8 +473,8 @@ class ManejadorBD {
 								WHERE id = :id"
 	;
 	$sth = $this->db->prepare($sql);
-	$sth->execute();
 	$sth->bindParam(":id", $id);
+	$sth->execute();
 	$rol = $sth->fetchObject('src\entidades\Rol');
 	return $rol;
   }

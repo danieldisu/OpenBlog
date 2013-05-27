@@ -34,7 +34,10 @@ $('.btn.admin').on('click', function(e) {
 	  $cajaLoader.load('paneladmin/personalizar.php');
 	  break;
 	case "aCuenta": // Administrar cuenta (mi cuenta)
-	  $cajaLoader.load('paneladmin/administrarCuenta.php');
+	  $cajaLoader.load('paneladmin/administrarCuenta.php', function(){
+	  	cargarListenersAdministrarCuenta();
+
+	  });
 	  break;
 	case "aSalir": // Administrar cuenta (mi cuenta)
 		// IMPLEMENTAR FUNCION QUE ME LLEVE A INDEX
@@ -56,7 +59,151 @@ function goToIndex(){
 	var hrefRaiz = actualHref.replace('panelAdmin.php', '');
 	$(location).attr('href', hrefRaiz);
 }
-
+function cargarListenersAdministrarCuenta(){
+	$('#botonAdministrarDatosAdmin').on('click', function(e){
+		e.preventDefault();
+		/* Recogida de datos */
+		var adminName = $('#adminName').val();
+		var adminMail = $('#adminMail').val();
+		var adminNewPassword = $('#adminNewPassword').val();
+		var adminNewRePassword = $('#adminNewRePassword').val();
+		var adminPassword = $('#adminPassword').val();
+		/* Validaciones en cliente */
+		validacion = validarModificarAdministrador(adminName, adminMail, adminNewPassword, adminNewRePassword, adminPassword);
+		if(validacion.valor){
+			$('#mensajeAdmin').text('');
+			//Creamos un JSON con los datos
+			var datos = {
+				nombre : adminName,
+				correo : adminMail,
+				nuevaPass : adminNewPassword,
+				adminPass : adminPassword
+			}
+			//Enviar al servidor
+		$.post('paneladmin/administrarAdministrador.php', datos)
+			.done(function(data){
+				console.log(data);
+				datos =  $.parseJSON(data);
+				console.log(datos);
+				if(datos.cambio){
+					$('#mensajeAdmin').removeClass('alert-error');
+					$('#mensajeAdmin').addClass('alert-success');
+					$('#mensajeAdmin').html('<p>'+datos.descripcion+'</p>');
+				}else{
+					$('#mensajeAdmin').removeClass('alert-success');
+					$('#mensajeAdmin').addClass('alert-error');
+					$('#mensajeAdmin').html('<p>'+datos.descripcion+'</p>');
+				}
+			})
+			.fail(function(){
+				console.log('Ha ocurrido algún fallo al enviar los datos.');
+			})
+		}else{
+			$('#mensajeAdmin').addClass('alert-error');
+			$('#mensajeAdmin').html('<p>'+validacion.error+'</p>');
+		}
+	});
+}
+function validarModificarAdministrador(adminName, adminMail, adminNewPassword, adminNewRePassword, adminPassword){
+	validacion = { valor: false , error: ''};
+	// Comprobamos que el campo nombre este relleno
+	if(adminName == '' || adminName == ' '){
+		$('#adminName').css('background', '#f2dede');
+		//Error adminName vacio
+		return validacion = {
+			valor: false,
+			error: 'Debes completar el nombre'
+		}
+	}
+	$('#adminName').css('background', '#fff');
+	//Si esta completado comprobamos el correo
+	if(adminMail == ''  || adminMail == ' '){
+		//Error mail vacio
+		$('#adminMail').css('background', '#f2dede');
+		return validacion = {
+			valor: false,
+			error: 'Debes indicar el correo'
+		}
+	}
+	$('#adminMail').css('background', '#fff');
+	//Si esta completado el correo comprobamos el campo nueva contraseña				
+	if(adminNewPassword == '' || adminNewPassword == ' '){
+			//Si no esta completado comprobamos que el de repetida lo está
+			if(adminNewRePassword == '' || adminNewRePassword == ' '){
+				$('#adminNewPassword').css('background', '#fff');
+				$('#adminNewRePassword').css('background', '#fff');
+			}else{
+				$('#adminNewPassword').css('background', '#f2dede');
+				$('#adminNewRePassword').css('background', '#f2dede');
+				if(adminPassword != '' && adminPassword != ' '){
+					$('#adminPassword').css('background', '#fff');
+				}
+				// Error contraseña vacía
+				return validacion = {
+					valor: false,
+					error: 'Completa ambos campos, o ninguno.'
+				}
+			}
+			if(adminPassword == '' || adminPassword == ' '){
+				$('#adminPassword').css('background', '#f2dede');
+				// Error contraseña vacía
+				return validacion = {
+					valor: false,
+					error: 'Indica tu password'
+				}
+			}else{
+				$('#adminPassword').css('background', '#fff');
+				//Enviar petición a servidor
+				return validacion = {
+					valor: true,
+					error: ''
+				}
+			}
+	}
+	$('#adminNewPassword').css('background', '#fff');
+	//Si la nueva contraseña no esta vacia
+	if(adminNewRePassword == '' || adminNewRePassword == ' '){
+		$('#adminNewRePassword').css('background', '#f2dede');
+		if(adminPassword != ''){
+			$('#adminPassword').css('background', '#fff');							
+		}
+		//Error nueva contraseña repetida vacia
+		return validacion = {
+			valor: false,
+			error: 'Completa el campo repetir nueva password'
+		}
+	}
+	$('#adminNewRePassword').css('background', '#fff');
+	//Comprobamos que la repita
+	if(adminNewPassword == adminNewRePassword){
+		$('#adminNewPassword').css('background', '#fff');
+		$('#adminNewRePassword').css('background', '#fff');
+		if(adminPassword != ''){
+			$('#adminPassword').css('background', '#fff');							
+			//Enviar petición a servidor
+			return validacion = {
+				valor: true,
+				error: ''
+			}
+		}else {
+			$('#adminPassword').css('background', '#f2dede');
+			// Error contraseña vacía
+			return validacion = {
+				valor: false,
+				error: 'Indica tu password'
+			}
+		}	
+	}else{
+		$('#adminNewPassword').css('background', '#f2dede');
+		$('#adminNewRePassword').css('background', '#f2dede');
+		//Error Contraseñas nuevas distintas
+		return validacion = {
+			valor: false,
+			error: 'Ambas password deben coincidir'
+		}
+	}
+				
+}
 /*
  *	Panel Nuevo Post
  *	IMPORTANTE!

@@ -11,8 +11,7 @@
 	?>
   </head>
   <body>
-
-
+  	<?php session_start();?>
 	<div class="container">
 	<div class="cajaAlertas"></div>
 	  <div class="cajaMenu">	  

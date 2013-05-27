@@ -395,7 +395,7 @@ overflow: hidden;
    padding:2%;  
 }
 
-.cajaLogin input[type=text],input[type=password]{
+.cajaLogin input[type=text], .cajaLogin  input[type=password]{
    width:95%;
 }
 
@@ -492,13 +492,14 @@ overflow: hidden;
 
 .cajaAdmin{
    margin-bottom:25px;
+   width: 70%;
 }
 
 .cajaAdministracion label{
    margin-bottom: 10px;
 }
 
-.cajaAdmin input{
+.cajaAdmin input[type=text], .cajaAdmin   input[type=password]{
    border-radius: 2px;
    height:30px;
    min-width: 600px; 
@@ -515,7 +516,13 @@ overflow: hidden;
    padding: 15px;
    line-height: 2em;
 }
-
+.alertaModificarUsuario{
+   font-size: 1.25em;
+   padding: 15px 10px 10px 10px;
+   text-align: center;
+   width: 50%;
+   margin-bottom: 20px;
+}
 .botonBorrarPost{
 }
 
