@@ -31,7 +31,9 @@ $('.btn.admin').on('click', function(e) {
 	  });
 	  break;
 	case "personalizar": // Personalizar
-	  $cajaLoader.load('paneladmin/personalizar.php');
+	  $cajaLoader.load('paneladmin/personalizar.php', function(){
+              cargarListenersPersonalizar();
+          });
 	  break;
 	case "aCuenta": // Administrar cuenta (mi cuenta)
 	  $cajaLoader.load('paneladmin/administrarCuenta.php', function(){
@@ -410,4 +412,63 @@ function cargarAdministrarUsuarios(){
 	      }, 4000);
 	  });
 	}
+}
+
+function cargarListenersPersonalizar(){
+    $("#tituloBlog + button").click(function(){
+        $.post("paneladmin/src/actualizarJSON.php", {
+            dato : $("#tituloBlog").val(),
+            actualizar : "tituloBlog"
+        })
+        .success(function(){
+            $cajaLoader.load('paneladmin/personalizar.php', function(){
+                cargarListenersPersonalizar();
+            });
+        })
+        .fail(function(){
+            console.log('Ha ocurrido algún fallo al enviar los datos.');
+        });
+    });
+    $("#descripcionBlog + button").click(function(){
+        $.post("paneladmin/src/actualizarJSON.php", {
+            dato : $("#descripcionBlog").val(),
+            actualizar : "descripcionBlog"
+        })
+        .success(function(){
+            $cajaLoader.load('paneladmin/personalizar.php', function(){
+                cargarListenersPersonalizar();
+            });
+        })
+        .fail(function(){
+            console.log('Ha ocurrido algún fallo al enviar los datos.');
+        });
+    });
+    $("#estilosBlog + button").click(function(){
+        $.post("paneladmin/src/actualizarJSON.php", {
+            dato : $("#estilosBlog").val(),
+            actualizar : "rutaCss"
+        })
+        .success(function(){
+            $cajaLoader.load('paneladmin/personalizar.php', function(){
+                cargarListenersPersonalizar();
+            });
+        })
+        .fail(function(){
+            console.log('Ha ocurrido algún fallo al enviar los datos.');
+        });
+    });
+    $("#logoBlog + button").click(function(){
+        $.post("paneladmin/src/actualizarJSON.php", {
+            dato : $("#logoBlog").val(),
+            actualizar : "logo"
+        })
+        .success(function(){
+            $cajaLoader.load('paneladmin/personalizar.php', function(){
+                cargarListenersPersonalizar();
+            });
+        })
+        .fail(function(){
+            console.log('Ha ocurrido algún fallo al enviar los datos.');
+        });
+    });
 }

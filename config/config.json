@@ -4,7 +4,8 @@
     "pass": "",
     "nombreBd": "openblog",
     "tituloBlog": "OpenBlog",
-    "descripcionBlog": "Esta es una descripcion de Prueba",
+    "descripcionBlog": "Esta es otra descripcion de prueba",
     "rutaCss": "resources\/css\/estilos.css",
+    "logo": "resources\/betaLogo01.png",
     "numPost": "5"
 }

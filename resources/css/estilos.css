@@ -505,6 +505,12 @@ overflow: hidden;
    min-width: 600px; 
 }
 
+.input-append input[type="text"]{
+    border-radius: 2px;
+   height:33px;
+   margin-right: 20px;
+}
+
 #epiceditor{
    min-height:40%;
    border:1px solid #333;
