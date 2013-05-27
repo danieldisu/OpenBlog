@@ -7,6 +7,7 @@
 	if(!isset($_GET) || empty($_GET)){
 		Header::mostrarPaginaError('Se ha encontrado un error con la peticion');
 	}
+	echo '<meta charset="utf-8">';
 	echo '<link href="../resources/css/bootstrap.css" rel="stylesheet">';
 	echo '<link href="../resources/css/fuentes.css" rel="stylesheet">';
 

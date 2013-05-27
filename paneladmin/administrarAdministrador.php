@@ -11,8 +11,9 @@
 	$newPass = $_REQUEST['nuevaPass'];
 	$pass = $_REQUEST['adminPass'];
 	//Obtener el id del usuario con ese nombre
-	$usuario = $mbd->getUsuarioByName($nombre);
-	$idUsuario = $usuario->getId();
+	$idUsuario = $_REQUEST['idUsuario'];
+	//$usuario = $mbd->getUsuarioByName($nombre);
+	$usuario = $mbd->getUsuario($idUsuario);
 	$rolUsuario = $usuario->getIdRol();
 	$rol = $mbd -> getRol ($rolUsuario);
 

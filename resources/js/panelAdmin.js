@@ -63,6 +63,7 @@ function cargarListenersAdministrarCuenta(){
 	$('#botonAdministrarDatosAdmin').on('click', function(e){
 		e.preventDefault();
 		/* Recogida de datos */
+		var idUsuario = $('#idUsuario').val();
 		var adminName = $('#adminName').val();
 		var adminMail = $('#adminMail').val();
 		var adminNewPassword = $('#adminNewPassword').val();
@@ -74,6 +75,7 @@ function cargarListenersAdministrarCuenta(){
 			$('#mensajeAdmin').text('');
 			//Creamos un JSON con los datos
 			var datos = {
+				idUsuario : idUsuario,
 				nombre : adminName,
 				correo : adminMail,
 				nuevaPass : adminNewPassword,

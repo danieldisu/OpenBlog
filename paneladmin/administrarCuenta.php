@@ -4,6 +4,7 @@
       <div class="cajaAdmin">
       <h2>Mi Cuenta</h2>
       <label>Usuario</label>
+      <input type="hidden" id="idUsuario"/ value="<?php echo $_SESSION['usuario']['id']; ?>">
       <input type="text" id="adminName" value=<?php echo $_SESSION['usuario']['nombre']?>>
       <label>Cuenta de correo</label>
       <input type="text" id="adminMail" value=<?php echo $_SESSION['usuario']['mail']?>>
