@@ -67,6 +67,10 @@ class pathGen {
         return self::$raiz."registro";
     }
     
+    public static function pathPostUsuario($id){
+        return self::$raiz."post/usuario/".$id;
+    }
+    
     public static function pathAdmin(){
         return self::$raiz."administrador";
     }

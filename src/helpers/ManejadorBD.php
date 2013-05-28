@@ -146,6 +146,18 @@ class ManejadorBD {
 	return $posts;
   }
   
+  public function getPostsUsuario($idUsuario){
+      $sql = "SELECT * FROM ob_post WHERE idUsuario = :idUsuario";
+      $sth = $this->db->prepare($sql);
+        $sth->bindValue(':idUsuario', $idUsuario);
+
+        $sth->execute();
+
+        $posts = $sth->fetchAll(PDO::FETCH_CLASS, 'src\entidades\Post');
+
+        return $posts;
+  }
+  
   public function getAllCategorias(){
 	$sql = "SELECT * FROM ob_categoria";
 	$sth = $this->db->prepare($sql);

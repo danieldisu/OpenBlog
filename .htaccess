@@ -9,6 +9,8 @@ RewriteRule ^home/([0-9]+)$ index.php?p=$1 [NC,L]
 RewriteRule ^home$ index.php [NC,L]
 #Registro
 RewriteRule ^registro$ registro.php [NC,L]
+#postPorUsuario
+RewriteRule ^post/usuario/([0-9]+)$ verPostUsuario.php?id=$1 [NC,L]
 #Post
 RewriteRule ^post/([0-9]+)$ verPost.php?id=$1 [NC,L]
 #Categoria
