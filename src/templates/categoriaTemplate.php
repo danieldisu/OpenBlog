@@ -16,11 +16,11 @@
  	?>
  </td>
  <td class="acciones"> 
-   <button class="botonEditarCategoria" data-idCategoria="<?php echo $categoria->getId(); ?>"><i class="icon-pencil"></i>Editar</button>
+   <button class="btn botonEditarCategoria" data-idCategoria="<?php echo $categoria->getId(); ?>"><i class="icon-pencil"></i> Editar</button>
    <?php 
    	if($categoria->getId() != 0){
    		# Añadir a la base de datos categoria id = 0
    ?>
-   <button class="botonBorrarCategoria" data-idCategoria="<?php echo $categoria->getId(); ?>"><i class="icon-remove"></i>Borrar</button>
+   <button class="btn botonBorrarCategoria" data-idCategoria="<?php echo $categoria->getId(); ?>"><i class="icon-remove"></i> Borrar</button>
    <?php }?>
 </tr>

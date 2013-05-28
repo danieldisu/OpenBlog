@@ -16,7 +16,7 @@
       <input type="password" id="adminPassword">
       <div id="mensajeAdmin" class="alertaModificarUsuario">
       </div>
-      <button id="botonAdministrarDatosAdmin">
+      <button id="botonAdministrarDatosAdmin" class="btn">
          <i class="icon-ok"></i> Guardar Cambios
       </button>
       </div>

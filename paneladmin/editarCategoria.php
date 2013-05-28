@@ -5,8 +5,10 @@
   include '../autoloader.php';
   use src\entidades\Categoria;
   use src\helpers\ManejadorBD;
-  
-  $mbd = new ManejadorBD();
+  use src\helpers\Header;
+
+   $json = Header::cargarJSON();
+   $mbd = new ManejadorBD($json);
   
   //$idUsuario = $_SESSION('usuario');
   $idUsuario = 1;
@@ -18,11 +20,11 @@
     $categoriaEditar->setDescripcion(strip_tags($_POST['descripcion'])); # Da error si guardo descripcion en una variable.
   }  
   if($mbd->updateCategoria($idCategoria, $categoriaEditar)){
-  echo "<div class='alert alert-success alertaNuevoPost'>";
+  echo "<div class='cajaAlertaCorrectoCategoria alert alert-success alertaNuevoPost'>";
 		echo "Se ha modificado correctamente la categoria";
 	echo "</div>";
   }else{
-	  echo "<div class='alert alert-error alertaNuevoPost'>";
+	  echo "<div class='cajaAlertaErrorCategoria alert alert-error alertaNuevoPost'>";
 		  echo "Se ha encontrado algún error vuelva a intentarlo mas tarde";
 	  echo "</div>";
   }

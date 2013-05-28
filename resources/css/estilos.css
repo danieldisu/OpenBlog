@@ -540,16 +540,15 @@ overflow: hidden;
 .cajaFormularioNuevaCategoria{
    padding: 20px;
    border: 1px solid #f2f2f2;
-   width: 25%;
+  
    margin-bottom: 10px;
-   display: none;
 }
 .cajaFormularioEditarCategoria{
    padding: 20px;
    border: 1px solid #f2f2f2;
-   width: 25%;
+
    margin-bottom: 10px;
-   display: none;
+
 }
 .cajaContenidoCategoria table{
    width:100%;
@@ -690,7 +689,18 @@ tbody{
 .cajaAlertas .alert{
    margin-top:25px;
 }
-
+.cajaAlertaCorrectoCategoria{
+   position: fixed;
+   top : 20px;
+   width: 50%;
+   height: 30px;
+}
+.cajaAlertaErrorCategoria{
+   position: absolte;
+   bottom : 20px;
+   width: 300px;
+   height: 30px;
+}
 /* Administrar Comentarios */
 
 .cajaAdministrarComentarios{

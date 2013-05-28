@@ -7,8 +7,10 @@
   include '../autoloader.php';
   use src\entidades\Categoria;
   use src\helpers\ManejadorBD;
-  
-  $mbd = new ManejadorBD();
+  use src\helpers\Header;
+
+   $json = Header::cargarJSON();
+   $mbd = new ManejadorBD($json);
   
   //$idUsuario = $_SESSION('usuario');
   $idUsuario = 1;

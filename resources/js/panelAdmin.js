@@ -86,9 +86,7 @@ function cargarListenersAdministrarCuenta(){
 			//Enviar al servidor
 		$.post('paneladmin/administrarAdministrador.php', datos)
 			.done(function(data){
-				console.log(data);
 				datos =  $.parseJSON(data);
-				console.log(datos);
 				if(datos.cambio){
 					$('#mensajeAdmin').removeClass('alert-error');
 					$('#mensajeAdmin').addClass('alert-success');
@@ -249,31 +247,15 @@ function validarNuevoPost(titulo, texto) {
   return true;
 }
 function cargarListenersCategoria(){
-	// Mostrar u ocultar div nueva categoria
+
 	$('.botonCrearCategoria').on('click',function(e){
-		e.preventDefault();
-		var display = $('.cajaFormularioNuevaCategoria').css('display');
-		if (display == 'none'){
-			$('.cajaFormularioNuevaCategoria').css('display', 'block');
-		}
-		else{
-			$('.cajaFormularioNuevaCategoria').css('display', 'none');	
-		}
-		
+		$('#modalNuevaCategoria').modal({});
 	});
-	// Mostrar u ocultar div editar categoria
 	$('.botonEditarCategoria').on('click',function(e){
-		e.preventDefault();
-		var display = $('.cajaFormularioEditarCategoria').css('display');
+		$('#modalEditarCategoria').modal({});
 		var idCategoria = $(this).data('idcategoria');
-		if (display == 'none'){
-			$('.editarCategoria').attr('data-idcategoria', idCategoria);
-			obtenerDatosCategoria(idCategoria);
-			$('.cajaFormularioEditarCategoria').css('display', 'block');
-		}
-		else{
-			$('.cajaFormularioEditarCategoria').css('display', 'none');	
-		}
+		$('.editarCategoria').attr('data-idcategoria', idCategoria);
+		obtenerDatosCategoria(idCategoria);
 		
 	});
 	// Crear nueva categoria
@@ -285,18 +267,43 @@ function cargarListenersCategoria(){
 			nombre : nombre,
 			descripcion : descripcion
 		}
-		$.post('paneladmin/nuevaCategoria.php', datosCategoria)
+		if(validarDatosCategoria(datosCategoria)){
+			$.post('paneladmin/nuevaCategoria.php', datosCategoria)
 			.done(function(data){
-				$('.cajaFormularioNuevaCategoria').css('display', 'none');
-				 $cajaLoader.load('paneladmin/administrarCategorias.php', function(){
+				$('#modalNuevaCategoria').modal('hide');				
+				$cajaLoader.load('paneladmin/administrarCategorias.php', function(){
 		  			cargarListenersCategoria();
 		  			$('.cajaContenidoCategoria').find('table').before(data);
+		  			ocultarAlerta();		  			
 		  		});			
 			})
 			.fail(function(){
 				console.log('Fallo en el envio de crear una categoria');
 			})
+		}else{
+			mostrarAlertaError();
+			ocultarAlerta();
+		}
+		
 	});
+	function ocultarAlerta(){
+		setTimeout(function(){
+		  		$('.alert').fadeOut(1500);		  				
+		}, 2000);
+	}
+	function mostrarAlertaError(){
+		var cajaAlerta ="<div class='cajaAlertaErrorCategoria alert alert-error alertaNuevoPost'> Debes completar los campos </div>";
+		$('.modal-body').append(cajaAlerta);
+	}
+	function validarDatosCategoria(datosCategoria){
+		var nombre = datosCategoria.nombre;
+		var descripcion = datosCategoria.descripcion;
+		if (nombre != '' && nombre != ' ' && descripcion != '' && descripcion != ' ') {
+			return true;	
+		}else{
+			return false; 
+		}
+	}
 	$('.botonBorrarCategoria').on('click', function(e){
 		// Cogemos el id de la categoria
 		var idCategoria = $(this).data('idcategoria');
@@ -308,6 +315,7 @@ function cargarListenersCategoria(){
 				 $cajaLoader.load('paneladmin/administrarCategorias.php', function(){
 		  			cargarListenersCategoria();
 		  			$('.cajaContenidoCategoria').find('table').before(data);
+		  			ocultarAlerta();
 		  		});			
 			})
 			.fail(function(){
@@ -324,16 +332,23 @@ function cargarListenersCategoria(){
 			nombre : nombre,
 			descripcion: descripcion
 		}
-		$.post('paneladmin/editarCategoria.php', datosCategoria)
-			.done(function(data){
-				 $cajaLoader.load('paneladmin/administrarCategorias.php', function(){
-		  			cargarListenersCategoria();
-		  			$('.cajaContenidoCategoria').find('table').before(data);
-		  		});			
-			})
-			.fail(function(){
-				console.log('Fallo en el envio de crear una categoria');
-			})		
+		if(validarDatosCategoria(datosCategoria)){
+			$.post('paneladmin/editarCategoria.php', datosCategoria)
+				.done(function(data){
+					$('#modalEditarCategoria').modal('hide');
+					 $cajaLoader.load('paneladmin/administrarCategorias.php', function(){
+			  			cargarListenersCategoria();
+			  			$('.cajaContenidoCategoria').find('table').before(data);
+			  			ocultarAlerta();
+			  		});			
+				})
+				.fail(function(){
+					console.log('Fallo en el envio de crear una categoria');
+				})
+		}else{
+			mostrarAlertaError();
+			ocultarAlerta();
+		}	
 	});
 }
 
