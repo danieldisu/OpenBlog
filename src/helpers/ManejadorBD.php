@@ -20,19 +20,11 @@ class ManejadorBD {
 
   public function __construct($config = null) {
 	// Si al instanciar el PDO le pasamos la configuracion, buscará los datos de conexion en dicha configuracion, si no cogerá la configuracion por defecto que es la siguiente: 
-	if (!isset($config)) {
-	  $this->host = "127.0.0.1";
-	  $this->username = "root";
-	  $this->password = "";
-	  $this->bd = "openblog";
-	  $this->numPost = "5";
-	} else {
-	  $this->host = $config['host'];
-	  $this->username = $config['user'];
-	  $this->password = $config['pass'];
-	  $this->bd = $config['nombreBd'];
-	  $this->numPost = $config['numPost'];
-	}
+  $this->host = $config['host'];
+  $this->username = $config['user'];
+  $this->password = $config['pass'];
+  $this->bd = $config['nombreBd'];
+  $this->numPost = $config['numPost'];
 
 	$this->db = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
 	$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
