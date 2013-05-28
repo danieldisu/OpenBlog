@@ -1,4 +1,5 @@
 <?php 
+        use src\helpers\pathGen;
 	$i++; //Variable para comprobar que es el último.
 	$numPosts = $mbd->obtenerNumPostPorCategoria($categoria->getId());
 	$cantidad = array(	'idCategoria' => $categoria->getId(),
@@ -26,19 +27,19 @@
 			$idCategoria = $cantidad['idCategoria'];
 			switch ($j) {
 				case 0:
-					$lineaSalida ='<a href="verPostCategoria.php?idCategoria='.$idCategoria.'" class="categoriaMayorCantidadPost">'.$mbd->obtenerNombreCategoria($cantidad['idCategoria']).'</a> ';
+					$lineaSalida ='<a href="'.pathGen::pathVerCategoria($idCategoria).'" class="categoriaMayorCantidadPost">'.$mbd->obtenerNombreCategoria($cantidad['idCategoria']).'</a> ';
 					break;
 				case 1:
-					$lineaSalida ='<a href="verPostCategoria.php?idCategoria='.$idCategoria.'" class="categoriaSecundaria">'.$mbd->obtenerNombreCategoria($cantidad['idCategoria']).'</a> ';
+					$lineaSalida ='<a href="'.pathGen::pathVerCategoria($idCategoria).'" class="categoriaSecundaria">'.$mbd->obtenerNombreCategoria($cantidad['idCategoria']).'</a> ';
 					break;
 				case 2:
-					$lineaSalida ='<a href="verPostCategoria.php?idCategoria='.$idCategoria.'" class="categoriaTerciaria">'.$mbd->obtenerNombreCategoria($cantidad['idCategoria']).'</a> ';
+					$lineaSalida ='<a href="'.pathGen::pathVerCategoria($idCategoria).'" class="categoriaTerciaria">'.$mbd->obtenerNombreCategoria($cantidad['idCategoria']).'</a> ';
 					break;
 				case 3:
-					$lineaSalida ='<a href="verPostCategoria.php?idCategoria='.$idCategoria.'" class="categoriaCuarta">'.$mbd->obtenerNombreCategoria($cantidad['idCategoria']).'</a> ';
+					$lineaSalida ='<a href="'.pathGen::pathVerCategoria($idCategoria).'" class="categoriaCuarta">'.$mbd->obtenerNombreCategoria($cantidad['idCategoria']).'</a> ';
 					break;
 				default:
-					$lineaSalida ='<a href="verPostCategoria.php?idCategoria='.$idCategoria.'" class="categoriaNormal">'.$mbd->obtenerNombreCategoria($cantidad['idCategoria']).'</a> ';
+					$lineaSalida ='<a href="'.pathGen::pathVerCategoria($idCategoria).'" class="categoriaNormal">'.$mbd->obtenerNombreCategoria($cantidad['idCategoria']).'</a> ';
 					break;
 			}
 			$j++;

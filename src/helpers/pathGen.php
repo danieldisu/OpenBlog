@@ -20,6 +20,9 @@ class pathGen {
         }
     }
     
+    public static function pathRaiz(){
+        return self::$raiz;
+    }
     
     public static function pathHome($p = null){
         if($p != null){
@@ -40,8 +43,8 @@ class pathGen {
         return self::$raiz."post/".$id;
     }
     
-    public static function pathVerCategoria(){
-        return self::$raiz."categoria";
+    public static function pathVerCategoria($id){
+        return self::$raiz."categoria/".$id;
     }
     
     /**
