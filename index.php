@@ -38,7 +38,7 @@
 
 			<div class="span9 contenido">
 				<?php
-					$paginador = new Paginador();
+					$paginador = new Paginador($mbd);
 					$paginador->mostrarLinks();
 				?>
 			</div>

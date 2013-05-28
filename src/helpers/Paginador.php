@@ -6,10 +6,8 @@ Class Paginador{
 	private $postsTotales;
 	private $postsPorPagina = 5;
 
-	public function __construct(){
-		$m = new ManejadorBD();
-		
-		$this->postsTotales = $m->getNumeroTotalPosts();
+	public function __construct($mbd){		
+		$this->postsTotales = $mbd->getNumeroTotalPosts();
 
 		$this->paginasTotales = ceil($this->postsTotales / $this->postsPorPagina);
 	}
