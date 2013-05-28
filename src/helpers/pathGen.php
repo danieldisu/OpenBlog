@@ -20,10 +20,21 @@ class pathGen {
         }
     }
     
+    /**
+     * Devuelve la ruta a la raiz de la aplicacion
+     * 
+     * @return {string} ruta a la raiz
+     */
     public static function pathRaiz(){
         return self::$raiz;
     }
     
+    /**
+     * Devuelve la ruta al archivo index.php o index.php?p=$p
+     * 
+     * @param {integer} $p pagina que cargará
+     * @return {string} ruta al path home
+     */
     public static function pathHome($p = null){
         if($p != null){
             return self::$raiz."home/".$p;
