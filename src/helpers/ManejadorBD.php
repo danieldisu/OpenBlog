@@ -23,7 +23,7 @@ class ManejadorBD {
 	if (!isset($config)) {
 	  $this->host = "127.0.0.1";
 	  $this->username = "root";
-	  $this->password = "";
+	  $this->password = "iesrey";
 	  $this->bd = "openblog";
 	  $this->numPost = "5";
 	} else {
@@ -373,11 +373,11 @@ class ManejadorBD {
 	;
 	$sentencia = $this->db->prepare($sql);
 
-	$sentencia->bindParam(":texto", $comentario->getTexto());
-	$sentencia->bindParam(":fecha", $comentario->getFecha());
-	$sentencia->bindParam(":idUsuario", $comentario->getIdUsuario());
-	$sentencia->bindParam(":idPost", $comentario->getIdPost());
-	$sentencia->bindParam(':id', $id);
+	$sentencia->bindValue(":texto", $comentario->getTexto());
+	$sentencia->bindValue(":fecha", $comentario->getFecha());
+	$sentencia->bindValue(":idUsuario", $comentario->getIdUsuario());
+	$sentencia->bindValue(":idPost", $comentario->getIdPost());
+	$sentencia->bindValue(':id', $id);
 
 	return $sentencia->execute();
   }
@@ -461,8 +461,8 @@ class ManejadorBD {
 				";
 	$sentencia = $this->db->prepare($sql);
 
-	$sentencia->bindParam(":nombre", $rol->getNombre());
-	$sentencia->bindParam(":descripcion", $rol->getDescripcion());
+	$sentencia->bindValue(":nombre", $rol->getNombre());
+	$sentencia->bindValue(":descripcion", $rol->getDescripcion());
 	return $sentencia->execute();
   }
 
@@ -487,8 +487,8 @@ class ManejadorBD {
 	;
 	$sentencia = $this->db->prepare($sql);
 
-	$sentencia->bindParam(":nombre", $rol->getNombre());
-	$sentencia->bindParam(":descripcion", $rol->getDescripcion());
+	$sentencia->bindValue(":nombre", $rol->getNombre());
+	$sentencia->bindValue(":descripcion", $rol->getDescripcion());
 	$sth->bindParam(":id", $id);
 	return $sentencia->execute();
   }
@@ -579,7 +579,7 @@ class ManejadorBD {
   public function deleteUsuario($id) {
 	$sql = "
 								DELETE FROM ob_usuario
-								WHERE id= : id;"
+								WHERE id= :id ;"
 	;
 	$sentencia = $this->db->prepare($sql);
 	$sentencia->bindParam(":id", $id);

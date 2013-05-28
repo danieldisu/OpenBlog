@@ -42,7 +42,7 @@ $mbd = new ManejadorBD(src\helpers\Header::cargarJSON());
              echo "</td>";
              echo "<td class='columnaAcciones'>";
                 echo '<a href="#myModal" class="btn btn-small btn-warning botonEditarUsuario"><i class="icon-pencil icon-white"></i></a>';
-                echo '<a class="btn btn-small btn-danger botonBorrarUsuario" data-idpost="<?php echo $post->getId(); ?>"><i class="icon-remove-sign icon-white" ></i></a>';
+                echo '<a class="btn btn-small btn-danger botonBorrarUsuario" data-idusuario="'.$usuario->getId().'"><i class="icon-remove-sign icon-white" ></i></a>';
              echo "</td>";
             echo "</tr>";
          }

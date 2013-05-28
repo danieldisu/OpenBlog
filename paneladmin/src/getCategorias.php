@@ -7,7 +7,7 @@
 	$mbd = new ManejadorBD(Header::cargarJSON());
 
 	$categorias = $mbd->getAllCategorias();
-	$listaCategorias = [];
+	$listaCategorias = array();
 
 	foreach ($categorias as $categoria) {
 		array_push($listaCategorias, $categoria->getJsonData());

@@ -7,7 +7,7 @@
 	$mbd = new ManejadorBD(Header::cargarJSON());
 
 	$Usuarios = $mbd->getAllUsuarios();
-	$listaUsuarios = [];
+	$listaUsuarios = array();
 
 	foreach ($Usuarios as $usuario) {
 		$user['nombre'] = $usuario->getNombre();

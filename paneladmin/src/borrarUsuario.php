@@ -7,10 +7,9 @@
         Header::mostrarPaginaError('Se ha encontrado un error con la peticion');
     }
 
-    $mbd = new ManejadorBD(src\helpers\Header::cargarJSON());
+    $mbd = new ManejadorBD(Header::cargarJSON());
 
-//$mbd->deleteUsuario($_POST['idUsuario'])
-    if(true){
+    if($mbd->deleteUsuario($_POST['idUsuario'])){
         echo "true";
     }else{
         echo "false";
