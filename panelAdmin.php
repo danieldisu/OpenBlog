@@ -5,8 +5,9 @@
 	include 'autoloader.php';
 
 	use src\helpers\Header;
+        use src\helpers\pathGen;
 	use src\helpers\ManejadorBD;
-
+        pathGen::cargarRaiz();
 	Header::cargarHojasEstilosAdmin();
 	?>
   </head>

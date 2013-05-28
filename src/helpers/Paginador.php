@@ -121,20 +121,20 @@ Class Paginador{
         if($numPagina == $paginaActual){
             $link = '<li class="active"><a>'.$numPagina.'</a></li>';
         }else{
-            $link = '<li><a href="index.php?p='.$numPagina.'">'.$numPagina.'</a></li>';
+            $link = '<li><a href="'.pathGen::pathHome($numPagina).'">'.$numPagina.'</a></li>';
         }	
 		return $link;
 	}
 
     private function generarLinkAnterior($paginaActual){
         $numPagina = $paginaActual - 1;
-        $link = '<li><a href="index.php?p='.$numPagina.'"> << </a></li>';
+        $link = '<li><a href="'.pathGen::pathHome($numPagina).'"> << </a></li>';
         return $link;
     }
 
     private function generarLinkSiguiente($paginaActual){ 
         $numPagina = $paginaActual+1; 
-        $link = '<li><a href="index.php?p='.$numPagina.'"> >> </a></li>'; 
+        $link = '<li><a href="'.pathGen::pathHome($numPagina).'"> >> </a></li>'; 
         return $link; 
     }
 

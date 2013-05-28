@@ -2,15 +2,24 @@
 	include_once 'autoloader.php';
 	use src\helpers\Header;
 	use src\helpers\ManejadorBD;
+        use src\helpers\pathGen;
 	use src\helpers\Paginador;
   	use src\helpers\Login;
 
    // Iniciamos el manejador BD con las opciones del JSON
 	$mbd = new ManejadorBD(Header::cargarJSON());
+        pathGen::cargarRaiz();
 
-	if(empty($_REQUEST['id'])){
-		Header::mostrarPaginaError('Se ha encontrado un error con la peticion');
-	}
+	if(isset($_GET['id']))
+            $id = $_GET['id'];
+        else
+            Header::mostrarPaginaError("Post incorrecto");
+		
+        //Comprobamos que la categoria existe, sino existe la posicion 0 vendrá vacia
+        $id = $mbd->getPost($id);
+        if(empty($id)){
+          Header::mostrarPaginaError("Se ha encontrado un error en la peticion");	
+        }
 
 	Header::iniciarSesion();
 
@@ -22,8 +31,8 @@
 	  <div class="container">
 			<div class="row">
 				<div class="span12 header">
-                                    <img src="<?php echo Header::$json["logo"] ?>">
-					<a href="index.php"><h1><?php echo Header::$json["tituloBlog"] ?></h1></a>
+                                    <img src="<?php echo pathGen::loadLogo() ?>">
+                                    <a href="<?php echo pathGen::pathHome(); ?>"><h1><?php echo Header::$json["tituloBlog"] ?></h1></a>
 				</div>
 			</div><!-- /header -->
 
@@ -56,8 +65,8 @@
    <!-- Le javascript
    ================================================== -->
    <!-- Placed at the end of the document so the pages load faster -->
-   <script src="resources/js/jquery.js"></script>
-   <script src="resources/js/funciones.js"></script>
-   <script type="resources/js/bootstrap.js"></script>
+   <script src="<?php echo pathGen::pathJs("jquery.js") ?>"></script>
+   <script src="<?php echo pathGen::pathJs("funciones.js") ?>"></script>
+   <script type="<?php echo pathGen::pathJs("bootstrap.js") ?>"></script>
 </body>
 </html>

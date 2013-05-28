@@ -21,11 +21,10 @@ Class Header {
   	if (!isset(self::$json))
   	  self::cargarJSON();
 
-  	$rutaCSS = self::$json["rutaCss"];
-  	echo '<link href="resources/css/bootstrap.css" rel="stylesheet">';
-  	echo '<link href="resources/css/bootstrap-responsive.css" rel="stylesheet">';
-  	echo '<link href="resources/css/fuentes.css" rel="stylesheet">';
-  	echo '<link href="' . $rutaCSS . '" rel="stylesheet">';
+  	echo '<link href="'.pathGen::pathCss("bootstrap.css").'" rel="stylesheet">';
+  	echo '<link href="'.pathGen::pathCss("bootstrap-responsive.css").'" rel="stylesheet">';
+  	echo '<link href="'.pathGen::pathCss("fuentes.css").'" rel="stylesheet">';
+  	echo '<link href="'.pathGen::loadCss().'" rel="stylesheet">';
   }
 
   public static function cargarHead($admin){
@@ -42,19 +41,18 @@ Class Header {
   	if (!isset(self::$json))
   	  self::cargarJSON();
     	
-  	$rutaCSS = self::$json["rutaCss"];
-  	echo '<link href="resources/css/bootstrap.css" rel="stylesheet">';
-  	echo '<link href="resources/css/bootstrap-responsive.css" rel="stylesheet">';
-  	echo '<link href="resources/css/fuentes.css" rel="stylesheet">';
-  	echo '<link href="' . $rutaCSS . '" rel="stylesheet">';	
+  	echo '<link href="'.pathGen::pathCss("bootstrap.css").'" rel="stylesheet">';
+  	echo '<link href="'.pathGen::pathCss("bootstrap-responsive.css").'" rel="stylesheet">';
+  	echo '<link href="'.pathGen::pathCss("fuentes.css").'" rel="stylesheet">';
+  	echo '<link href="'.pathGen::loadCss().'" rel="stylesheet">';
   }
   
   public static function cargarJsAdmin(){
-	echo '<script src="resources/js/jquery.js"></script>';
-  echo '<script src="resources/js/bootstrap.js"></script>';
-  echo '<script src="resources/js/epiceditor/js/toMarkdown.js"></script>';
-  echo '<script src="resources/js/epiceditor/js/epiceditor.js"></script>'; 
-	echo '<script src="resources/js/panelAdmin.js"></script>';
+	echo '<script src="'.pathGen::pathJs("jquery.js").'"></script>';
+        echo '<script src="'.pathGen::pathJs("bootstrap.js").'"></script>';
+        echo '<script src="'.pathGen::pathJs("epiceditor/js/toMarkdown.js").'"></script>';
+        echo '<script src="'.pathGen::pathJs("epiceditor/js/epiceditor.js").'"></script>'; 
+	echo '<script src="'.pathGen::pathJs("panelAdmin.js").'"></script>';
   
   }
   
@@ -63,10 +61,7 @@ Class Header {
    * de error
    */
   public static function mostrarPaginaError($mensajeError, $codigoError = 1){
-	$host  = $_SERVER['HTTP_HOST'];
-	$uri = self::getOpenBlogDir()."/OpenBlog";
-	$extra = 'error.php';
-	header("Location: http://$host$uri/$extra?c=$codigoError&error=$mensajeError");
+	header("Location: ".pathGen::pathError($mensajeError, $codigoError));
 	
   }
   
