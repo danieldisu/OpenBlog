@@ -47,7 +47,7 @@ $(document).ready(function(){
 	   
 	});
 	$("div.cajaLogin input[value='Administrar']").click(function(e){
-	   window.location.replace('panelAdmin.php');	   
+	   window.location.replace('administrador');	   
 	});
         
         /*Comprobar campo de registro*/

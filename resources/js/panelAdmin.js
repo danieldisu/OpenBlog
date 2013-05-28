@@ -58,7 +58,7 @@ function goToIndex(){
 	* y quitarle 'panelAdmin.php' para volver al indice.
 	 */
 	var actualHref = $(location).attr('href');
-	var hrefRaiz = actualHref.replace('panelAdmin.php', '');
+	var hrefRaiz = actualHref.replace('administrador', '');
 	$(location).attr('href', hrefRaiz);
 }
 function cargarListenersAdministrarCuenta(){
