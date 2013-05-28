@@ -1,0 +1,18 @@
+Options +FollowSymLinks 
+RewriteEngine on
+
+RewriteCond %{SCRIPT_FILENAME} !-d  
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteCond %{SCRIPT_FILENAME} !-l
+
+#Home
+RewriteRule ^home/([0-9]+)$ index.php?p=$1 [NC,L]
+RewriteRule ^home$ index.php [NC,L]
+#Registro
+RewriteRule ^registro$ registro.php [NC,L]
+#Post
+RewriteRule ^post/([0-9]+)$ verPost.php?id=$1 [NC,L]
+#Categoria
+RewriteRule ^categoria/([0-9]+)$ verPostCategoria.php?idCategoria=$1 [NC,L]
+#Administrador
+RewriteRule ^administrador$ panelAdmin.php [NC,L]

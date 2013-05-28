@@ -1,3 +1,6 @@
+<?php
+    use src\helpers\pathGen
+?>
 <head>
 	<meta charset="utf-8">
 	<title>OpenBlog</title>
@@ -7,5 +10,5 @@
 	<?php src\helpers\Header::cargarHojasEstilosAdmin(); ?>	
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" href="../resources/ico/favicon.ico">
+        <link rel="shortcut icon" href="<?php echo pathGen::pathIco("favicon.ico") ?>">
 </head>
