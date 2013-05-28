@@ -23,7 +23,7 @@
 	<body>
 	  <div class="container">
 			<div class="row">
-				<a href="index.php"><div class="span12 header">
+				<a href="<?php echo pathGen::pathHome(); ?>"><div class="span12 header">
                                         <img src="<?php echo pathGen::loadLogo() ?>">
 					<h1><?php echo Header::$json["tituloBlog"] ?></h1>
 				</div></a>

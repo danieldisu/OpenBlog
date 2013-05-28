@@ -60,6 +60,10 @@ class pathGen {
         return self::$raiz."administrador";
     }
     
+    public static function pathError($codigoError, $mensajeError){
+        return self::$raiz."error/".$mensajeError."/".$codigoError;
+    }
+    
     /**
      * Genera la ruta del archivo js que se le mande ([raiz]/resources/js/[fichero])
      * 

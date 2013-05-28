@@ -1,9 +1,12 @@
 <?php 
 	include 'autoloader.php';
 	use src\helpers\Header;
+        use src\helpers\pathGen;
+        
+        pathGen::cargarRaiz();
 ?>
 <head>
-	<link rel="stylesheet" type="text/css" href="resources/css/error.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo pathGen::pathCss("error.css"); ?>">
 </head>
 <div class="container">
 	<div class="cajaError">
@@ -21,7 +24,7 @@
 		</div>
 	</div>
 	<div class="cajaLinkVolver">
-		<a href="<?php echo Header::getIndexDir()?>">Volver</a>
+            <a href="<?php echo pathGen::pathHome(); ?>">Volver</a>
 	</div>
 </div>
 <?php

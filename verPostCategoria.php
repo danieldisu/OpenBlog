@@ -2,9 +2,11 @@
 	include 'autoloader.php';
 	use src\helpers\ManejadorBD;
 	use src\helpers\Header;
+        use src\helpers\pathGen;
   	use src\helpers\Login;	
 
 	$mbd = new ManejadorBD(Header::cargarJSON());
+        pathGen::cargarRaiz();
         if(isset($_GET['idCategoria']))
             $idCategoria = $_GET['idCategoria'];
         else
@@ -27,8 +29,8 @@
 	  <div class="container">
 			<div class="row">
 				<div class="span12 header">
-                                    <img src="<?php echo Header::$json["logo"] ?>">
-					<a href="index.php"><h1><?php echo Header::$json["tituloBlog"] ?></h1></a>
+                                    <img src="<?php echo pathGen::loadLogo() ?>">
+					<a href="<?php echo pathGen::pathHome(); ?>"><h1><?php echo Header::$json["tituloBlog"] ?></h1></a>
 				</div>
 			</div><!-- /header -->
 
@@ -70,8 +72,8 @@
    <!-- Le javascript
    ================================================== -->
    <!-- Placed at the end of the document so the pages load faster -->
-   <script src="resources/js/jquery.js"></script>
-   <script src="resources/js/funciones.js"></script>
-   <script type="resources/js/bootstrap.js"></script>
+   <script src="<?php echo pathGen::pathJs("jquery.js") ?>"></script>
+   <script src="<?php echo pathGen::pathJs("funciones.js") ?>"></script>
+   <script type="<?php echo pathGen::pathJs("bootstrap.js") ?>"></script>
 </body>
 </html>

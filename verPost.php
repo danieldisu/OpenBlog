@@ -10,9 +10,16 @@
 	$mbd = new ManejadorBD(Header::cargarJSON());
         pathGen::cargarRaiz();
 
-	if(empty($_REQUEST['id'])){
-		Header::mostrarPaginaError('Se ha encontrado un error con la peticion');
-	}
+	if(isset($_GET['id']))
+            $id = $_GET['id'];
+        else
+            Header::mostrarPaginaError("Post incorrecto");
+		
+        //Comprobamos que la categoria existe, sino existe la posicion 0 vendrá vacia
+        $id = $mbd->getPost($id);
+        if(empty($id)){
+          Header::mostrarPaginaError("Se ha encontrado un error en la peticion");	
+        }
 
 	Header::iniciarSesion();
 
@@ -24,8 +31,8 @@
 	  <div class="container">
 			<div class="row">
 				<div class="span12 header">
-                                    <img src="<?php echo Header::$json["logo"] ?>">
-					<a href="index.php"><h1><?php echo Header::$json["tituloBlog"] ?></h1></a>
+                                    <img src="<?php echo pathGen::loadLogo() ?>">
+                                    <a href="<?php echo pathGen::pathHome(); ?>"><h1><?php echo Header::$json["tituloBlog"] ?></h1></a>
 				</div>
 			</div><!-- /header -->
 

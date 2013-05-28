@@ -61,10 +61,7 @@ Class Header {
    * de error
    */
   public static function mostrarPaginaError($mensajeError, $codigoError = 1){
-	$host  = $_SERVER['HTTP_HOST'];
-	$uri = self::getOpenBlogDir()."/OpenBlog";
-	$extra = 'error.php';
-	header("Location: http://$host$uri/$extra?c=$codigoError&error=$mensajeError");
+	header("Location: ".pathGen::pathError($mensajeError, $codigoError));
 	
   }
   

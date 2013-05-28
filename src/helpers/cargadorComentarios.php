@@ -1,10 +1,10 @@
 <?php
 	include '../../autoloader.php';
-	
+	use src\helpers\Header;
 	use src\helpers\ManejadorBD;
 	
 	$idPost = $_REQUEST['idPost'];
-	$m = new ManejadorBD();
+	$m = new ManejadorBD(Header::cargarJSON());
 	$comentarios = $m->obtenerUltimosComentarios($idPost);
 	if(!empty($comentarios)){
 		foreach ($comentarios as $comentario) {
