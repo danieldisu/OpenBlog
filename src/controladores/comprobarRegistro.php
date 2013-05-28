@@ -1,5 +1,5 @@
 <?php
-    include "autoloader.php";
+    include "../../autoloader.php";
 
     use src\helpers\Validador;
     use src\helpers\ManejadorBD;

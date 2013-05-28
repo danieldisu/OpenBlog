@@ -40,7 +40,7 @@ $(document).ready(function(){
 	});
 
 	$("div.cajaLogin input[value='Logout']").click(function(e){
-	   $.post("logout.php")
+	   $.post("src/controladores/logout.php")
 	   .done(function(data){
 	       window.location.reload(true);
 	   });
@@ -77,7 +77,7 @@ $(document).ready(function(){
             correcto = correcto && regPassR;
             
             if(correcto){
-                $.post("comprobarRegistro.php", {
+                $.post("src/controladores/comprobarRegistro.php", {
                     nombre : $("#regNombre input").val(),
                     email : $("#regEmail input").val(),
                     emailR : $("#regEmailR input").val(),
@@ -102,7 +102,7 @@ $(document).ready(function(){
                         mostrarImagen("#regPassR", false, json.passR.msn);
                     }
                     if(json.nombre.correcto && json.email.correcto && json.emailR.correcto && json.pass.correcto && json.passR.correcto){
-                        $.post("nuevoUsuario.php",{
+                        $.post("src/controladores/nuevoUsuario.php",{
                             nombre : $("#regNombre input").val(),
                             email : $("#regEmail input").val(),
                             pass : $("#regPass input").val(),
@@ -148,7 +148,7 @@ function comprobarLogin(){
 }
 
 function comprobarLoginAjax(usuario, pass){
-    $.post("comprobarLogin.php", {
+    $.post("src/controladores/comprobarLogin.php", {
         usuario: usuario,
         pass: pass
     })
@@ -171,7 +171,7 @@ function crearMensajeErrorLogin(msn){
 }
 
 function enviarNuevoComentario(xhr, idPost, autorComentario, textoComentario, lanzadorEvento){
-	$.post("nuevoComentario.php", { idPost: idPost, autor: autorComentario , textoComentario : textoComentario} )
+	$.post("src/controladores/nuevoComentario.php", { idPost: idPost, autor: autorComentario , textoComentario : textoComentario} )
 	.done(function(data){
 		_this = $(lanzadorEvento);
 		_this.parents('.cajaNuevoComentario').fadeOut('fast');
@@ -228,7 +228,7 @@ function comprobarRegNombre(self){
         regNombre = false;
     }
     else {
-        $.post("comprobarUsuarioExiste.php", {
+        $.post("src/controladores/comprobarUsuarioExiste.php", {
             usuario : $(self).val()
         }, function(data){
             if(data.correcto){
@@ -250,7 +250,7 @@ function comprobarRegEmail(self){
         regEmail = false;
     }
     else {
-        $.post("comprobarEmailExiste.php", {
+        $.post("src/controladores/comprobarEmailExiste.php", {
             email : $(self).val()
         }, function(data){
             if(data.correcto){
