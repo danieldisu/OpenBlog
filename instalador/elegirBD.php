@@ -21,11 +21,12 @@
 	<div class="contenedor">
 		<div class="seccion header">
 			<h1>Instalador OpenBlog</h1>
+			<div class="cajaAlertas" style="display:none"></div>
 		</div><!-- /header -->
 
 		<div class="seccion main">
-			<div class="cajaMain">
-				CONTENIDO
+			<div class="cajaMain cajaElegirBD">
+				<?php include 'template/templateFormularioElegirBD.php'; ?>
 			</div>
 		</div>	<!-- /main Section -->
 
@@ -44,6 +45,8 @@
    <script src="<?php echo pathGen::pathJs("jquery.js") ?>"></script>
    <script src="<?php echo pathGen::pathJs("instalador.js") ?>"></script>
    <script src="<?php echo pathGen::pathJs("bootstrap.js") ?>"></script>
+   <script type="text/javascript">
+   	IniciarElegirBD();
+   </script>
 </body>
 </html>
-
