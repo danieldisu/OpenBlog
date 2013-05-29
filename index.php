@@ -68,6 +68,6 @@
    <!-- Placed at the end of the document so the pages load faster -->
    <script src="<?php echo pathGen::pathJs("jquery.js") ?>"></script>
    <script src="<?php echo pathGen::pathJs("funciones.js") ?>"></script>
-   <script type="<?php echo pathGen::pathJs("bootstrap.js") ?>"></script>
+   <script src="<?php echo pathGen::pathJs("bootstrap.js") ?>"></script>
 </body>
 </html>

@@ -3,7 +3,7 @@
     "user": "root",
     "pass": "",
     "nombreBd": "openblog",
-    "raiz": "http:\/\/localhost\/OpenBlog\/",
+    "raiz": "http:\/\/localhost\/projects\/OpenBlog\/",
     "tituloBlog": "OpenBlog",
     "descripcionBlog": "Esta es otra descripcion de prueba",
     "rutaCss": "resources\/css\/estilos.css",
