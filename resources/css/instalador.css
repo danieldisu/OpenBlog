@@ -73,21 +73,21 @@ body{
    Seccion Eleccion BD
 */
 
-.cajaElegirBD .cajaDatosBD{
+#cajaElegirBD .cajaDatosBD{
    margin-left: 10%;
 }
 
-.cajaElegirBD label,input{
+#cajaElegirBD label,input{
    display: inline-block;
 }
 
-.cajaElegirBD label{
+#cajaElegirBD label{
    margin-top:25px;
    font-size: 1.25em;
    width:160px;
 }
 
-.cajaElegirBD input{
+#cajaElegirBD input{
    border-radius: 2px;
 }
 

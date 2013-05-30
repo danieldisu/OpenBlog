@@ -31,8 +31,8 @@
 
 		<div class="seccion footer">
 			<div class="cajaBotonesFooter">
-				<button class="btn btn-big">Anterior</button>
-				<button class="btn btn-big">Siguiente</button>
+				<a class="btn btn-big" id="botonAnterior">Anterior</a>
+				<a class="btn btn-big" id="botonSiguiente">Siguiente</a>
 			</div>
 			Footer
 		</div><!-- /footer -->
