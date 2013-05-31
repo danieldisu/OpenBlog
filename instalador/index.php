@@ -21,12 +21,12 @@
 	<div class="contenedor">
 		<div class="seccion header">
                         <h4>Si necesitas ayuda visita <a href="http://www.openblog.com/help" target="_blank" >http://www.openblog.com/help</a></h4>
-			<h1>Instalador OpenBlog<img src="<?php echo pathGen::loadLogo() ?>"></h1>
+			<h1>Instalador OpenBlog<img src="../resources/betaLogo01.png"></h1>
                         <div class="cajaAlertas" style="display:none"></div>
 		</div><!-- /header -->
 		<div class="seccion main">
 			<div class="cajaMain">
-				CONTENIDO
+				
 			</div>
 		</div>	<!-- /main Section -->
 

@@ -9,7 +9,7 @@
 
 	window.onhashchange = function() {
 		var paginaActual = window.location.hash;
-		$(".content").animate({
+		$(".content").css({"position":"absolute"}).animate({
                     "margin-left":"2000px"
                 },750,function(){
                     cargarPagina(paginaActual);
@@ -68,6 +68,8 @@
 	}
 
 })()
+
+/* Funciones de bienvenida */
 
 function IniciarPantallaBienvenida() {
 	initA();
@@ -225,6 +227,18 @@ function IniciarDatosConfiguracion() {
 	function initE() {
 		console.debug('Pagina Actual : datosconfiguracion');
 		$('.cajaMain').load('template/templateDatosConfiguracion.php', function(){
+                    $('#tipTitulo').tooltip({
+			title: 'Titulo predefinido: OpenBlog'
+                    });
+                    $('#tipDescripcion').tooltip({
+			title: 'Si se deja en blanco el blog no tendrá descripción'
+                    });
+                    $('#tipEstilos').tooltip({
+			title: 'Si se deja en blanco se usará la ruta css por defecto'
+                    });
+                    $('#tipLogo').tooltip({
+			title: 'Si se deja en blanco se usará el logo de OpneBlog por defecto'
+                    });
                     $(".content").css({"margin-left":"auto"});
                 }).attr('id', 'cajaConfiguracion');
 		$('#botonAnterior').attr("href", "#cuentaadmin");
