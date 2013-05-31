@@ -1,16 +1,19 @@
 <?php
 namespace src\helpers;
+
 use PDO;
+
 class Instalador {
     
     protected $host;
     protected $username;
     protected $password;
     protected $bd;
+    protected $conn;
     
-    public function __construct() {
+    public function __construct($config) {
         // Si al instanciar el PDO le pasamos la configuracion, buscará los datos de conexion en dicha configuracion, si no cogerá la configuracion por defecto que es la siguiente: 
-        if(!isset($config)){
+        /*if(!isset($config)){
             $this->host = "127.0.0.1";
             $this->username = "root";
             $this->password = "";
@@ -21,22 +24,42 @@ class Instalador {
             $this->username = $config['user'];
             $this->password = $config['pass'];
             $this->bd = $config['nombreBd'];          
-        }        
+        }*/
+        /* Mejor pasarle la configuración, ya que todavia no tenemos todos los datos guardados en un JSON */
+        $this->host = $config['host'];
+        $this->username = $config['user'];
+        $this->password = $config['pass'];
+        $this->bd = $config['bd'];
+
+        try{
+            $this->conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
+        }catch(Exception $e){
+            throw new Exception('Error de conexion');
+        }
     }
-    
-    public function crearEstructuraTablas(){
-        try {
-            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            
-            $sqlCategoria = "
-                 CREATE TABLE ob_categoria (
-                 id int(10) NOT NULL AUTO_INCREMENT,
-                 nombre varchar(25) NOT NULL,
-                 descripcion text NOT NULL,
-                 PRIMARY KEY (id)
-                 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
-            ";
+
+
+    public function crearTablas(){
+            $this->crearTablaCategoria();
+            $this->crearTablaRol();
+            $this->crearTablaUsuario();
+            $this->crearTablaPost();
+            $this->crearTablaComentario();            
+    }
+
+    private function crearTablaCategoria(){
+        $sqlCategoria = "
+             CREATE TABLE ob_categoria (
+             id int(10) NOT NULL AUTO_INCREMENT,
+             nombre varchar(25) NOT NULL,
+             descripcion text NOT NULL,
+             PRIMARY KEY (id)
+             ) ENGINE=InnoDB DEFAULT CHARSET=latin1
+        ";
+        $this->conn->exec($sqlCategoria);        
+    }
+
+    private function crearTablaRol(){
             $sqlRol = "
                 CREATE TABLE ob_rol (
                 id int(10) NOT NULL AUTO_INCREMENT,
@@ -45,7 +68,11 @@ class Instalador {
                 PRIMARY KEY (id)
                 ) ENGINE=InnoDB DEFAULT CHARSET=latin1  
             ";
-            
+                    $this->conn->query($sqlRol);        
+
+    }
+
+    private function crearTablaUsuario(){
             $sqlUsuario = "
                 CREATE TABLE ob_usuario (
                 id int(10) NOT NULL AUTO_INCREMENT,
@@ -59,6 +86,11 @@ class Instalador {
                 CONSTRAINT ob_usuario_ibfk_1 FOREIGN KEY (idRol) REFERENCES ob_rol (id) ON DELETE CASCADE ON UPDATE CASCADE
                 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
             ";
+                    $this->conn->query($sqlUsuario);        
+
+    }
+
+    private function crearTablaPost(){
             $sqlPost = "
                 CREATE TABLE ob_post (
                 id int(10) NOT NULL AUTO_INCREMENT,
@@ -76,6 +108,11 @@ class Instalador {
                 CONSTRAINT ob_post_ibfk_2 FOREIGN KEY (idCategoria) REFERENCES ob_categoria (id) ON DELETE CASCADE ON UPDATE CASCADE
                 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
             ";
+                    $this->conn->query($sqlPost);        
+
+    }
+
+    private function crearTablaComentario(){
             $sqlComentario = "
                 CREATE TABLE ob_comentario (
                 id int(10) NOT NULL AUTO_INCREMENT,
@@ -90,31 +127,11 @@ class Instalador {
                 CONSTRAINT ob_comentario_ibfk_2 FOREIGN KEY (idPost) REFERENCES ob_post (id) ON DELETE CASCADE ON UPDATE CASCADE
                 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
             ";
-            
-            
-            $sentenciaCategoria = $conn->prepare($sqlCategoria);
-            $sentenciaRol = $conn->prepare($sqlRol);
-            $sentenciaUsuario = $conn->prepare($sqlUsuario);
-            $sentenciaPost = $conn->prepare($sqlPost);
-            $sentenciaComentario = $conn->prepare($sqlComentario);
-            
-            $sentenciaCategoria->execute();
-            $sentenciaRol->execute();
-            $sentenciaUsuario->execute();
-            $sentenciaPost->execute();
-            $sentenciaComentario->execute();
-            
-            $conn = null;
-         }
-         catch(PDOException $e) {
-            echo 'ERROR: '.$e->getMessage();
-         }
+                        $this->conn->query($sqlComentario);        
+
     }
     
-    public function borrarEstructuraTablas(){
-        try {
-            $conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    public function borrarTablas(){
             
             $sqlCategoria = "
                 DROP TABLE ob_categoria; 
@@ -132,30 +149,54 @@ class Instalador {
                 DROP TABLE ob_comentario;
             ";
             
-            
-            $sentenciaCategoria = $conn->prepare($sqlCategoria);
-            $sentenciaRol = $conn->prepare($sqlRol);
-            $sentenciaUsuario = $conn->prepare($sqlUsuario);
-            $sentenciaPost = $conn->prepare($sqlPost);
-            $sentenciaComentario = $conn->prepare($sqlComentario);
-            
-            $sentenciaComentario->execute();
-            $sentenciaPost->execute();
-            $sentenciaUsuario->execute();
-            $sentenciaRol->execute();
-            $sentenciaCategoria->execute();
-            
-            $conn = null;
-         }
-         catch(PDOException $e) {
-            echo 'ERROR: '.$e->getMessage();
-         }
+            if($this->existeTabla('ob_comentario')){
+                $this->conn->exec($sqlComentario);
+            }
+            if($this->existeTabla('ob_post')){
+                $this->conn->exec($sqlPost);
+            }
+            if($this->existeTabla('ob_usuario')){
+                $this->conn->exec($sqlUsuario);
+            }
+            if($this->existeTabla('ob_rol')){
+                $this->conn->exec($sqlRol);
+            }
+            if($this->existeTabla('ob_categoria')){
+                $this->conn->exec($sqlCategoria);
+            }
     }
 
-    public function crearBD(){
-        $conn = new PDO("mysql:host=".$this->host.";", $this->username, $this->password);
-        $conn->query("CREATE DATABASE IF NOT EXISTS ".$this->bd.";");
-        $conn = null;
+    public function existeTabla($nombreTabla){
+        $sql = "SELECT 1 FROM $nombreTabla";
+        $res = $this->conn->query($sql);
+        
+
+        if(is_object($res)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function checkTablas(){
+        if(!$this->existeTabla('ob_comentario')){
+            return false;
+        }
+        if(!$this->existeTabla('ob_post')){
+            return false;
+        }
+        if(!$this->existeTabla('ob_usuario')){
+            return false;
+        }
+        if(!$this->existeTabla('ob_rol')){
+            return false;
+        }
+        if(!$this->existeTabla('ob_categoria')){
+            return false;
+        }
+        
+        return true;
     }
 }
 
