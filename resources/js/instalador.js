@@ -206,20 +206,92 @@ function IniciarCreacionTablas() {
 }
 
 function IniciarCuentaAdmin() {
+	var campoNombreVacio = true;
+	var campoMailVacio = true;
+	var campoPassAdminVacio = true;
+	var campoPassAdminRVacio = true;
 	initD();
 
 	function initD() {
 		console.debug('Pagina Actual : cuentaadmin');
 		$('.cajaMain').load('template/templateCuentaAdmin.php', function(){
                     $(".content").css({"margin-left":"auto"});
+                    cargarListenersCuentaAdmin();
                 }).attr('id', 'cajaCuentaAdmin');
 
 		$('#botonAnterior').attr("href", "#elegirBD");
 		$('#botonSiguiente').attr("href", "#datosconfiguracion");
 	}
 
+	function cargarListenersCuentaAdmin() {
+		$('#campoNombre').keyup(function() {
+			if ($(this).val() !== "") {
+				campoNombreVacio = false;
+			} else {
+				campoNombreVacio = true;
+			}
+		});
+		$('#campoMail').keyup(function() {
+			if ($(this).val() !== "") {
+				campoMailVacio = false;
+			} else {
+				campoMailVacio = true;
+			}
+		});
+		$('#campoPassAdmin').keyup(function() {
+			if ($(this).val() !== "") {
+				campoPassAdminVacio = false;
+			} else {
+				campoPassAdminVacio = true;
+			}
+		});
+		$('#campoPassAdminR').keyup(function() {
+			if ($(this).val() !== "") {
+				campoPassAdminRVacio = false;
+			} else {
+				campoPassAdminRVacio = true;
+			}
+		});
+		$('.botonValidar').click(function() {
+			if (!campoNombreVacio && !campoMailVacio && !campoPassAdminVacio && !campoPassAdminRVacio) {
+				$(this).hide();
+				$('.spinner').show();
+				insercionBD();
+			} else {
+				mostrarAlertaError('Ha de completar todos los campos', 3000);
+			}
+		})
+	}
+	function insercionBD() {
+		var nombre = $('#campoNombre').val();
+		var mail = $('#campoMail').val();
+		var pass = $('#campoPassAdmin').val();
+		var passR =$('#campoPassAdminR').val();
+		if(validarContraseña(pass, passR)){
+			var datos = {
+				nombre: nombre,
+				mail: mail,
+				pass: pass
+			};
+			$.post('src/insercionCuentaAdmin.php', datos, function(data){
+				if(data.insercion)
+					mostrarAlertaExito('Usuario administrador creado correctamente.' , 3000);
+				else
+					mostrarAlertaError(data.error, 4000);
+			});
+		}
+	}
+
+	function validarContraseña(pass, passR) {
+		if (pass == passR) {
+			return true;
+		}else {
+			return false;
+		}
+	} 
 
 }
+
 
 function IniciarDatosConfiguracion() {
 	initE();

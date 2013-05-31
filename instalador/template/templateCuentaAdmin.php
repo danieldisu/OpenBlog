@@ -11,7 +11,7 @@
     <div><label>Nombre de usuario:</label><input type="text" id="campoNombre"></div>
     <div><label>Email:</label><input type="text" id="campoMail"></div>
     <div><label>Password:</label><input type="password" id="campoPassAdmin"></div>
-    <div><label>Repite password:</label><input type="text" id="campoPassAdminR" ></div>
+    <div><label>Repite password:</label><input type="password" id="campoPassAdminR" ></div>
 
     <div class="cajaBotonValidar">
         <div class="ui-spinner spinner"><span class="side side-left"><span class="fill"></span></span><span class="side side-right"><span class="fill"></span></span></div>
