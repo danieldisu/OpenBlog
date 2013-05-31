@@ -20,9 +20,10 @@
 <body>
 	<div class="contenedor">
 		<div class="seccion header">
-			<h1>Instalador OpenBlog</h1>
+                        <h4>Si necesitas ayuda visita <a href="http://www.openblog.com/help" target="_blank" >http://www.openblog.com/help</a></h4>
+			<h1>Instalador OpenBlog<img src="<?php echo pathGen::loadLogo() ?>"></h1>
+                        <div class="cajaAlertas" style="display:none"></div>
 		</div><!-- /header -->
-
 		<div class="seccion main">
 			<div class="cajaMain">
 				CONTENIDO
@@ -34,7 +35,6 @@
 				<a class="btn btn-big" id="botonAnterior">Anterior</a>
 				<a class="btn btn-big" id="botonSiguiente">Siguiente</a>
 			</div>
-			Footer
 		</div><!-- /footer -->
 	</div> <!-- /contenedor -->
 
@@ -42,8 +42,8 @@
    ================================================== -->
    <!-- Placed at the end of the document so the pages load faster -->
    <script src="<?php echo pathGen::pathJs("jquery.js") ?>"></script>
-   <script src="<?php echo pathGen::pathJs("instalador.js") ?>"></script>
    <script src="<?php echo pathGen::pathJs("bootstrap.js") ?>"></script>
+   <script src="<?php echo pathGen::pathJs("instalador.js") ?>"></script>
 </body>
 </html>
 

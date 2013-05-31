@@ -2,17 +2,49 @@
 	Funcion que iniciar todo el tinglado, es una funcion anonima que se llama así misma ( vease http://sarfraznawaz.wordpress.com/2012/01/26/javascript-self-invoking-functions/ ) 
 	Iniciar aquí los listener GLOBALES para todas las páginas
 */
+
 (function() {
 	var paginaActual = window.location.hash;
-	console.log(paginaActual);
 	cargarPagina(paginaActual);
 
 	window.onhashchange = function() {
-		paginaActual = window.location.hash;
-		cargarPagina(paginaActual);
+		var paginaActual = window.location.hash;
+		$(".content").animate({
+                    "margin-left":"2000px"
+                },750,function(){
+                    cargarPagina(paginaActual);
+                });
 	}
-
-
+        /*
+         * No hagais caso a estas funciones de momento ya que estaban pensadas para hacer animaciones (que he quitado codigo)
+         * así que lo dejo sin ellas de momento y ya si eso más adelante las implemento
+        function actualizarClasesPasos(){
+            var paginaActual = window.location.hash;
+            addClasesPasos(paginaActual);
+            removeClasesPasos(paginaActual);
+        }
+        
+        function addClasesPasos(paginaActual){
+            if(paginas.indexOf(paginaActual) == -1){
+                $("div.circulo:eq(0)").addClass("actual");
+                $("div.circulo:eq(0) span").text("1").addClass("actual");
+            }
+            else {
+                $("div.circulo:eq("+paginas.indexOf(paginaActual)+")").addClass("actual");
+                $("div.circulo:eq("+paginas.indexOf(paginaActual)+") span").text(paginas.indexOf(paginaActual) + 1).addClass("actual");
+            }
+        }
+        
+        function removeClasesPasos(paginaActual){
+            $("div.actual").each(function(){
+                $(this).removeClass("actual");
+            });
+            $("span.actual").each(function(){
+                $(this).text("").removeClass("actual");
+            });
+        }
+        */
+        
 	function cargarPagina(paginaActual) {
 		switch (paginaActual) {
 			case '#elegirBD':
@@ -43,7 +75,9 @@ function IniciarPantallaBienvenida() {
 	function initA() {
 		console.debug('Pagina Actual : bienvenida');
 
-		$('.cajaMain').load('template/templateDatosConfiguracion.php').attr('id', 'cajaBienvenida');
+		$('.cajaMain').load('template/templatePantallaBienvenida.php', function(){
+                    $(".content").css({"margin-left":"auto"});
+                }).attr('id', 'cajaBienvenida');
 
 		$('#botonSiguiente').attr("href", "#elegirBD");
 	}
@@ -65,17 +99,21 @@ function IniciarElegirBD() {
 	function initB() {
 		console.debug('Pagina Actual : ElegirBD');
 
-		$('.cajaMain').load('template/templateDatosConfiguracion.php').attr('id', 'cajaElegirBD'); // Cargamos la ruta y le añadimos el id
+		$('.cajaMain').load('template/templateFormularioElegirBD.php', function(){
+                    $('#labelNombreBD').tooltip({
+			title: 'Si se deja vacio se creará con el nombre openblog'
+                    });
+                    $(".content").css({"margin-left":"auto"});
+                    cargarListeners();
+                }).attr('id', 'cajaElegirBD'); // Cargamos la ruta y le añadimos el id
 
-		$('#botonAnterior').attr("href", "#"); // Actualizamos la url de los botones, estos botones no exisitiran en la version final!!
+		$('#botonAnterior').attr("href", "#bienvenida"); // Actualizamos la url de los botones, estos botones no exisitiran en la version final!!
 
 		$('#botonSiguiente').attr("href", "#creaciontablas");
 
-		$('#labelNombreBD').tooltip({
-			title: 'Si se deja vacio se creará con el nombre openblog'
-		});
+		
 
-		cargarListeners();
+		
 
 	};
 
@@ -152,7 +190,9 @@ function IniciarCreacionTablas() {
 
 	function initC() {
 		console.debug('Pagina Actual : creaciontablas');
-		$('.cajaMain').load('template/templateDatosConfiguracion.php').attr('id', 'cajaCreacionTablas');
+		$('.cajaMain').load('template/templateCreacionTablas.php', function(){
+                    $(".content").css({"margin-left":"auto"});
+                }).attr('id', 'cajaCreacionTablas');
 
 
 		$('#botonAnterior').attr("href", "#elegirBD");
@@ -168,7 +208,9 @@ function IniciarCuentaAdmin() {
 
 	function initD() {
 		console.debug('Pagina Actual : cuentaadmin');
-		$('.cajaMain').load('template/templateDatosConfiguracion.php').attr('id', 'cajaCuentaAdmin');
+		$('.cajaMain').load('template/templateCuentaAdmin.php', function(){
+                    $(".content").css({"margin-left":"auto"});
+                }).attr('id', 'cajaCuentaAdmin');
 
 		$('#botonAnterior').attr("href", "#elegirBD");
 		$('#botonSiguiente').attr("href", "#datosconfiguracion");
@@ -182,7 +224,9 @@ function IniciarDatosConfiguracion() {
 
 	function initE() {
 		console.debug('Pagina Actual : datosconfiguracion');
-		$('.cajaMain').load('template/templateDatosConfiguracion.php').attr('id', 'cajaConfiguracion');
+		$('.cajaMain').load('template/templateDatosConfiguracion.php', function(){
+                    $(".content").css({"margin-left":"auto"});
+                }).attr('id', 'cajaConfiguracion');
 		$('#botonAnterior').attr("href", "#cuentaadmin");
 
 		$('#botonSiguiente').attr("href", "#final");
@@ -196,7 +240,9 @@ function IniciarPantallaFinal() {
 
 	function initF() {
 		console.debug('Pagina Actual : final');
-		$('.cajaMain').load('template/templateDatosConfiguracion.php').attr('id', 'cajaFinal');
+		$('.cajaMain').load('template/templateFinal.php', function(){
+                    $(".content").css({"margin-left":"auto"});
+                }).attr('id', 'cajaFinal');
 		$('#botonAnterior').attr("href", "#datosconfiguracion");
 
 		$('#botonSiguiente').attr("href", "#final");

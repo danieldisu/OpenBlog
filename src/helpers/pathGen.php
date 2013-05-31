@@ -110,6 +110,10 @@ class pathGen {
         return self::$raiz."templates/".$file;
     }
     
+    public static function pathImagenes($file){
+        return self::$raiz."resources/img/".$file;
+    }
+
     public static function pathIco($file){
         return self::$raiz."resources/ico/".$file;
     }
