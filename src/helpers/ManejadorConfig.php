@@ -65,6 +65,10 @@ class ManejadorConfig {
 
         fclose($fp);
     }
+    
+    public function getPrivateRutaConfig(){
+        return $this->rutaConfig;
+    }
 }
 
 ?>

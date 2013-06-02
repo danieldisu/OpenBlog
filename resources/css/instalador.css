@@ -14,9 +14,11 @@
 
 
 body{
-    background:#f9f9f9;
+   background:#f9f9f9;
    color:#333;
    font-family: proxima;
+   max-width: 1300px;
+   overflow-x: hidden;
 }
 
 .seccion{
@@ -31,6 +33,7 @@ body{
    min-width: 100px;
    border-bottom:1px solid #ddd;
    text-align: right;
+   position: fixed;
 }
 
 .header h1{
@@ -89,14 +92,14 @@ body{
 
 .main{
    min-width: 800px;
-   overflow: scroll x;
    margin-bottom: 50px;
 }
 
 .cajaMain{
-   width:100%;
+   width:80%;
    max-width: 1300px;
-   margin:auto;
+   padding-left: 50px;
+   margin: 100px auto 0 auto;
 }
 
 .cajaMain blockquote{

@@ -291,7 +291,9 @@ function IniciarCuentaAdmin() {
 	} 
 
 }
-
+/*
+    Funciones que corresponden a los datos de configuración
+ */
 
 function IniciarDatosConfiguracion() {
 	initE();
@@ -312,6 +314,7 @@ function IniciarDatosConfiguracion() {
 			title: 'Si se deja en blanco se usará el logo de OpneBlog por defecto'
                     });
                     $(".content").css({"margin-left":"auto"});
+                    cargarListenerConfig();
                 }).attr('id', 'cajaConfiguracion');
 		$('#botonAnterior').attr("href", "#cuentaadmin");
 
@@ -319,6 +322,33 @@ function IniciarDatosConfiguracion() {
 	}
 
 
+}
+
+function cargarListenerConfig(){
+    $("#guardarDatosConfig").click(function(){
+        $.post("src/insercionDatosConfig.php", {
+            tipTitulo : $("#tituloBlog").val(),
+            tipDescripcion : $("#descripcionBlog").val(),
+            tipEstilos : $("#rutaEstilosBlog").val(),
+            tipLogo : $("#rutaLogoBlog").val()
+        })
+        .success(function(data){
+            var datos = $.parseJSON(data);
+            if(datos.correcto){
+                mostrarAlertaExito("Se han efectuado los cambios correctamente, pulsa siguiente paso para continuar", 3000);
+                $("#tituloBlog").val("");
+                $("#descripcionBlog").val("");
+                $("#rutaEstilosBlog").val("");
+                $("#rutaLogoBlog").val("");
+            }
+            else {
+                mostrarAlertaError(datos.msn, 4000);
+            }
+        })
+        .fail(function(){
+            mostrarAlertaError("Ha ocurrido un error durante la ejecución", 4000);
+        });
+    });
 }
 
 function IniciarPantallaFinal() {

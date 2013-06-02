@@ -13,14 +13,15 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/opt/lampp/htdocs/OpenBlog/instalador/index.php</file>
+            <file>file:/opt/lampp/htdocs/OpenBlog/instalador/template/templateDatosConfiguracion.php</file>
             <file>file:/opt/lampp/htdocs/OpenBlog/resources/css/instalador.css</file>
-            <file>file:/opt/lampp/htdocs/OpenBlog/.htaccess</file>
             <file>file:/opt/lampp/htdocs/OpenBlog/instalador/template/templateFormularioElegirBD.php</file>
-            <file>file:/opt/lampp/htdocs/OpenBlog/src/helpers/pathGen.php</file>
+            <file>file:/opt/lampp/htdocs/OpenBlog/instalador/template/templateCuentaAdmin.php</file>
+            <file>file:/opt/lampp/htdocs/OpenBlog/instalador/template/templateFinal.php</file>
             <file>file:/opt/lampp/htdocs/OpenBlog/resources/js/instalador.js</file>
             <file>file:/opt/lampp/htdocs/OpenBlog/instalador/template/templateCreacionTablas.php</file>
+            <file>file:/opt/lampp/htdocs/OpenBlog/instalador/template/templatePantallaBienvenida.php</file>
             <file>file:/opt/lampp/htdocs/OpenBlog/config/config.json</file>
-            <file>file:/opt/lampp/htdocs/OpenBlog/instalador/elegirBD.php</file>
         </group>
     </open-files>
 </project-private>

@@ -14,6 +14,6 @@
     <div><label>Descripción corta: <a href="#" data-toggle="tooltip" id="tipDescripcion">info</a></label><textarea id="descripcionBlog"></textarea></div>
     <div><label>Ruta hoja de estilos: <a href="#" data-toggle="tooltip" id="tipEstilos">info</a></label><input type="text" id="rutaEstilosBlog"></div>
     <div><label>Ruta imagen de logo: <a href="#" data-toggle="tooltip" id="tipLogo">info</a></label><input type="text" id="rutaLogoBlog" ></div>
-    <p class="btn btn-big">Guardar</p>
+    <p id="guardarDatosConfig" class="btn btn-big">Guardar</p>
     <a class="btn btn-big" href="#final">Suguiente paso</a>
 </div>

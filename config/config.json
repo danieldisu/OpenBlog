@@ -5,7 +5,7 @@
     "nombreBd": "openblog",
     "raiz": "http:\/\/localhost\/OpenBlog\/",
     "tituloBlog": "OpenBlog",
-    "descripcionBlog": "Esta es otra descripcion de prueba",
+    "descripcionBlog": "Descripci\u00f3n",
     "rutaCss": "resources\/css\/estilos.css",
     "logo": "resources\/betaLogo01.png",
     "numPost": "5"
