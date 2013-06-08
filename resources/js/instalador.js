@@ -9,11 +9,12 @@
 
 	window.onhashchange = function() {
 		var paginaActual = window.location.hash;
-		$(".content").css({"position":"absolute"}).animate({
-                    "margin-left":"2000px"
-                },750,function(){
-                    cargarPagina(paginaActual);
-                });
+		$(".content").css({"position":"absolute"})
+			.animate({
+               "margin-left":"2000px"
+            },750,function(){
+                 cargarPagina(paginaActual);
+      	});
 	}
         /*
          * No hagais caso a estas funciones de momento ya que estaban pensadas para hacer animaciones (que he quitado codigo)
@@ -149,7 +150,6 @@ function IniciarElegirBD() {
 
 	function comprobarCamposVacios(campo, vacio) {
 		if ($(campo).val() !== "") {
-			console.log(vacio);
 			vacio = false;
 		} else {
 			vacio = true;
@@ -168,12 +168,12 @@ function IniciarElegirBD() {
 		};
 
 		$.post('src/comprobacionBaseDatos.php', datos, function(data) {
-			console.log(data);
 			var respuesta = JSON.parse(data);
 			if (respuesta.codigo == 2) {
 				mostrarAlertaExito('Se ha conectado exitosamente a la Base de Datos', 3000);
 				$('.spinner').toggle();
-				$('.botonValidar').toggle();
+				var botonSiguiente = "<a href='#creaciontablas' class='btn btn-big'> Siguiente </a> ";
+				$('.cajaBotonValidar').append(botonSiguiente)
 			} else {
 				var tipoError = respuesta.mensaje;
 				mostrarAlertaError('No se ha podido establecer una conexión con el servidor, <b>' + tipoError + '</b>', 3000);
