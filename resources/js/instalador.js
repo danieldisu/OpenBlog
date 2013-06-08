@@ -196,12 +196,28 @@ function IniciarCreacionTablas() {
                     $(".content").css({"margin-left":"auto"});
                 }).attr('id', 'cajaCreacionTablas');
 
+		MandarPeticionCreacionTablas();
 
 		$('#botonAnterior').attr("href", "#elegirBD");
 		$('#botonSiguiente').attr("href", "#cuentaadmin");
 	}
 
+	function MandarPeticionCreacionTablas(){
+		$.post('src/crearTablas.php', function(data){
+			var respuesta = JSON.parse(data);
+			if (respuesta.codigo == 2) {
+				mostrarAlertaExito('Se han creado correctamente las tablas en la base de datos', 3000);
+				$('#comprobacion img').remove();
+				var botonSiguiente = "<a href='#cuentaadmin' class='btn btn-big'> Siguiente </a> ";
+				$('#comprobacion').append(botonSiguiente)
+			} else {
+				var tipoError = respuesta.mensaje;
+				mostrarAlertaError('Se ha encontrado un error al crear las tablas, <b>' + tipoError + '</b>', 3000);
 
+			}
+
+		})
+	}
 
 }
 
