@@ -31,20 +31,32 @@
     //trim() es para quitar los espacios en blanco de un string tanto al principio como al final
     if(trim($titulo) != ""){
         $config["tituloBlog"] = $titulo;
+    }else{
+        $tituloPorDefecto = "OpenBlog";
+        $config["tituloBlog"] = $tituloPorDefecto;
     }
+
     if(trim($descripcion) != ""){
         $config["descripcionBlog"] = $descripcion;
     }
+
     if(trim($estilos) != ""){
         $config["rutaCss"] = $estilos;
+    }else{
+        $rutaCssPorDefecto = "resources/css/estilos.css";
+        $config["rutaCss"] = $rutaCssPorDefecto;
     }
+
     if(trim($logo) != ""){
         $config["logo"] = $logo;
+    }else{
+        $rutaLogoPorDefecto = "resources/betaLogo01.png";
+        $config["logo"] = $rutaLogoPorDefecto;
     }
     
     $datos["correcto"] = true;
     
     $mc->guardarConfig($config);
+
     echo json_encode($datos);
-    
 ?>
