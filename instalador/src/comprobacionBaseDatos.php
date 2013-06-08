@@ -1,5 +1,9 @@
 <?php
-error_reporting(0);  //Nos aseguramos que no se muestren errores de conexión, de manera que solo los veamos si queremos nosotros
+  //Nos aseguramos que no se muestren errores de conexión, de manera que solo los veamos si queremos nosotros
+
+	require '../../autoloader.php';
+
+	use src\helpers\ManejadorConfig;
 
 	$user = $_POST['user'];
 	$host = $_POST['host'];
@@ -40,9 +44,9 @@ if($existeBD){
 		$respuesta['mensaje'] = 'Error al crear la base de datos';
 		die(json_encode($respuesta));
 	}
-	$sth = $mbd->exec("CREATE DATABASE ".$bd);	// Si no hemos tenido ningun error a la hora de borrar la bd creamos una nueva
+	crearBD($mbd, $bd, $host, $user ,$pass );	// Si no hemos tenido ningun error a la hora de borrar la bd creamos una nueva
 }else{
-	$sth = $mbd->exec("CREATE DATABASE ".$bd);	// Si no hemos tenido ningun error a la hora de borrar la bd creamos una nueva
+	crearBD($mbd, $bd, $host, $user ,$pass);	// Si no hemos tenido ningun error a la hora de borrar la bd creamos una nueva
 }
 
 if(existeBD($mbd, $bd)){
@@ -56,6 +60,18 @@ if(existeBD($mbd, $bd)){
 
 echo json_encode($respuesta);
 
+function crearBD($mbd, $bd, $host, $user ,$pass){
+	$mconfig = new ManejadorConfig();
+
+	if(!is_writable($mconfig->getPrivateRutaConfig())){	// Comprobamos si el archivo de config se puede escribir, en caso de que no se pueda escribir no creamos la BD
+		$respuesta['codigo'] = 1;
+		$respuesta['mensaje'] = 'Hacen falta permisos para escribir el archivo de configuración';
+		die(json_encode($respuesta));
+	}else{
+		guardarDatosConfiguracion($mconfig, $bd, $host, $user ,$pass);
+		$sth = $mbd->exec("CREATE DATABASE ".$bd);
+	}
+}
 
 function existeBD($mbd ,$bd){
 	try{
@@ -66,6 +82,14 @@ function existeBD($mbd ,$bd){
 	}	
 }
 
+function guardarDatosConfiguracion($mconfig, $bd, $host, $user ,$pass){
+	$configuracion = $mconfig->cargarConfig();
+	$configuracion['nombreBd'] = $bd;
+	$configuracion['host'] = $host;
+	$configuracion['user'] = $user;
+	$configuracion['pass'] = $pass;
+	$mconfig->guardarConfig($configuracion);
+}
 
 /*
 	Podriamos ampliar esta funcion en el futuro haciendo una query para saber las BD's a las que tiene acceso el usuario e intentandonos conectar a alguna

@@ -15,8 +15,8 @@ class pathGen {
         if(empty(self::$raiz)){
             $config = Header::cargarJSON();
             self::$raiz = $config["raiz"];
-            self::$css = $config["rutaCss"];
-            self::$logo = $config["logo"];
+            //self::$css = $config["rutaCss"]; Esto no nos sirve de nada si está creando la ruta dinamicamente, da error si el config lo unico que tiene es el host
+            //self::$logo = $config["logo"];
         }
     }
     

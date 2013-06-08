@@ -23,7 +23,9 @@ class ManejadorConfig {
     */
     public function getRutaConfig(){
         $ruta = "";
+        $host = $_SERVER['HTTP_HOST'];
         $dir =  __DIR__;
+
         $dirArray = explode( DIRECTORY_SEPARATOR, $dir);
 
         $i = 1;
@@ -31,7 +33,7 @@ class ManejadorConfig {
         while($dirArray[$i] != 'src' && $i < sizeof($dirArray)){
             $ruta= $ruta . "/". $dirArray[$i];
             $i++;
-        }                         
+        }
         return $ruta;
     }
 
@@ -65,7 +67,7 @@ class ManejadorConfig {
 
         fclose($fp);
     }
-    
+
     public function getPrivateRutaConfig(){
         return $this->rutaConfig;
     }

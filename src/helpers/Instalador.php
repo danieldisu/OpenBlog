@@ -29,7 +29,7 @@ class Instalador {
         $this->host = $config['host'];
         $this->username = $config['user'];
         $this->password = $config['pass'];
-        $this->bd = $config['bd'];
+        $this->bd = $config['nombreBd'];
 
         try{
             $this->conn = new PDO("mysql:host=".$this->host.";dbname=".$this->bd, $this->username, $this->password);

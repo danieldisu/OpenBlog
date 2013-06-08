@@ -5,13 +5,11 @@
 
 	use src\helpers\Instalador;
 	use src\helpers\Header;
+	use src\helpers\ManejadorConfig;
 
 	// Extraer la configuracion de una cookie o tenerla almacenada en el javascript
-	$config['host'] = '127.0.0.1';
-	$config['user'] = 'root';
-	$config['pass'] = '';
-	$config['bd']   = 'openblog';
-
+	$mconfig = new ManejadorConfig();
+	$config = $mconfig->cargarConfig();
 
 	try{
 		$instalador = new Instalador($config);
