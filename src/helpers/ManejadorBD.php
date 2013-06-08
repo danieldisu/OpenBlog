@@ -24,7 +24,11 @@ class ManejadorBD {
   $this->username = $config['user'];
   $this->password = $config['pass'];
   $this->bd = $config['nombreBd'];
-  $this->numPost = $config['numPost'];
+
+  if(!isset($config['numPost']))	// En el instalador usamos el manejadorBD sin haber elegido esto todavia, por lo tanto cogemos el numero por defecto 
+  		$this->numPost = 5; 
+  else
+  		$this->numPost = $config['numPost'];
 
 	$this->db = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
 	$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

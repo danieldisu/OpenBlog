@@ -290,10 +290,18 @@ function IniciarCuentaAdmin() {
 				pass: pass
 			};
 			$.post('src/insercionCuentaAdmin.php', datos, function(data){
-				if(data.insercion)
+				data = JSON.parse(data);
+				if(data.insercion){
 					mostrarAlertaExito('Usuario administrador creado correctamente.' , 3000);
-				else
+					$('.spinner').toggle();
+					var botonSiguiente = "<a href='#datosconfiguracion' class='btn btn-big'> Siguiente </a> ";
+					$('.cajaBotonValidar').append(botonSiguiente)					
+				}	
+				else{
 					mostrarAlertaError(data.error, 4000);
+					// Añadir posibilidades en caso de fallo
+				}
+					
 			});
 		}
 	}
