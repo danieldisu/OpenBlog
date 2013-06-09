@@ -40,7 +40,11 @@ Class Paginador{
 	}
 
 	public function generarLinksDePaginas($paginaActual = 1){
-		$numeroPrimeraPagina = 1;
+		if($this->postsTotales == 0){
+            return "<h2>No hay post que mostrar</h2>";
+        }
+
+        $numeroPrimeraPagina = 1;
 		$numeroUltimaPagina = $this->paginasTotales;
         $maximoLinksGenerados = 4;
         $linksPaginasGenerados = 1;

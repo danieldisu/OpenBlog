@@ -2,7 +2,7 @@
 	include_once 'autoloader.php';
 	use src\helpers\Header;
 	use src\helpers\ManejadorBD;
-        use src\helpers\pathGen;
+   use src\helpers\pathGen;
 	use src\helpers\Paginador;
   	use src\helpers\Login;
 
@@ -23,10 +23,12 @@
 	<body>
 	  <div class="container">
 			<div class="row">
-				<a href="<?php echo pathGen::pathHome(); ?>"><div class="span12 header">
-                                        <img src="<?php echo pathGen::loadLogo() ?>">
-					<h1><?php echo Header::$json["tituloBlog"] ?></h1>
-				</div></a>
+				<a href="<?php echo pathGen::pathHome(); ?>">
+					<div class="span12 header">
+						<img src="<?php echo pathGen::loadLogo() ?>">
+						<h1><?php echo Header::$json["tituloBlog"] ?></h1>
+					</div>
+				</a>
 			</div><!-- /header -->
 
 		<div class="row main">
