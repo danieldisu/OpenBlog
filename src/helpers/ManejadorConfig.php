@@ -40,6 +40,9 @@ class ManejadorConfig {
     /* Carga la configuracion que se encuentra en $rutaConfig;
     */
     public function cargarConfig(){
+        if(!file_exists($this->rutaConfig)){
+            return false;
+        }
         // Abre un stream
         $fp = fopen($this->rutaConfig, 'r');
 

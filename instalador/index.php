@@ -4,7 +4,14 @@
 	use src\helpers\Header;
 	use src\helpers\ManejadorBD;
   	use src\helpers\pathGen;
-	pathGen::cargarRaiz();
+  	use src\helpers\ManejadorConfig;
+
+  	$mcon = new ManejadorConfig();
+  	include 'src/funcionesComprobacionConfig.php';
+  	// Comprobamos que el usuario ha escrito la ruta del blog en el json
+  	if($config = existeConfig($mcon)){
+  		if(existeRaiz($mcon,$config)){
+			pathGen::cargarRaiz();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -47,3 +54,7 @@
 </body>
 </html>
 
+<?php 
+		}
+	} 
+?>
