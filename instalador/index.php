@@ -56,6 +56,8 @@
 
 <?php 
 		}
-
-	} 
+	}else{
+		$config['raiz'] = $mcon->getRutaOpenBlog();
+		$mcon->guardarConfig($config);
+	}
 ?>
