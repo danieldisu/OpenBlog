@@ -27,12 +27,11 @@ $(document).ready(function(){
 	});
 
 	$('.botonEnviarComentario').on('click', function(e){
-		e.preventDefault();
-		xhr = new XMLHttpRequest();		
-		var idPost = $(this).parent().parent().prev().prev().data('idpost');
+		e.preventDefault();	
+		var idPost = $(this).parents('.post').find('.cajaAcciones').data('idpost');
 		var autorComentario = $(this).parent().find("#autor").val();
 		var textoComentario = $(this).parent().find("textarea").val();
-		enviarNuevoComentario(xhr, idPost, autorComentario, textoComentario, this);	
+		enviarNuevoComentario(idPost, autorComentario, textoComentario, this);	
 	});
         
 	$("div.cajaLogin input[value='Login']").click(function(e){
@@ -170,7 +169,8 @@ function crearMensajeErrorLogin(msn){
     });
 }
 
-function enviarNuevoComentario(xhr, idPost, autorComentario, textoComentario, lanzadorEvento){
+function enviarNuevoComentario(idPost, autorComentario, textoComentario, lanzadorEvento){
+    console.log(idPost + "   "+ autorComentario+"     "+ textoComentario);
 	$.post("src/controladores/nuevoComentario.php", { idPost: idPost, autor: autorComentario , textoComentario : textoComentario} )
 	.done(function(data){
 		_this = $(lanzadorEvento);
