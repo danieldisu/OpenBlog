@@ -43,7 +43,7 @@ class ManejadorConfig {
         $port = $_SERVER['SERVER_PORT'];
         $dir =  $_SERVER['REQUEST_URI'];
 
-        $dirArray = explode( "/", $dir);
+        $dirArray = explode( "/", strtolower($dir));
 
         $i = 1;
 

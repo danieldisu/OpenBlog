@@ -3,10 +3,16 @@
 
 function existeConfig($mcon){
 	if(!($config = $mcon->cargarConfig())){
-		addEstilos();
-		mostrarError('No existe o no se puede acceder al archivo config');
-		mostrarMensajeSolucion(1);
-		return false;
+		$config['raiz'] = $mcon->getRutaOpenBlog();
+		$mcon->guardarConfig($config);
+		if(!($config = $mcon->cargarConfig())){
+			addEstilos();
+			mostrarError('No existe o no se puede acceder al archivo config');
+			mostrarMensajeSolucion(1);	
+			return false;		
+		}else{
+			return $config;
+		}
 	}else{
 		return $config;
 	}
@@ -16,7 +22,8 @@ function existeRaiz($mcon, $config){
 	if(isset($config['raiz'])){
 		return true;
 	}else{
-		mostrarError('No ha indicado una ruta en el archivo config');
+		$config['raiz'] = $mcon->getRutaOpenBlog();
+		$mcon->guardarConfig($config);
 		return false;
 	}
 }
