@@ -43,11 +43,11 @@ class ManejadorConfig {
         $port = $_SERVER['SERVER_PORT'];
         $dir =  $_SERVER['REQUEST_URI'];
 
-        $dirArray = explode( "/", strtolower($dir));
+        $dirArray = explode( "/", $dir);
 
         $i = 1;
 
-        while($dirArray[$i] != 'instalador' && $i < sizeof($dirArray)){
+        while(strtolower($dirArray[$i]) != 'instalador' && $i < sizeof($dirArray)){
             $ruta= $ruta . "/". $dirArray[$i];
             $i++;
         }
