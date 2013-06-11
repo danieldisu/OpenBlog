@@ -8,8 +8,8 @@ Class Paginador{
 
 	public function __construct($mbd){		
 		$this->postsTotales = $mbd->getNumeroTotalPosts();
-
 		$this->paginasTotales = ceil($this->postsTotales / $this->postsPorPagina);
+
 	}
 
     public function mostrarLinks(){
@@ -40,8 +40,13 @@ Class Paginador{
 	}
 
 	public function generarLinksDePaginas($paginaActual = 1){
+       
 		if($this->postsTotales == 0){
             return "<h2>No hay post que mostrar</h2>";
+        }
+
+        if($this->paginasTotales == 1){
+            return "";
         }
 
         $numeroPrimeraPagina = 1;
@@ -66,8 +71,16 @@ Class Paginador{
                 $linksGenerados = $linksGenerados . $this->generarLinkAnterior($paginaActual);
 
             //Generamos el link a la primera pagina
-			$linksGenerados = $linksGenerados . $this->generarLink($numeroPrimeraPagina, $paginaActual);
+            $linksGenerados = $linksGenerados . $this->generarLink($numeroPrimeraPagina, $paginaActual);
             $linksPaginasGenerados++;
+
+            if($this->paginasTotales == 2){
+                $linksGenerados = $linksGenerados . $this->generarLink($numeroUltimaPagina, $paginaActual);
+                if($paginaActual != $numeroUltimaPagina)
+                    $linksGenerados = $linksGenerados . $this->generarLinkSiguiente($paginaActual);
+                return $linksGenerados;
+            }
+
             //Generamos el link a las paginas que hayamos decidido en la variable $maximoLinksGenerados, hay que tener en cuenta que son 3 links al principio + 1 a la ultima pagina
             while( $linksPaginasGenerados < $maximoLinksGenerados -1 ){
 
@@ -83,7 +96,7 @@ Class Paginador{
                 }                
             }
             //Ponemos los ... para que nos dejé seleccionar a que pagina queremos ir, esto es un to-do...
-            $linkPuntos = "<li><a href=''> ... </a></li>";
+            $linkPuntos = "<li><a> ... </a></li>";
             
             //Averiguamos si el link a la pagina actual se podria considerar que está en medio ( que no se muestra en los links que se generan por defecto)
             //Y tambien si caben todos, en caso de que sea del medio y no quepan todos se muestra el link a la pagina actual entre dos ...

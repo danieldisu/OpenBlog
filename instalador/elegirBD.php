@@ -31,11 +31,7 @@
 		</div>	<!-- /main Section -->
 
 		<div class="seccion footer">
-			<div class="cajaBotonesFooter">
-				<button class="btn btn-big">Anterior</button>
-				<button class="btn btn-big">Siguiente</button>
-			</div>
-			Footer
+			
 		</div><!-- /footer -->
 	</div> <!-- /contenedor -->
 

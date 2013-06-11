@@ -193,37 +193,34 @@ class ManejadorBD {
   public function getPostPagina($pagina) {
 	$total = $this->getNumeroTotalPosts();
 
-	$postYaMostrados = $pagina * $this->numPost; //Hayamos el numero de post que han sido mostrados
+	
+
+	$primerPostPagina = ($pagina -1) * ($this->numPost);
+	/*
+	$postYaMostrados = $pagina * $this->numPost;
+	 //Hayamos el numero de post que han sido mostrados
 	//Si el numero de post que ya han sido mostrados ( contando que mostrasemos esta página ) es mayor que el total
 	//significa que es la ultima página y vemos cuantos post quedan por mostrar
 	if ($postYaMostrados > $total) {
 	  $postUltimaPagina = $postYaMostrados - $total - 1;
 	}
+
 	// El primer post a mostrar de la página actual ( en realidad es el ultimo de la anterior, pero asi es como funciona el limit )
 	$primerPostPagina = $total - $postYaMostrados;
-
+	*/
 
 	//si existe la variable significa que estamos en la ultima pagina y solo vamos a mostrar los post que quedan por mostrar
-	if (isset($postUltimaPagina)) {
-	  $sql = "
-										SELECT * 
-										FROM ob_post 
-										LIMIT 0, :postUltimaPagina"
-	  ;
-	  $sth = $this->db->prepare($sql);
-	  $sth->bindValue(':postUltimaPagina', (int) $postUltimaPagina, PDO::PARAM_INT);	  
-	} else {
 	  $sql = "
 										SELECT * 
 										FROM ob_post
-										LIMIT :primerPostPagina , :numPost ;"
+										LIMIT :primerPostPagina , :numPost"
 	  ;
 	  $sth = $this->db->prepare($sql);
 	  //  Hay que hacer casting a INT y indicarle que le pasas un Integer ya que sino da error la sentencia SQL
-	  $sth->bindValue(':primerPostPagina', (int) $primerPostPagina, PDO::PARAM_INT);
-	  $sth->bindValue(':numPost', (int) $this->numPost, PDO::PARAM_INT);
-	}
-	$sth->execute();
+	  
+	  $sth->bindValue(':primerPostPagina', (int)$primerPostPagina , PDO::PARAM_INT);
+	  $sth->bindValue(':numPost', (int)$this->numPost , PDO::PARAM_INT);
+	  $sth->execute();
 
 	$postsPagina = $sth->fetchAll(PDO::FETCH_CLASS, 'src\entidades\Post');
 
@@ -351,8 +348,7 @@ class ManejadorBD {
 								VALUES (:texto, :fecha, :idUsuario, :idPost)
 						";
 	$sentencia = $this->db->prepare($sql);
-
-	$sentencia->bindValue(":texto", $comentario->getTexto());
+	$sentencia->bindValue(":texto", filter_var($comentario->getTexto(), FILTER_SANITIZE_STRING));
 	$sentencia->bindValue(":fecha", $comentario->getFecha());
 	$sentencia->bindValue(":idUsuario", $comentario->getIdUsuario());
 	$sentencia->bindValue(":idPost", $comentario->getIdPost());

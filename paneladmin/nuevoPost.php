@@ -11,8 +11,10 @@
   include '../autoloader.php';
   use src\entidades\Post;
   use src\helpers\ManejadorBD;
+  use src\helpers\Header;
   
-  $mbd = new ManejadorBD();
+  $json = Header::cargarJSON();
+  $mbd = new ManejadorBD($json);
   
   //$idUsuario = $_SESSION('usuario');
   $idUsuario = 1;

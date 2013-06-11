@@ -15,14 +15,14 @@
 	
 	# Creo un rol administrador
 	$adminRol = new Rol(null, '', '');
-	$adminRol->setId(1); # Para probar, cambiar a 1
+	$adminRol->setId(2); 
 	$adminRol->setNombre('administrador');
 	$adminRol->setDescripcion('Tendr&aacute; acceso a todas las funcionalidades del post as&iacute; como a la adinistraci&oacute;n de los mismos y de los usuarios. Tambi&eacute;n podr&aacute; personalizar a su gusto el blog');
 	
 
 	# Crearemos tambien un rol usuario por defecto.
 	$userRol = new Rol(null, '', '');
-	$userRol->setId(2); # Para probar, cambiar a 2
+	$userRol->setId(1); 
 	$userRol->setNombre('usuario');
 	$userRol->setDescripcion('Podr&aacute; publicar comentario y ver gran parte del contenido del bog, pero no podr&aacute; borrar o modificar los comentarios ni podr&aacute; 	 crear nuevos post');
 	
@@ -32,7 +32,7 @@
 	$newUser->setNombre($nombre);
 	$newUser->setMail($mail);
 	$newUser->setPass($pass);
-	$newUser->setIdRol(1);
+	$newUser->setIdRol(2);
 	
 	$respuesta = array();
 

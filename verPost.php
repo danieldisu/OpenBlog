@@ -41,7 +41,8 @@
 				<?php
 					$idPost = $_REQUEST['id'];
 					$post = $mbd->getPost($idPost);
-					include "src/templates/plantillaPost.php";
+          $comentarios = $mbd->getAllComentarios($idPost);
+					include "src/templates/plantillaPostUnico.php";
 				?>
 									
 		</div>

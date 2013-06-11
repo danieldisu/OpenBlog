@@ -6,6 +6,9 @@
   	use src\helpers\pathGen;
   	use src\helpers\ManejadorConfig;
 
+  	session_start();
+  	session_destroy();
+
   	$mcon = new ManejadorConfig();
   	include 'src/funcionesComprobacionConfig.php';
   	// Comprobamos que el usuario ha escrito la ruta del blog en el json
@@ -38,10 +41,7 @@
 		</div>	<!-- /main Section -->
 
 		<div class="seccion footer">
-			<div class="cajaBotonesFooter">
-				<a class="btn btn-big" id="botonAnterior">Anterior</a>
-				<a class="btn btn-big" id="botonSiguiente">Siguiente</a>
-			</div>
+			
 		</div><!-- /footer -->
 	</div> <!-- /contenedor -->
 
@@ -56,5 +56,6 @@
 
 <?php 
 		}
+
 	} 
 ?>

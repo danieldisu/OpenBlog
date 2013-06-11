@@ -160,11 +160,13 @@ function IniciarElegirBD() {
 		var user = $('#campoUser').val();
 		var pass = $('#campoPass').val();
 		var host = $('#campoHost').val();
+		var bd = $('#campoBD').val();
 
 		var datos = {
 			user: user,
 			pass: pass,
-			host: host
+			host: host,
+			bd : bd
 		};
 
 		$.post('src/comprobacionBaseDatos.php', datos, function(data) {

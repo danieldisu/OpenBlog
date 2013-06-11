@@ -366,7 +366,7 @@ overflow: hidden;
    height: 40px;
    padding: 40px;
    line-height: 2em;
-
+   border-bottom: 1px solid #e6e6e6;
 }
 .autorComentario{
    font-weight: bold;
@@ -592,14 +592,22 @@ tbody{
 
 /* Post por Categoria */
 
-.cajaTituloCategoria{
-  
+.contenido .cajaTituloCategoria{
+   background: #FEFFCC;
+   padding-left: 20px;
+   box-sizing: border-box;
+   outline: 1px solid #FEFFB3;
+
+}
+
+.cajaTituloCategoria h1{
+   font-size: 1.2em; 
 }
 
 .cajaTituloCategoria span{
-  font-size: 2em;
-  color:#DF4931;
+   font-size: 1.6em; 
 }
+
 
 /* ADMINISTRAR POSTS */
 
@@ -779,4 +787,8 @@ tbody{
 .btn-info:hover{
    color:#2f96b4;
    border:1px solid #2f96b4;
+}
+
+.cajaComentariosUnicoPost{
+   margin-top: 50px;
 }

@@ -240,6 +240,7 @@ function cargarListenersNuevoPost(){
 			console.log("fallo");
 		})
   });
+
 }
 function validarNuevoPost(titulo, texto) {
   if(titulo === "") return false;

@@ -2,8 +2,9 @@
 include '../autoloader.php';
 
 use src\helpers\ManejadorBD;
+use src\helpers\Header;
 
-$mbd = new ManejadorBD();
+$mbd = new ManejadorBD(Header::cargarJSON());
 ?>
 
 <div class="cajaAdministracion" id="cajaNuevoPost">
@@ -21,7 +22,6 @@ $mbd = new ManejadorBD();
   	   	
   	   </div>
     </div>
-
   	<div class="cajaCategoria cajaAdmin">
   		<label>Categoria: </label>
       <select name="categoria">
