@@ -3,10 +3,29 @@
       <h2>Resumen</h2>
    </div>
 </div>
+<div class="cajaAdministracion row">
+	<div class="span5">
+	<?php
+		include '../autoloader.php';
+      use src\helpers\Sidebar;
+      use src\helpers\ManejadorBD;
+		use src\helpers\Header;
 
-<div class="cajaWidgets row">
-   <div class="widget span6"><h3>Ultimos Post</h3>Widget 1</div>
-   <div class="widget span6"><h3>Ultimos Comentarios</h3>Widget 2</div>
-   <div class="widget span6"><h3>Visitas (?)</h3>Widget 1</div>
-   <div class="widget span6"><h3>Algo Mas</h3>Widget 2</div>   
+		$mbd = new ManejadorBD(Header::cargarJSON());
+
+	   $comentarios = $mbd->obtenerUltimosComentarios();       
+		include '../src/templates/sidebar/templateCajaUltimosComentarios.php';
+	?>
+	</div>
+	<div class="span5">
+	<?php
+		$posts = $mbd->obtenerUltimosPost();
+		include '../src/templates/sidebar/templateCajaUltimosPost.php';
+	?>	
+	</div>
 </div>
+<div class="cajaAdministracion row">
+  <div id="chartContainer" style="height: 300px; width: 500px;display:inline-block;"></div>
+</div>
+
+

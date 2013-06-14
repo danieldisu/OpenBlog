@@ -46,7 +46,8 @@ $('.btn.admin').on('click', function(e) {
 		goToIndex();
 		break;
 	default: // Defecto, e Index.
-	  $cajaLoader.load('paneladmin/indexAdministrador.php');
+	  $cajaLoader.load('paneladmin/indexAdministrador.php',  Dashboard.init);
+
   }
 });
 /*

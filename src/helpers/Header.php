@@ -51,9 +51,10 @@ Class Header {
 	echo '<script src="'.pathGen::pathJs("jquery.js").'"></script>';
         echo '<script src="'.pathGen::pathJs("bootstrap.js").'"></script>';
         echo '<script src="'.pathGen::pathJs("epiceditor/js/toMarkdown.js").'"></script>';
-        echo '<script src="'.pathGen::pathJs("epiceditor/js/epiceditor.js").'"></script>'; 
-	echo '<script src="'.pathGen::pathJs("panelAdmin.js").'"></script>';
-  
+        echo '<script src="'.pathGen::pathJs("epiceditor/js/epiceditor.js").'"></script>';
+        echo '<script src="'.pathGen::pathJs("canvasjs.js").'"></script>';
+        echo '<script src="'.pathGen::pathJs("dashboard.js").'"></script>';         
+	      echo '<script src="'.pathGen::pathJs("panelAdmin.js").'"></script>';
   }
   
   /*
