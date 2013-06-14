@@ -8,6 +8,7 @@
 	use src\helpers\ManejadorBD;
 	use src\entidades\Usuario;
 	use src\entidades\Rol;
+	use src\entidades\Post;
 
 	$mbd = new ManejadorBD(Header::cargarJSON());
 
@@ -28,7 +29,7 @@
 	
 	# Creo un usuario administrador
 	$newUser = new Usuario(null, '','','', null);
-	$newUser->setId(1);
+
 	$newUser->setNombre($nombre);
 	$newUser->setMail($mail);
 	$newUser->setPass($pass);
@@ -40,6 +41,8 @@
 		$mbd->createRol($adminRol);
 		$mbd->createRol($userRol);
 		$mbd->createUsuario($newUser);
+		#	Creamos el post de bienvenida con el usuario que se acaba de crear
+		addPostBienvenida($mbd);
 		$respuesta['insercion'] = true;
 	}catch(PDOException $e){
 		$respuesta['insercion'] = false;
@@ -47,4 +50,20 @@
 	}
 	
 	echo json_encode($respuesta);
-?>
+
+
+
+
+function addPostBienvenida($mbd){
+	$titulo = "Bienvenid@ a OpenBlog!";
+	$texto = "Este es el texto de bienvenida, se puede encontrar en el archivo instalador/src/insercionCuentaAdmin.php, cambiadlo :D";
+	$fechaCreacion = date("Y-m-d H:i:s");
+	$nuevoPost = new Post();
+	$nuevoPost->setIdCategoria(1);
+	$nuevoPost->setIdUsuario(1);
+	$nuevoPost->setFechaCreacion($fechaCreacion);
+	$nuevoPost->setTexto($texto);
+	$nuevoPost->setTitulo($titulo);
+
+	$mbd->createPost($nuevoPost);
+}

@@ -20,6 +20,8 @@
 	$instalador->borrarTablas();
 
 	$instalador->crearTablas();
+
+	$instalador->crearCategoriaPorDefecto();
 	
 	if($instalador->checkTablas()){
 		devolverRespuesta('2', 'Se han creado las tablas con exito');

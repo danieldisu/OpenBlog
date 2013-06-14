@@ -198,6 +198,12 @@ class Instalador {
         
         return true;
     }
+
+    public function crearCategoriaPorDefecto(){
+        $sql = "INSERT INTO  ob_categoria (nombre ,descripcion)VALUES ('General',  'Categoria General');";
+        $this->conn->query($sql);
+    }
+
 }
 
 ?>
