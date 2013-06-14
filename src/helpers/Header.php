@@ -10,10 +10,10 @@ Class Header {
   public static $json;
 
   public static function cargarJSON() {
-	//cargamos el json
-	$manejadorConfig = new ManejadorConfig();
-	self::$json = $manejadorConfig->cargarConfig();
-	return self::$json;
+  	//cargamos el json
+  	$manejadorConfig = new ManejadorConfig();
+  	self::$json = $manejadorConfig->cargarConfig();
+  	return self::$json;
   }
 
   public static function cargarHojasDeEstilos() {
@@ -101,6 +101,25 @@ Class Header {
 
   public static function getRootDirectory(){
     return $_SERVER['HTTP_HOST'].self::getOpenBlogDir()."/OpenBlog";
+  }
+  
+  /* Funcion que comprueba si OpenBlog está instalado en el sistema
+  */
+  public static function isInstalled(){
+    # Si no existe el JSON se da por hecho que no esta instalado
+    try{      
+      if(!self::cargarJSON())
+        return false;
+      else{
+        ## Si existe el JSON pero no tiene puesto el nombre BD da por hecho que no está instalado
+        if(!isset(self::$json['nombreBd']))
+          return false;
+      }
+    }catch(Exception $e){
+      return false;;
+    }
+    # Añadir mas comprobaciones?
+    return true;
   }
 
 }

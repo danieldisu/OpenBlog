@@ -6,6 +6,10 @@
 	use src\helpers\Paginador;
   	use src\helpers\Login;
 
+  	if(!Header::isInstalled()){
+  		die('Ha de instalar OpenBlog desde el <a href="instalador/">instalador</a>');
+  	}
+
    // Iniciamos el manejador BD con las opciones del JSON
 	$mbd = new ManejadorBD(Header::cargarJSON());
         pathGen::cargarRaiz();
