@@ -34,10 +34,14 @@
 		<div class="row main">
 			<div class="span9 contenido">
 				<?php
-					$posts = $mbd->getPostPagina($pagina);
-					foreach ($posts as $post){
-						include "src/templates/plantillaPost.php";
+					if(sizeof($posts = $mbd->getPostPagina($pagina)) != 0){
+						foreach ($posts as $post){
+							include "src/templates/plantillaPost.php";
+						}						
+					}else{
+						echo "<h3>No hay ningún post en la página seleccionada</h3>";
 					}
+
 				?>
 
 			<div class="span9 contenido">
