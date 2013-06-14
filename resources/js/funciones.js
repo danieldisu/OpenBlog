@@ -31,7 +31,12 @@ $(document).ready(function(){
 		var idPost = $(this).parents('.post').find('.cajaAcciones').data('idpost');
 		var autorComentario = $(this).parent().find("#autor").val();
 		var textoComentario = $(this).parent().find("textarea").val();
-		enviarNuevoComentario(idPost, autorComentario, textoComentario, this);	
+        if(textoComentario == ""){
+            alert("No puede haber ningún campo vacio");
+        }else{
+            enviarNuevoComentario(idPost, autorComentario, textoComentario, this);  
+        }
+		
 	});
         
 	$("div.cajaLogin input[value='Login']").click(function(e){
