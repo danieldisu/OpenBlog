@@ -1,6 +1,5 @@
 <?php
 	include '../../autoloader.php';
-	include '../../chromephp.php';
 
 	use src\helpers\ManejadorBD;
 	use src\helpers\Header;
@@ -25,7 +24,6 @@
 		$post->setModificaciones($modificaciones+1);
 		$fechaModificacion = date("Y-m-d H:i:s");
 		$post->setFechaModificacion($fechaModificacion);
-		ChromePhp::log($post);
 		if($mbd->updatePost($idPost, $post)){
 			$json = $post->getJsonData();
 			$json['resultado'] = true;
