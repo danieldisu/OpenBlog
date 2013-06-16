@@ -792,3 +792,27 @@ tbody{
 .cajaComentariosUnicoPost{
    margin-top: 50px;
 }
+
+/* CREAR ROL */
+
+.botonCrearRol{
+
+}
+
+.cajaFormularioCrearRol{
+   display:none;
+   padding:20px;
+   width:300px;
+   margin-bottom: 40px;
+   border:1px solid lightgrey;
+}
+
+.cajaFormularioCrearRol input{
+   width:300px;
+   height:30px;
+}
+
+.cajaFormularioCrearRol button{
+   display:block;
+   float:right;
+}

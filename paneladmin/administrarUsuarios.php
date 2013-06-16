@@ -10,6 +10,15 @@ $mbd = new ManejadorBD(src\helpers\Header::cargarJSON());
 <div class="cajaAdministracion row">
     <div class="cajaTituloCategoria">
         <h2>Administrar Usuarios</h2>
+        <button class="botonCrearRol btn"> Crear Nuevo Rol </button>
+    </div>
+    <div class="cajaFormularioCrearRol">
+        <div class="cajaAlertaRol alert" style="display:none"></div>
+        <label>Nombre:</label>
+        <input type="text" class="inputNombreRol">
+        <label>Descripcion:</label>
+        <input type="text" class="inputDescripcionRol">
+        <button class="crearRol btn"> Crear Rol </button>
     </div>
    <div class="cajaContenidoCategoria">
       <table class="table table-bordered table-striped">

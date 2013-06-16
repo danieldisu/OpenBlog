@@ -384,17 +384,54 @@ function cargarAdministrarUsuarios(){
 		var idUsuario = $(this).parents('tr').data('idusuario');
 		$('#myModal').modal({});
 		$('#myModal .modal-body').load('paneladmin/src/templates/templateFormularioEditarUsuario.php?idUsuario='+idUsuario);
-
-
-
-
 	})
+
 	$('#myModal .btn-primary').click(function(){
 		$myForm = $(this).parent().siblings('.modal-body').find('form');
 		var datos = $myForm.serializeArray();
 		$('#myModal').modal('hide');
 		editarUsuario(datos);
 	})
+
+	$('.botonCrearRol').click(function(){
+		$('.cajaFormularioCrearRol').slideToggle();
+	});
+
+	$('.crearRol').click(function(){
+		var nombreRol = $(".inputNombreRol").val();
+		var descripcionRol = $(".inputDescripcionRol").val();
+		if(nombreRol == "" || descripcionRol == ""){
+			mostrarAlertaRol('No puede haber campos vacios', true, 2000)
+		}else{
+			mandarPeticionCrearRol(nombreRol,descripcionRol);
+		}
+	})
+
+	function mandarPeticionCrearRol(nombre,descripcion){
+		$.post('paneladmin/src/crearRol.php', { nombreRol : nombre, descripcion : descripcion },function(data){
+			if(data == 1){
+				mostrarAlertaRol("Rol creado correctamente", false, 4000);
+
+			}else{
+				mostrarAlertaRol("No se puede crear un rol con ese nombre", true, 4000)
+			}
+		})
+	}
+
+	function mostrarAlertaRol(texto, error, tiempo){
+
+		if(error)
+			$('.cajaAlertaRol').html(texto).removeClass('alert-success').addClass('alert-error')
+		else
+			$('.cajaAlertaRol').html(texto).removeClass('alert-error').addClass('alert-success')
+
+		$('.cajaAlertaRol').slideDown();
+
+		setTimeout(function(){
+			$('.cajaAlertaRol').slideUp();
+		}, tiempo)
+	}
+
 	function editarUsuario(datos){
 		$.post('paneladmin/src/editarUsuario.php', datos, function(data){
 			actualizarAlerta(data);
