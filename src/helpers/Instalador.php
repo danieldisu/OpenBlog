@@ -63,7 +63,7 @@ class Instalador {
             $sqlRol = "
                 CREATE TABLE ob_rol (
                 id int(10) NOT NULL AUTO_INCREMENT,
-                nombre varchar(25) NOT NULL,
+                nombre varchar(25) NOT NULL UNIQUE,
                 descripcion text NOT NULL,
                 PRIMARY KEY (id)
                 ) ENGINE=InnoDB DEFAULT CHARSET=latin1  
