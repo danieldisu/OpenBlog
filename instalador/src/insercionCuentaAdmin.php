@@ -30,7 +30,7 @@
 
 	$newUser->setNombre($nombre);
 	$newUser->setMail($mail);
-	$newUser->setPass($pass);
+	$newUser->setPass(md5($pass));
 	$newUser->setIdRol(2);
 	
 	$respuesta = array();

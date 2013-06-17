@@ -11,8 +11,8 @@
     $nombre = $_POST["nombre"];
     $email = $_POST["email"];
     $emailR = $_POST["emailR"];
-    $pass = $_POST["pass"];
-    $passR = $_POST["passR"];
+    $pass = md5($_POST["pass"]);
+    $passR = md5($_POST["passR"]);
     $datos = array();
     
     $bd = new ManejadorBD(Header::$json);

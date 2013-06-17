@@ -8,8 +8,8 @@
 	session_start();
 	$nombre = $_REQUEST['nombre'];
 	$mail = $_REQUEST['correo'];
-	$newPass = $_REQUEST['nuevaPass'];
-	$pass = $_REQUEST['adminPass'];
+	$newPass = md5($_REQUEST['nuevaPass']);
+	$pass = md5($_REQUEST['adminPass']);
 	//Obtener el id del usuario con ese nombre
 	$idUsuario = $_REQUEST['idUsuario'];
 	//$usuario = $mbd->getUsuarioByName($nombre);
