@@ -21,4 +21,4 @@ RewriteRule ^categoria/([0-9]+)$ verPostCategoria.php?idCategoria=$1 [NC,L]
 #Administrador
 RewriteRule ^administrador$ panelAdmin.php [NC,L]
 #Error
-RewriteRule ^error/(.+)/(.+)$ error.php?c=$2&error=$1 [NC,L]
+RewriteRule ^error/(.+)/(.+)$ error.php?c=$1&error=$2 [NC,L]
