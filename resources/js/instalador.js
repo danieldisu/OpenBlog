@@ -339,6 +339,12 @@ function IniciarDatosConfiguracion() {
                     $('#tipLogo').tooltip({
 			title: 'Si se deja en blanco se usará el logo de OpneBlog por defecto'
                     });
+                    $(".btnDatosConfigSig").click(function(){
+                        var correcto = confirm("Se perderán los datos no guardados, ¿desea continuar?");
+                        if(!correcto){
+                            return false;
+                        }
+                    });
                     $(".content").css({"margin-left":"auto"});
                     cargarListenerConfig();
                 }).attr('id', 'cajaConfiguracion');

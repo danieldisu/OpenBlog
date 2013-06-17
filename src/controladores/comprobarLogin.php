@@ -9,7 +9,7 @@
     Header::cargarJSON();
     
     $usuario = $_POST["usuario"];
-    $pass = $_POST["pass"];
+    $pass = md5($_POST["pass"]);
     
     if(Validador::estaVacio($usuario)){
         echo "El campo usuario no puede estar vacio";

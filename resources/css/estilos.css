@@ -97,6 +97,14 @@ h3{
    margin-bottom: 15px;
 }
 
+.post img {
+    display: block;
+    max-width: 80%;
+    margin: auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
 .registro{
    border:1px solid #ddd;
    background-color: #fff;

@@ -18,5 +18,5 @@
         <p>Comunidad <span class="text-info">cercana</span> y <span class="text-info">activa</span></p>
         <!--<p>Visitanos en <a href="http://www.openblog.com">http://www.openblog.com</a></p>-->
     </blockquote>
-    <a class="btn btn-big" href="#elegirBD">Suguiente paso</a>
+    <a class="btn btn-big" href="#elegirBD">Siguiente paso</a>
 </div>

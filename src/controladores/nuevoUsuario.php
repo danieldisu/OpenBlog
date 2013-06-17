@@ -10,7 +10,7 @@
     
     $nombre = $_POST["nombre"];
     $email = $_POST["email"];
-    $pass = $_POST["pass"];
+    $pass = md5($_POST["pass"]);
     if(isset($_POST["idRol"])){
         $idRol = $_POST["idRol"];
     }

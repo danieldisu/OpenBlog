@@ -100,7 +100,7 @@ class ManejadorBD {
   	# Funcion encargada de cambiar la categoria del post al ser borrada la categoría
 	$sql = "
 								UPDATE ob_post
-								SET idCategoria = 0
+								SET idCategoria = 1
 								WHERE idCategoria = :idCategoria;"
 	;
 	$sentencia = $this->db->prepare($sql);
