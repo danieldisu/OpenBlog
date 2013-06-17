@@ -1,5 +1,5 @@
 <?php
-  //Nos aseguramos que no se muestren errores de conexión, de manera que solo los veamos si queremos nosotros
+	error_reporting(0);
 
 	require '../../autoloader.php';
 
