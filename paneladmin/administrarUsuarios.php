@@ -46,7 +46,7 @@ $mbd = new ManejadorBD(src\helpers\Header::cargarJSON());
              echo "<td>";
                 echo $usuario->getMail();
              echo "</td>";
-             echo "<td>";   
+             echo "<td>"; 
              echo $mbd->getRol($usuario->getIdRol())->getNombre();
              echo "</td>";
              echo "<td class='columnaAcciones'>";
