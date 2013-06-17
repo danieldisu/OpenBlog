@@ -52,7 +52,7 @@ class ManejadorConfig {
             $i++;
         }
 
-        $ruta = 'http://'.$host.':'.$port.$ruta.'/';
+        $ruta = 'http://'.$host.':'.$ruta.'/';
 
         return $ruta;
     }
