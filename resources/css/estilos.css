@@ -208,6 +208,10 @@ h3{
    font-weight: bold;
 }
 
+h3 .enlaceTituloPost {
+    font-size : 1em;
+}
+
 .cajaContenidoPost ul{
 
 }

@@ -3,7 +3,7 @@
 ?>
 <div class="post">
 	<div class="cajaTituloPost">
-	  <h3><?php echo $post->getTitulo(); ?></h3>	  	  
+	  <h3><a class="enlaceTituloPost" href="<?php echo pathGen::pathVerPost($post->getId()) ?>"><?php echo $post->getTitulo(); ?></a></h3>	  	  
 	</div>
 	<div class="cajaInfo row">
 	  <div class="cajaAutorPost span2">
