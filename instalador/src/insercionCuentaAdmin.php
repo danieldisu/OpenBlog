@@ -54,7 +54,7 @@
 
 function addPostBienvenida($mbd){
 	$titulo = "Bienvenid@ a OpenBlog!";
-	$texto = "Este es el texto de bienvenida, se puede encontrar en el archivo instalador/src/insercionCuentaAdmin.php, cambiadlo :D";
+	$texto = "Gracias por instalar la última versión de OpenBlog, disfruta de las nuevas características que hacen de OpenBlog la plataforma de bloggin de código abierto más popular.";
 	$fechaCreacion = date("Y-m-d H:i:s");
 	$nuevoPost = new Post();
 	$nuevoPost->setIdCategoria(1);

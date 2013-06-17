@@ -410,7 +410,7 @@ function cargarAdministrarUsuarios(){
 	function mandarPeticionCrearRol(nombre,descripcion){
 		$.post('paneladmin/src/crearRol.php', { nombreRol : nombre, descripcion : descripcion },function(data){
 			if(data == 1){
-				mostrarAlertaRol("Rol creado correctamente", false, 4000);
+				mostrarAlertaRol("Rol creado correctamente", false, 2000);
 
 			}else{
 				mostrarAlertaRol("No se puede crear un rol con ese nombre", true, 4000)
@@ -429,6 +429,7 @@ function cargarAdministrarUsuarios(){
 
 		setTimeout(function(){
 			$('.cajaAlertaRol').slideUp();
+                        $('.cajaFormularioCrearRol').slideUp();
 		}, tiempo)
 	}
 

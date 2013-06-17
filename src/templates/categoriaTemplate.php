@@ -18,7 +18,7 @@
  <td class="acciones"> 
    <button class="btn botonEditarCategoria" data-idCategoria="<?php echo $categoria->getId(); ?>"><i class="icon-pencil"></i> Editar</button>
    <?php 
-   	if($categoria->getId() != 0){
+   	if($categoria->getId() != 1){
    		# Añadir a la base de datos categoria id = 0
    ?>
    <button class="btn botonBorrarCategoria" data-idCategoria="<?php echo $categoria->getId(); ?>"><i class="icon-remove"></i> Borrar</button>
