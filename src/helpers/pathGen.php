@@ -121,7 +121,7 @@ class pathGen {
     }
 
     public static function pathIco($file){
-        return self::$raiz."resources/ico/".$file;
+        return self::$raiz."resources/".$file;
     }
     
     /**
