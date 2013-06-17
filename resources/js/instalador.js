@@ -274,13 +274,13 @@ function IniciarCuentaAdmin() {
 			if (!campoNombreVacio && !campoMailVacio && !campoPassAdminVacio && !campoPassAdminRVacio) {
 				$(this).hide();
 				$('.spinner').show();
-				insercionBD();
+				insercionBD(this);
 			} else {
 				mostrarAlertaError('Ha de completar todos los campos', 3000);
 			}
 		})
 	}
-	function insercionBD() {
+	function insercionBD(boton) {
 		var nombre = $('#campoNombre').val();
 		var mail = $('#campoMail').val();
 		var pass = $('#campoPassAdmin').val();
@@ -301,11 +301,16 @@ function IniciarCuentaAdmin() {
 				}	
 				else{
 					mostrarAlertaError(data.error, 4000);
-					// Añadir posibilidades en caso de fallo
+					 $(boton).show();
+          $('.spinner').hide();
 				}
 					
 			});
-		}
+		}else{
+      mostrarAlertaError("Las contraseñas no coinciden", 3000);
+      $(boton).show();
+      $('.spinner').hide();
+    }
 	}
 
 	function validarContraseña(pass, passR) {
