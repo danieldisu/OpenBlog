@@ -11,7 +11,6 @@
 
   	$mcon = new ManejadorConfig();
   	include 'src/funcionesComprobacionConfig.php';
-  	// Comprobamos que el usuario ha escrito la ruta del blog en el json
   	if($config = existeConfig($mcon)){
   		if(existeRaiz($mcon,$config)){
 			pathGen::cargarRaiz();

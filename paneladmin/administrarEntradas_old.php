@@ -18,7 +18,7 @@
          </thead>   
          <tbody>
             <?php
-               //Por cada post ->
+               
                $i = 0;
                while($i < 10){
                   include "../template/entradaTemplate.php";
@@ -43,7 +43,7 @@
          </thead>   
          <tbody>
             <?php
-               //Por cada post ->
+               
                $i = 0;
                while($i < 10){
                   include "../template/comentarioTemplate.php";

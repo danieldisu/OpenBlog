@@ -12,7 +12,7 @@
 
 
     if(empty($_POST['idUsuario'])){
-        //Header::mostrarPaginaError('Se ha encontrado un error con la peticion');
+        
     }else{
         $idUsuario = $_POST['idUsuario'];
     }

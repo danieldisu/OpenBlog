@@ -1,5 +1,5 @@
 <?php
-  //Nos aseguramos que no se muestren errores de conexión, de manera que solo los veamos si queremos nosotros
+	error_reporting(0);
 
 	require '../../autoloader.php';
 
@@ -20,10 +20,10 @@
 $respuesta = array();
 
 try {
-	$mbd = new PDO("mysql:host=$host;dbname=$bd", $user, $pass);	// nos intentamos conectar con los datos que nos ha proporcionado el usuario
+	$mbd = new PDO("mysql:host=$host;dbname=$bd", $user, $pass);	
 }catch(PDOException $e){
-	if($e->getCode() == 1049){		// Si el error que da es 1049 significa que es problema de que la BD no existe
-		$mbd = conectarAPredeterminada($host, $user, $pass); 	// Nos conectamos a la DB de mysql para desde ahí crear la db original MEJORABLE
+	if($e->getCode() == 1049){		
+		$mbd = conectarAPredeterminada($host, $user, $pass); 	
 	}else{
 		$respuesta['codigo'] = 1;		
 		$respuesta['mensaje'] = $e->getMessage();
@@ -44,9 +44,9 @@ if($existeBD){
 		$respuesta['mensaje'] = 'Error al crear la base de datos';
 		die(json_encode($respuesta));
 	}
-	crearBD($mbd, $bd, $host, $user ,$pass );	// Si no hemos tenido ningun error a la hora de borrar la bd creamos una nueva
+	crearBD($mbd, $bd, $host, $user ,$pass );	
 }else{
-	crearBD($mbd, $bd, $host, $user ,$pass);	// Si no hemos tenido ningun error a la hora de borrar la bd creamos una nueva
+	crearBD($mbd, $bd, $host, $user ,$pass);	
 }
 
 if(existeBD($mbd, $bd)){
@@ -63,7 +63,7 @@ echo json_encode($respuesta);
 function crearBD($mbd, $bd, $host, $user ,$pass){
 	$mconfig = new ManejadorConfig();
 
-	if(!is_writable($mconfig->getPrivateRutaConfig())){	// Comprobamos si el archivo de config se puede escribir, en caso de que no se pueda escribir no creamos la BD
+	if(!is_writable($mconfig->getPrivateRutaConfig())){	
 		$respuesta['codigo'] = 1;
 		$respuesta['mensaje'] = 'Hacen falta permisos para escribir el archivo de configuración';
 		die(json_encode($respuesta));
@@ -75,7 +75,7 @@ function crearBD($mbd, $bd, $host, $user ,$pass){
 
 function existeBD($mbd ,$bd){
 	try{
-		$sth = $mbd->exec("USE ".$bd);	// Si no hemos tenido ningun error a la hora de borrar la bd creamos una nueva
+		$sth = $mbd->exec("USE ".$bd);	
 		return true;
 	}catch(PDOException $e){
 		return false;
@@ -91,9 +91,6 @@ function guardarDatosConfiguracion($mconfig, $bd, $host, $user ,$pass){
 	$mconfig->guardarConfig($configuracion);
 }
 
-/*
-	Podriamos ampliar esta funcion en el futuro haciendo una query para saber las BD's a las que tiene acceso el usuario e intentandonos conectar a alguna
-*/
 function conectarAPredeterminada($host, $user, $pass){
 	$mbd = new PDO("mysql:host=$host;dbname=mysql", $user, $pass);
 	return $mbd;

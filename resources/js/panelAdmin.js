@@ -3,9 +3,6 @@ $('.btn.admin').on('click', function(e) {
 	
   e.preventDefault();
   var indice = $(this).data('admin');
-  /*Obtengo el id del boton, para saber cual se pulsa*/
-  //console.log('Click en: '+indice);
-  /*Segun el boton pulsado cargamos una opcion u otra.*/
   $cajaLoader = $('.cajaLoader'); // 'cacheamos' cajaLoader para que no tenga que estar buscandolo cada vez
   switch (indice) {
 	case "nEntrada": // Nuevo post
@@ -42,22 +39,16 @@ $('.btn.admin').on('click', function(e) {
 	  });
 	  break;
 	case "aSalir": // Administrar cuenta (mi cuenta)
-		// IMPLEMENTAR FUNCION QUE ME LLEVE A INDEX
 		goToIndex();
 		break;
-	default: // Defecto, e Index.
+	default:
 	  $cajaLoader.load('paneladmin/indexAdministrador.php',  Dashboard.init);
 
   }
 });
-/*
-	Funcion que me manda a index
-*/
+
 function goToIndex(){
-	/**
-	* Funcion encargada de obtener el enlace actual en el panel admin
-	* y quitarle 'panelAdmin.php' para volver al indice.
-	 */
+
 	var actualHref = $(location).attr('href');
 	var hrefRaiz = actualHref.replace('administrador', '');
 	$(location).attr('href', hrefRaiz);
@@ -65,18 +56,15 @@ function goToIndex(){
 function cargarListenersAdministrarCuenta(){
 	$('#botonAdministrarDatosAdmin').on('click', function(e){
 		e.preventDefault();
-		/* Recogida de datos */
 		var idUsuario = $('#idUsuario').val();
 		var adminName = $('#adminName').val();
 		var adminMail = $('#adminMail').val();
 		var adminNewPassword = $('#adminNewPassword').val();
 		var adminNewRePassword = $('#adminNewRePassword').val();
 		var adminPassword = $('#adminPassword').val();
-		/* Validaciones en cliente */
 		validacion = validarModificarAdministrador(adminName, adminMail, adminNewPassword, adminNewRePassword, adminPassword);
 		if(validacion.valor){
 			$('#mensajeAdmin').text('');
-			//Creamos un JSON con los datos
 			var datos = {
 				idUsuario : idUsuario,
 				nombre : adminName,
@@ -84,7 +72,6 @@ function cargarListenersAdministrarCuenta(){
 				nuevaPass : adminNewPassword,
 				adminPass : adminPassword
 			}
-			//Enviar al servidor
 		$.post('paneladmin/administrarAdministrador.php', datos)
 			.done(function(data){
 				datos =  $.parseJSON(data);
@@ -109,19 +96,15 @@ function cargarListenersAdministrarCuenta(){
 }
 function validarModificarAdministrador(adminName, adminMail, adminNewPassword, adminNewRePassword, adminPassword){
 	validacion = { valor: false , error: ''};
-	// Comprobamos que el campo nombre este relleno
 	if(adminName == '' || adminName == ' '){
 		$('#adminName').css('background', '#f2dede');
-		//Error adminName vacio
 		return validacion = {
 			valor: false,
 			error: 'Debes completar el nombre'
 		}
 	}
 	$('#adminName').css('background', '#fff');
-	//Si esta completado comprobamos el correo
 	if(adminMail == ''  || adminMail == ' '){
-		//Error mail vacio
 		$('#adminMail').css('background', '#f2dede');
 		return validacion = {
 			valor: false,
@@ -129,9 +112,7 @@ function validarModificarAdministrador(adminName, adminMail, adminNewPassword, a
 		}
 	}
 	$('#adminMail').css('background', '#fff');
-	//Si esta completado el correo comprobamos el campo nueva contraseña				
 	if(adminNewPassword == '' || adminNewPassword == ' '){
-			//Si no esta completado comprobamos que el de repetida lo está
 			if(adminNewRePassword == '' || adminNewRePassword == ' '){
 				$('#adminNewPassword').css('background', '#fff');
 				$('#adminNewRePassword').css('background', '#fff');
@@ -141,7 +122,6 @@ function validarModificarAdministrador(adminName, adminMail, adminNewPassword, a
 				if(adminPassword != '' && adminPassword != ' '){
 					$('#adminPassword').css('background', '#fff');
 				}
-				// Error contraseña vacía
 				return validacion = {
 					valor: false,
 					error: 'Completa ambos campos, o ninguno.'
@@ -149,14 +129,12 @@ function validarModificarAdministrador(adminName, adminMail, adminNewPassword, a
 			}
 			if(adminPassword == '' || adminPassword == ' '){
 				$('#adminPassword').css('background', '#f2dede');
-				// Error contraseña vacía
 				return validacion = {
 					valor: false,
 					error: 'Indica tu password'
 				}
 			}else{
 				$('#adminPassword').css('background', '#fff');
-				//Enviar petición a servidor
 				return validacion = {
 					valor: true,
 					error: ''
@@ -164,33 +142,28 @@ function validarModificarAdministrador(adminName, adminMail, adminNewPassword, a
 			}
 	}
 	$('#adminNewPassword').css('background', '#fff');
-	//Si la nueva contraseña no esta vacia
 	if(adminNewRePassword == '' || adminNewRePassword == ' '){
 		$('#adminNewRePassword').css('background', '#f2dede');
 		if(adminPassword != ''){
 			$('#adminPassword').css('background', '#fff');							
 		}
-		//Error nueva contraseña repetida vacia
 		return validacion = {
 			valor: false,
 			error: 'Completa el campo repetir nueva password'
 		}
 	}
 	$('#adminNewRePassword').css('background', '#fff');
-	//Comprobamos que la repita
 	if(adminNewPassword == adminNewRePassword){
 		$('#adminNewPassword').css('background', '#fff');
 		$('#adminNewRePassword').css('background', '#fff');
 		if(adminPassword != ''){
 			$('#adminPassword').css('background', '#fff');							
-			//Enviar petición a servidor
 			return validacion = {
 				valor: true,
 				error: ''
 			}
 		}else {
 			$('#adminPassword').css('background', '#f2dede');
-			// Error contraseña vacía
 			return validacion = {
 				valor: false,
 				error: 'Indica tu password'
@@ -199,7 +172,6 @@ function validarModificarAdministrador(adminName, adminMail, adminNewPassword, a
 	}else{
 		$('#adminNewPassword').css('background', '#f2dede');
 		$('#adminNewRePassword').css('background', '#f2dede');
-		//Error Contraseñas nuevas distintas
 		return validacion = {
 			valor: false,
 			error: 'Ambas password deben coincidir'
@@ -207,12 +179,7 @@ function validarModificarAdministrador(adminName, adminMail, adminNewPassword, a
 	}
 				
 }
-/*
- *	Panel Nuevo Post
- *	IMPORTANTE!
- *	Todos los listeners para las diferentes páginas/paneles del panel de admin hay que cargarlos una vez se haya cargado el php, es decir, cargarlos en un callback despues del LOAD
- *	o en un archivo Javascript que se cargue con el php de ese panel
- */
+
 function cargarListenersNuevoPost(){
   $('#botonNuevoPost').on('click', function(e){
 	e.preventDefault();
@@ -260,7 +227,6 @@ function cargarListenersCategoria(){
 		obtenerDatosCategoria(idCategoria);
 		
 	});
-	// Crear nueva categoria
 	$('.crearCategoria').on('click',function(e){
 		e.preventDefault();
 		var nombre = $('#nombreCategoria').val();
@@ -325,7 +291,6 @@ function cargarListenersCategoria(){
 			})		
 	});
 	$('.editarCategoria').on('click', function(e){
-		// Cogemos el id de la categoria
 		var id = $(this).data('idcategoria');
 		var nombre = $('#editarNombreCategoria').val();
 		var descripcion = $('#editarDescripcionCategoria').val();
@@ -345,7 +310,6 @@ function cargarListenersCategoria(){
 			  		});			
 				})
 				.fail(function(){
-					console.log('Fallo en el envio de crear una categoria');
 				})
 		}else{
 			mostrarAlertaError();

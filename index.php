@@ -10,7 +10,6 @@
   		die('Ha de instalar OpenBlog desde el <a href="instalador/">instalador</a>');
   	}
 
-   // Iniciamos el manejador BD con las opciones del JSON
 	$mbd = new ManejadorBD(Header::cargarJSON());
         pathGen::cargarRaiz();
 
@@ -23,7 +22,7 @@
 ?>
 <!DOCTYPE html>
 <html lang="es">
-	<?php Header::cargarHead(false/*false == no es pagina admin*/); ?>
+	<?php Header::cargarHead(false); ?>
 	<body>
 	  <div class="container">
 			<div class="row">

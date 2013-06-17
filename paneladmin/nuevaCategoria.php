@@ -1,7 +1,4 @@
 <?php
-/*
- * Pagina que se encargará de añadir una nueva categoria a la base de datos
- */
   include '../autoloader.php';
   use src\entidades\Categoria;
   use src\helpers\ManejadorBD;

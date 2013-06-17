@@ -1,8 +1,3 @@
-/* 
-	Funcion que iniciar todo el tinglado, es una funcion anonima que se llama así misma ( vease http://sarfraznawaz.wordpress.com/2012/01/26/javascript-self-invoking-functions/ ) 
-	Iniciar aquí los listener GLOBALES para todas las páginas
-*/
-
 (function() {
 	var paginaActual = window.location.hash;
 	cargarPagina(paginaActual);
@@ -16,35 +11,6 @@
                  cargarPagina(paginaActual);
       	});
 	}
-        /*
-         * No hagais caso a estas funciones de momento ya que estaban pensadas para hacer animaciones (que he quitado codigo)
-         * así que lo dejo sin ellas de momento y ya si eso más adelante las implemento
-        function actualizarClasesPasos(){
-            var paginaActual = window.location.hash;
-            addClasesPasos(paginaActual);
-            removeClasesPasos(paginaActual);
-        }
-        
-        function addClasesPasos(paginaActual){
-            if(paginas.indexOf(paginaActual) == -1){
-                $("div.circulo:eq(0)").addClass("actual");
-                $("div.circulo:eq(0) span").text("1").addClass("actual");
-            }
-            else {
-                $("div.circulo:eq("+paginas.indexOf(paginaActual)+")").addClass("actual");
-                $("div.circulo:eq("+paginas.indexOf(paginaActual)+") span").text(paginas.indexOf(paginaActual) + 1).addClass("actual");
-            }
-        }
-        
-        function removeClasesPasos(paginaActual){
-            $("div.actual").each(function(){
-                $(this).removeClass("actual");
-            });
-            $("span.actual").each(function(){
-                $(this).text("").removeClass("actual");
-            });
-        }
-        */
         
 	function cargarPagina(paginaActual) {
 		switch (paginaActual) {
@@ -70,8 +36,6 @@
 
 })()
 
-/* Funciones de bienvenida */
-
 function IniciarPantallaBienvenida() {
 	initA();
 
@@ -87,11 +51,6 @@ function IniciarPantallaBienvenida() {
 
 }
 
-
-
-/*
-	Funciones que responden a #elegirBD
-*/
 
 function IniciarElegirBD() {
 	var campoHostVacio = true;
@@ -317,9 +276,6 @@ function IniciarCuentaAdmin() {
 	} 
 
 }
-/*
-    Funciones que corresponden a los datos de configuración
- */
 
 function IniciarDatosConfiguracion() {
 	initE();

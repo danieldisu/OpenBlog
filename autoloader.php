@@ -8,7 +8,6 @@ use Symfony\Component\ClassLoader\UniversalClassLoader;
 
 $loader = new UniversalClassLoader();
 
-//Registramos nuestra aplicacion para el autoloader
 $loader->registerNamespaces(array(
 	"src" => __DIR__,
 	"openblog"=>__DIR__

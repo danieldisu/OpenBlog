@@ -12,7 +12,6 @@
         else
             Header::mostrarPaginaError("Categoria Incorrecta");
 		
-		//Comprobamos que la categoria existe, sino existe la posicion 0 vendrá vacia
 		$id = $mbd->getCategoria($idCategoria);
 		if(empty($id)){
 		  Header::mostrarPaginaError("La categoria no existe");	
@@ -24,7 +23,7 @@
 
 <!DOCTYPE html>
 <html lang="es">
-	<?php Header::cargarHead(false/*false == no es pagina admin*/); ?>
+	<?php Header::cargarHead(false); ?>
 	<body>
 	  <div class="container">
 			<div class="row">

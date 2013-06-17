@@ -5,9 +5,9 @@
 		idPostSeleccionado: null,
 		postSeleccionado: null,
 		modal: $('#myModal'),
-		/* MODAL */
+		
 		lanzarModal: function() {
-			// Evento que se disparará al cerrar el modal
+			
 			this.modal.modal();
 		},
 		setContenidoModal: function(contenido) {
@@ -29,7 +29,7 @@
 				botonGuardarModificaciones.show();
 			}
 		},
-		/* FIN MODAL */
+		
 		cargarListenersIniciales: function() {
 			_this = this;
 
@@ -80,7 +80,7 @@
 		},
 		cargarVistaFormulario: function(post, usuarios, categorias) {
 			this.postSeleccionado = post;
-			// Cargar evento boton ver texto
+			
 			this.setContenidoModal(this.rellenarFormulario(post, usuarios, categorias));
 
 			$('.botonModificarTextoPost').click(function() {

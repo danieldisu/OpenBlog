@@ -31,7 +31,7 @@ class ManejadorBD {
   		$this->numPost = $config['numPost'];
 
 	$this->db = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->bd, $this->username, $this->password);
-	$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
   }
 
   //POST

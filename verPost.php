@@ -6,7 +6,6 @@
 	use src\helpers\Paginador;
   	use src\helpers\Login;
 
-   // Iniciamos el manejador BD con las opciones del JSON
 	$mbd = new ManejadorBD(Header::cargarJSON());
         pathGen::cargarRaiz();
 
@@ -15,7 +14,6 @@
         else
             Header::mostrarPaginaError("Post incorrecto");
 		
-        //Comprobamos que la categoria existe, sino existe la posicion 0 vendrá vacia
         $id = $mbd->getPost($id);
         if(empty($id)){
           Header::mostrarPaginaError("Se ha encontrado un error en la peticion");	
@@ -26,7 +24,7 @@
 ?>
 <!DOCTYPE html>
 <html lang="es">
-	<?php Header::cargarHead(false/*false == no es pagina admin*/); ?>;
+	<?php Header::cargarHead(false); ?>;
 	<body>
 	  <div class="container">
 			<div class="row">

@@ -12,15 +12,15 @@
 	$mbd = new ManejadorBD(Header::cargarJSON());
 	
 	$post = $_POST['post'];
-	//$post = json_decode($_POST['post'],true); // el true hace que convierta el json en array
+	
 
 	$antiguoPost = $mbd->getPost($post['id']);
 
 	$nuevoPost = new Post();
 
-	$nuevoPost->setId($antiguoPost->getId());	//el id no cambia
+	$nuevoPost->setId($antiguoPost->getId());	
 
-	$nuevoPost->setTexto($antiguoPost->getTexto()); // El texto lo cambiamos en el otro archivo
+	$nuevoPost->setTexto($antiguoPost->getTexto()); 
 
 	$nuevoPost->setModificaciones($antiguoPost->getModificaciones());
 
